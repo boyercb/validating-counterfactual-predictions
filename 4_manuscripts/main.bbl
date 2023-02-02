@@ -1,0 +1,2410 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.2 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated as
+% required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+\datalist[entry]{none/global//global/global}
+  \entry{van_geloven_prediction_2020}{article}{}
+    \name{author}{10}{}{%
+      {{hash=vN}{%
+         family={{van Geloven}},
+         familyi={v\bibinitperiod},
+         given={Nan},
+         giveni={N\bibinitperiod},
+      }}%
+      {{hash=SSA}{%
+         family={Swanson},
+         familyi={S\bibinitperiod},
+         given={Sonja\bibnamedelima A.},
+         giveni={S\bibinitperiod\bibinitdelim A\bibinitperiod},
+      }}%
+      {{hash=RCL}{%
+         family={Ramspek},
+         familyi={R\bibinitperiod},
+         given={Chava\bibnamedelima L.},
+         giveni={C\bibinitperiod\bibinitdelim L\bibinitperiod},
+      }}%
+      {{hash=LK}{%
+         family={Luijken},
+         familyi={L\bibinitperiod},
+         given={Kim},
+         giveni={K\bibinitperiod},
+      }}%
+      {{hash=vM}{%
+         family={{van Diepen}},
+         familyi={v\bibinitperiod},
+         given={Merel},
+         giveni={M\bibinitperiod},
+      }}%
+      {{hash=MTP}{%
+         family={Morris},
+         familyi={M\bibinitperiod},
+         given={Tim\bibnamedelima P.},
+         giveni={T\bibinitperiod\bibinitdelim P\bibinitperiod},
+      }}%
+      {{hash=GRHH}{%
+         family={Groenwold},
+         familyi={G\bibinitperiod},
+         given={Rolf H.\bibnamedelima H.},
+         giveni={R\bibinitperiod\bibinitdelim H\bibinitperiod\bibinitdelim
+  H\bibinitperiod},
+      }}%
+      {{hash=vHC}{%
+         family={{van Houwelingen}},
+         familyi={v\bibinitperiod},
+         given={Hans\bibnamedelima C.},
+         giveni={H\bibinitperiod\bibinitdelim C\bibinitperiod},
+      }}%
+      {{hash=PH}{%
+         family={Putter},
+         familyi={P\bibinitperiod},
+         given={Hein},
+         giveni={H\bibinitperiod},
+      }}%
+      {{hash=lS}{%
+         family={{le Cessie}},
+         familyi={l\bibinitperiod},
+         given={Saskia},
+         giveni={S\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{vN+1}
+    \strng{fullhash}{vNSSARCLLKvMMTPGRHHvHCPHlS1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{shorttitle}
+    \field{abstract}{%
+    In this paper we study approaches for dealing with treatment when
+  developing a clinical prediction model. Analogous to the estimand framework
+  recently proposed by the European Medicines Agency for clinical trials, we
+  propose a `predictimand' framework of different questions that may be of
+  interest when predicting risk in relation to treatment started after
+  baseline. We provide a formal definition of the estimands matching these
+  questions, give examples of settings in which each is useful and discuss
+  appropriate estimators including their assumptions. We illustrate the impact
+  of the predictimand choice in a dataset of patients with end-stage kidney
+  disease. We argue that clearly defining the estimand is equally important in
+  prediction research as in causal inference.%
+    }
+    \verb{doi}
+    \verb 10.1007/s10654-020-00636-1
+    \endverb
+    \field{issn}{1573-7284}
+    \field{number}{7}
+    \field{pages}{619\bibrangedash 630}
+    \field{shorttitle}{Prediction Meets Causal Inference}
+    \field{title}{Prediction Meets Causal Inference: The Role of Treatment in
+  Clinical Prediction Models}
+    \field{volume}{35}
+    \field{langid}{english}
+    \verb{file}
+    \verb /Users/christopherboyer/Zotero/storage/MRJTJ2XN/van Geloven et al_202
+    \verb 0_Prediction meets causal inference.pdf
+    \endverb
+    \field{journaltitle}{Eur J Epidemiol}
+    \field{month}{07}
+    \field{year}{2020}
+  \endentry
+
+  \entry{finlayson_clinician_2021}{article}{}
+    \name{author}{8}{}{%
+      {{hash=FSG}{%
+         family={Finlayson},
+         familyi={F\bibinitperiod},
+         given={Samuel\bibnamedelima G.},
+         giveni={S\bibinitperiod\bibinitdelim G\bibinitperiod},
+      }}%
+      {{hash=SA}{%
+         family={Subbaswamy},
+         familyi={S\bibinitperiod},
+         given={Adarsh},
+         giveni={A\bibinitperiod},
+      }}%
+      {{hash=SK}{%
+         family={Singh},
+         familyi={S\bibinitperiod},
+         given={Karandeep},
+         giveni={K\bibinitperiod},
+      }}%
+      {{hash=BJ}{%
+         family={Bowers},
+         familyi={B\bibinitperiod},
+         given={John},
+         giveni={J\bibinitperiod},
+      }}%
+      {{hash=KA}{%
+         family={Kupke},
+         familyi={K\bibinitperiod},
+         given={Annabel},
+         giveni={A\bibinitperiod},
+      }}%
+      {{hash=ZJ}{%
+         family={Zittrain},
+         familyi={Z\bibinitperiod},
+         given={Jonathan},
+         giveni={J\bibinitperiod},
+      }}%
+      {{hash=KIS}{%
+         family={Kohane},
+         familyi={K\bibinitperiod},
+         given={Isaac\bibnamedelima S.},
+         giveni={I\bibinitperiod\bibinitdelim S\bibinitperiod},
+      }}%
+      {{hash=SS}{%
+         family={Saria},
+         familyi={S\bibinitperiod},
+         given={Suchi},
+         giveni={S\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {{Massachusetts Medical Society}}%
+    }
+    \strng{namehash}{FSG+1}
+    \strng{fullhash}{FSGSASKBJKAZJKISSS1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \verb{doi}
+    \verb 10.1056/NEJMc2104626
+    \endverb
+    \field{issn}{0028-4793}
+    \field{number}{3}
+    \field{pages}{283\bibrangedash 286}
+    \field{title}{The {{Clinician}} and {{Dataset Shift}} in {{Artificial
+  Intelligence}}}
+    \field{volume}{385}
+    \verb{file}
+    \verb /Users/christopherboyer/Zotero/storage/G9AABEHL/Finlayson et al. - 20
+    \verb 21 - The Clinician and Dataset Shift in Artificial Inte.pdf
+    \endverb
+    \field{journaltitle}{N Engl J Med}
+    \field{month}{07}
+    \field{year}{2021}
+  \endentry
+
+  \entry{subbaswamy_development_2020}{article}{}
+    \name{author}{2}{}{%
+      {{hash=SA}{%
+         family={Subbaswamy},
+         familyi={S\bibinitperiod},
+         given={Adarsh},
+         giveni={A\bibinitperiod},
+      }}%
+      {{hash=SS}{%
+         family={Saria},
+         familyi={S\bibinitperiod},
+         given={Suchi},
+         giveni={S\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{SASS1}
+    \strng{fullhash}{SASS1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{shorttitle}
+    \field{abstract}{%
+    The deployment of machine learning (ML) and statistical models is beginning
+  to transform the practice of healthcare, with models now able to help
+  clinicians diagnose conditions like pneumonia and skin cancer, and to predict
+  which hospital patients are at risk of adverse events such as septic shock. A
+  major concern, however, is that model performance is heavily tied to details
+  particular to the dataset the model was developed on\textemdash even slight
+  deviations from the training conditions can result in wildly different
+  performance. For example, when researchers trained a model to diagnose
+  pneumonia from chest X-rays using data from one health system, but evaluated
+  on data from an external health system, they found the model performed
+  significantly worse than it did internally (Zech and others, 2018). The model
+  failed to generalize (i.e., predict accurately) due to the shifts between the
+  training conditions (health system one) and the deployment/testing conditions
+  (health system two). These shifts are very common when moving a model from
+  the training phase to deployment and can take a variety of forms, including
+  changes in patient demographics, disease prevalence, measurement timing,
+  equipment, treatment patterns, and more. Beyond contributing to poor
+  performance, failing to account for shifts can also lead to dangerous
+  decisions in practice: the system can fail to diagnose severely ill patients
+  or recommend harmful treatments. This problem of shifting conditions which
+  prevent generalization is referred to as dataset shift (Qui\~nonero-Candela
+  and others, 2009), and in this article, we explain what it is, why it occurs,
+  give an overview of the types of existing solutions, and discuss open
+  challenges that remain.%
+    }
+    \verb{doi}
+    \verb 10.1093/biostatistics/kxz041
+    \endverb
+    \field{issn}{1465-4644}
+    \field{number}{2}
+    \field{pages}{345\bibrangedash 352}
+    \field{shorttitle}{From Development to Deployment}
+    \field{title}{From Development to Deployment: Dataset Shift, Causality, and
+  Shift-Stable Models in Health {{AI}}}
+    \field{volume}{21}
+    \verb{file}
+    \verb /Users/christopherboyer/Zotero/storage/QCMXUZ45/Subbaswamy and Saria
+    \verb - 2020 - From development to deployment dataset shift, cau.pdf;/Users
+    \verb /christopherboyer/Zotero/storage/GBBXXELY/5631850.html
+    \endverb
+    \field{journaltitle}{Biostatistics}
+    \field{month}{04}
+    \field{year}{2020}
+  \endentry
+
+  \entry{pajouheshnia_accounting_2017}{article}{}
+    \name{author}{5}{}{%
+      {{hash=PR}{%
+         family={Pajouheshnia},
+         familyi={P\bibinitperiod},
+         given={Romin},
+         giveni={R\bibinitperiod},
+      }}%
+      {{hash=PLM}{%
+         family={Peelen},
+         familyi={P\bibinitperiod},
+         given={Linda\bibnamedelima M.},
+         giveni={L\bibinitperiod\bibinitdelim M\bibinitperiod},
+      }}%
+      {{hash=MKGM}{%
+         family={Moons},
+         familyi={M\bibinitperiod},
+         given={Karel G.\bibnamedelima M.},
+         giveni={K\bibinitperiod\bibinitdelim G\bibinitperiod\bibinitdelim
+  M\bibinitperiod},
+      }}%
+      {{hash=RJB}{%
+         family={Reitsma},
+         familyi={R\bibinitperiod},
+         given={Johannes\bibnamedelima B.},
+         giveni={J\bibinitperiod\bibinitdelim B\bibinitperiod},
+      }}%
+      {{hash=GRHH}{%
+         family={Groenwold},
+         familyi={G\bibinitperiod},
+         given={Rolf H.\bibnamedelima H.},
+         giveni={R\bibinitperiod\bibinitdelim H\bibinitperiod\bibinitdelim
+  H\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{PR+1}
+    \strng{fullhash}{PRPLMMKGMRJBGRHH1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{shorttitle}
+    \field{abstract}{%
+    Prognostic models often show poor performance when applied to independent
+  validation data sets. We illustrate how treatment use in a validation set can
+  affect measures of model performance and present the uses and limitations of
+  available analytical methods to account for this using simulated data.%
+    }
+    \verb{doi}
+    \verb 10.1186/s12874-017-0375-8
+    \endverb
+    \field{issn}{1471-2288}
+    \field{number}{1}
+    \field{pages}{103}
+    \field{shorttitle}{Accounting for Treatment Use When Validating a
+  Prognostic Model}
+    \field{title}{Accounting for Treatment Use When Validating a Prognostic
+  Model: A Simulation Study}
+    \field{volume}{17}
+    \field{langid}{english}
+    \verb{file}
+    \verb /Users/christopherboyer/Zotero/storage/Q9Y3J57K/Pajouheshnia et al_20
+    \verb 17_Accounting for treatment use when validating a prognostic model.pd
+    \verb f
+    \endverb
+    \field{journaltitle}{BMC Med Res Methodol}
+    \field{month}{07}
+    \field{year}{2017}
+  \endentry
+
+  \entry{lin_scoping_2021}{article}{}
+    \name{author}{5}{}{%
+      {{hash=LL}{%
+         family={Lin},
+         familyi={L\bibinitperiod},
+         given={Lijing},
+         giveni={L\bibinitperiod},
+      }}%
+      {{hash=SM}{%
+         family={Sperrin},
+         familyi={S\bibinitperiod},
+         given={Matthew},
+         giveni={M\bibinitperiod},
+      }}%
+      {{hash=JDA}{%
+         family={Jenkins},
+         familyi={J\bibinitperiod},
+         given={David\bibnamedelima A.},
+         giveni={D\bibinitperiod\bibinitdelim A\bibinitperiod},
+      }}%
+      {{hash=MGP}{%
+         family={Martin},
+         familyi={M\bibinitperiod},
+         given={Glen\bibnamedelima P.},
+         giveni={G\bibinitperiod\bibinitdelim P\bibinitperiod},
+      }}%
+      {{hash=PN}{%
+         family={Peek},
+         familyi={P\bibinitperiod},
+         given={Niels},
+         giveni={N\bibinitperiod},
+      }}%
+    }
+    \keyw{Causal inference,Clinical prediction models,Counterfactual
+  prediction,Statistical modeling}
+    \strng{namehash}{LL+1}
+    \strng{fullhash}{LLSMJDAMGPPN1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{abstract}{%
+    The methods with which prediction models are usually developed mean that
+  neither the parameters nor the predictions should be interpreted causally.
+  For many applications, this is perfectly acceptable. However, when prediction
+  models are used to support decision making, there is often a need for
+  predicting outcomes under hypothetical interventions.%
+    }
+    \verb{doi}
+    \verb 10.1186/s41512-021-00092-9
+    \endverb
+    \field{issn}{2397-7523}
+    \field{number}{1}
+    \field{pages}{3}
+    \field{title}{A Scoping Review of Causal Methods Enabling Predictions under
+  Hypothetical Interventions}
+    \field{volume}{5}
+    \field{langid}{english}
+    \verb{file}
+    \verb /Users/christopherboyer/Zotero/storage/TNA89ZL3/Lin et al. - 2021 - A
+    \verb  scoping review of causal methods enabling predic.pdf
+    \endverb
+    \field{journaltitle}{Diagn Progn Res}
+    \field{month}{02}
+    \field{year}{2021}
+  \endentry
+
+  \entry{dickerman_predicting_2022}{article}{}
+    \name{author}{8}{}{%
+      {{hash=DBA}{%
+         family={Dickerman},
+         familyi={D\bibinitperiod},
+         given={Barbra\bibnamedelima A.},
+         giveni={B\bibinitperiod\bibinitdelim A\bibinitperiod},
+      }}%
+      {{hash=DIJ}{%
+         family={Dahabreh},
+         familyi={D\bibinitperiod},
+         given={Issa\bibnamedelima J.},
+         giveni={I\bibinitperiod\bibinitdelim J\bibinitperiod},
+      }}%
+      {{hash=CKV}{%
+         family={Cantos},
+         familyi={C\bibinitperiod},
+         given={Krystal\bibnamedelima V.},
+         giveni={K\bibinitperiod\bibinitdelim V\bibinitperiod},
+      }}%
+      {{hash=LRW}{%
+         family={Logan},
+         familyi={L\bibinitperiod},
+         given={Roger\bibnamedelima W.},
+         giveni={R\bibinitperiod\bibinitdelim W\bibinitperiod},
+      }}%
+      {{hash=LS}{%
+         family={Lodi},
+         familyi={L\bibinitperiod},
+         given={Sara},
+         giveni={S\bibinitperiod},
+      }}%
+      {{hash=RCT}{%
+         family={Rentsch},
+         familyi={R\bibinitperiod},
+         given={Christopher\bibnamedelima T.},
+         giveni={C\bibinitperiod\bibinitdelim T\bibinitperiod},
+      }}%
+      {{hash=JAC}{%
+         family={Justice},
+         familyi={J\bibinitperiod},
+         given={Amy\bibnamedelima C.},
+         giveni={A\bibinitperiod\bibinitdelim C\bibinitperiod},
+      }}%
+      {{hash=HMA}{%
+         family={Hern{\'a}n},
+         familyi={H\bibinitperiod},
+         given={Miguel\bibnamedelima A.},
+         giveni={M\bibinitperiod\bibinitdelim A\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{DBA+1}
+    \strng{fullhash}{DBADIJCKVLRWLSRCTJACHMA1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{shorttitle}
+    \field{abstract}{%
+    The accuracy of a prediction algorithm depends on contextual factors that
+  may vary across deployment settings. To address this inherent limitation of
+  prediction, we propose an approach to counterfactual prediction based on the
+  g-formula to predict risk across populations that differ in their
+  distribution of treatment strategies. We apply this to predict 5-year risk of
+  mortality among persons receiving care for HIV in the U.S. Veterans Health
+  Administration under different hypothetical treatment strategies. First, we
+  implement a conventional approach to develop a prediction algorithm in the
+  observed data and show how the algorithm may fail when transported to new
+  populations with different treatment strategies. Second, we generate
+  counterfactual data under different treatment strategies and use it to assess
+  the robustness of the original algorithm's performance to these differences
+  and to develop counterfactual prediction algorithms. We discuss how
+  estimating counterfactual risks under a particular treatment strategy is more
+  challenging than conventional prediction as it requires the same data,
+  methods, and unverifiable assumptions as causal inference. However, this may
+  be required when the alternative assumption of constant treatment patterns
+  across deployment settings is unlikely to hold and new data is not yet
+  available to retrain the algorithm.%
+    }
+    \verb{doi}
+    \verb 10.1007/s10654-022-00855-8
+    \endverb
+    \field{issn}{0393-2990, 1573-7284}
+    \field{number}{4}
+    \field{pages}{367\bibrangedash 376}
+    \field{shorttitle}{Predicting Counterfactual Risks under Hypothetical
+  Treatment Strategies}
+    \field{title}{Predicting Counterfactual Risks under Hypothetical Treatment
+  Strategies: An Application to {{HIV}}}
+    \field{volume}{37}
+    \field{langid}{english}
+    \verb{file}
+    \verb /Users/christopherboyer/Zotero/storage/HV4HGW2W/Dickerman et al. - 20
+    \verb 22 - Predicting counterfactual risks under hypothetical.pdf
+    \endverb
+    \field{journaltitle}{Eur J Epidemiol}
+    \field{month}{04}
+    \field{year}{2022}
+  \endentry
+
+  \entry{schulam_reliable_2017-1}{inproceedings}{}
+    \name{author}{2}{}{%
+      {{hash=SP}{%
+         family={Schulam},
+         familyi={S\bibinitperiod},
+         given={Peter},
+         giveni={P\bibinitperiod},
+      }}%
+      {{hash=SS}{%
+         family={Saria},
+         familyi={S\bibinitperiod},
+         given={Suchi},
+         giveni={S\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {{Curran Associates, Inc.}}%
+    }
+    \strng{namehash}{SPSS1}
+    \strng{fullhash}{SPSS1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{abstract}{%
+    Decision-makers are faced with the challenge of estimating what is likely
+  to happen when they take an action. For instance, if I choose not to treat
+  this patient, are they likely to die? Practitioners commonly use supervised
+  learning algorithms to fit predictive models that help decision-makers reason
+  about likely future outcomes, but we show that this approach is unreliable,
+  and sometimes even dangerous. The key issue is that supervised learning
+  algorithms are highly sensitive to the policy used to choose actions in the
+  training data, which causes the model to capture relationships that do not
+  generalize. We propose using a different learning objective that predicts
+  counterfactuals instead of predicting outcomes under an existing action
+  policy as in supervised learning. To support decision-making in temporal
+  settings, we introduce the Counterfactual Gaussian Process (CGP) to predict
+  the counterfactual future progression of continuous-time trajectories under
+  sequences of future actions. We demonstrate the benefits of the CGP on two
+  important decision-support tasks: risk prediction and ``what if?'' reasoning
+  for individualized treatment planning.%
+    }
+    \field{booktitle}{Advances in {{Neural Information Processing Systems}}}
+    \field{title}{Reliable {{Decision Support}} Using {{Counterfactual
+  Models}}}
+    \field{volume}{30}
+    \verb{file}
+    \verb /Users/christopherboyer/Zotero/storage/JWXI7RUF/Schulam and Saria - 2
+    \verb 017 - Reliable Decision Support using Counterfactual Mod.pdf
+    \endverb
+    \field{year}{2017}
+  \endentry
+
+  \entry{dickerman_counterfactual_2020}{article}{}
+    \name{author}{2}{}{%
+      {{hash=DBA}{%
+         family={Dickerman},
+         familyi={D\bibinitperiod},
+         given={Barbra\bibnamedelima A.},
+         giveni={B\bibinitperiod\bibinitdelim A\bibinitperiod},
+      }}%
+      {{hash=HMA}{%
+         family={Hern{\'a}n},
+         familyi={H\bibinitperiod},
+         given={Miguel\bibnamedelima A.},
+         giveni={M\bibinitperiod\bibinitdelim A\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{DBAHMA1}
+    \strng{fullhash}{DBAHMA1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \verb{doi}
+    \verb 10.1007/s10654-020-00659-8
+    \endverb
+    \field{issn}{1573-7284}
+    \field{number}{7}
+    \field{pages}{615\bibrangedash 617}
+    \field{title}{Counterfactual Prediction Is Not Only for Causal Inference}
+    \field{volume}{35}
+    \field{langid}{english}
+    \verb{file}
+    \verb /Users/christopherboyer/Zotero/storage/3X3WISPZ/Dickerman_Hernán_202
+    \verb 0_Counterfactual prediction is not only for causal inference.pdf
+    \endverb
+    \field{journaltitle}{Eur J Epidemiol}
+    \field{month}{07}
+    \field{year}{2020}
+  \endentry
+
+  \entry{harrell_multivariable_1996}{article}{}
+    \name{author}{3}{}{%
+      {{hash=HFE}{%
+         family={Harrell},
+         familyi={H\bibinitperiod},
+         given={Frank\bibnamedelima E.},
+         giveni={F\bibinitperiod\bibinitdelim E\bibinitperiod},
+      }}%
+      {{hash=LKL}{%
+         family={Lee},
+         familyi={L\bibinitperiod},
+         given={Kerry\bibnamedelima L.},
+         giveni={K\bibinitperiod\bibinitdelim L\bibinitperiod},
+      }}%
+      {{hash=MDB}{%
+         family={Mark},
+         familyi={M\bibinitperiod},
+         given={Daniel\bibnamedelima B.},
+         giveni={D\bibinitperiod\bibinitdelim B\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{HFE+1}
+    \strng{fullhash}{HFELKLMDB1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{shorttitle}
+    \field{abstract}{%
+    Multivariable regression models are powerful tools that are used frequently
+  in studies of clinical outcomes. These models can use a mixture of
+  categorical and continuous variables and can handle partially observed
+  (censored) responses. However, uncritical application of modelling techniques
+  can result in models that poorly fit the dataset at hand, or, even more
+  likely, inaccurately predict outcomes on new subjects. One must know how to
+  measure qualities of a model's fit in order to avoid poorly fitted or
+  overfitted models. Measurement of predictive accuracy can be difficult for
+  survival time data in the presence of censoring. We discuss an easily
+  interpretable index of predictive discrimination as well as methods for
+  assessing calibration of predicted survival probabilities. Both types of
+  predictive accuracy should be unbiasedly validated using bootstrapping or
+  cross-validation, before using predictions in a new data series. We discuss
+  some of the hazards of poorly fitted and overfitted regression models and
+  present one modelling strategy that avoids many of the problems discussed.
+  The methods described are applicable to all regression models, but are
+  particularly needed for binary, ordinal, and time-to-event outcomes. Methods
+  are illustrated with a survival analysis in prostate cancer using Cox
+  regression.%
+    }
+    \verb{doi}
+    \verb 10.1002/(SICI)1097-0258(19960229)15:4<361::AID-SIM168>3.0.CO;2-4
+    \endverb
+    \field{issn}{1097-0258}
+    \field{number}{4}
+    \field{pages}{361\bibrangedash 387}
+    \field{shorttitle}{Multivariable {{Prognostic Models}}}
+    \field{title}{Multivariable {{Prognostic Models}}: {{Issues}} in
+  {{Developing Models}}, {{Evaluating Assumptions}} and {{Adequacy}}, and
+  {{Measuring}} and {{Reducing Errors}}}
+    \field{volume}{15}
+    \field{langid}{english}
+    \verb{file}
+    \verb /Users/christopherboyer/Zotero/storage/TS5KG7PV/Harrell et al_1996_Mu
+    \verb ltivariable Prognostic Models.pdf;/Users/christopherboyer/Zotero/stor
+    \verb age/5BELPKYX/(SICI)1097-0258(19960229)154361AID-SIM1683.0.html
+    \endverb
+    \field{journaltitle}{Statistics in Medicine}
+    \field{annotation}{%
+    \_eprint:
+  https://onlinelibrary.wiley.com/doi/pdf/10.1002/\%28SICI\%291097-0258\%2819960229\%2915\%3A4\%3C361\%3A\%3AAID-SIM168\%3E3.0.CO\%3B2-4%
+    }
+    \field{year}{1996}
+  \endentry
+
+  \entry{steyerberg_clinical_2019}{book}{}
+    \name{author}{1}{}{%
+      {{hash=SEW}{%
+         family={Steyerberg},
+         familyi={S\bibinitperiod},
+         given={Ewout\bibnamedelima W.},
+         giveni={E\bibinitperiod\bibinitdelim W\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {{Springer International Publishing}}%
+    }
+    \strng{namehash}{SEW1}
+    \strng{fullhash}{SEW1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{shorttitle}
+    \verb{doi}
+    \verb 10.1007/978-3-030-16399-0
+    \endverb
+    \field{isbn}{978-3-030-16398-3 978-3-030-16399-0}
+    \field{series}{Statistics for {{Biology}} and {{Health}}}
+    \field{shorttitle}{Clinical {{Prediction Models}}}
+    \field{title}{Clinical {{Prediction Models}}: {{A Practical Approach}} to
+  {{Development}}, {{Validation}}, and {{Updating}}}
+    \field{langid}{english}
+    \list{location}{1}{%
+      {{Cham}}%
+    }
+    \verb{file}
+    \verb /Users/christopherboyer/Library/Mobile Documents/ZP9ZJ4EF3S~com~ginge
+    \verb rlabs~Notability/Documents/2019_Book_ClinicalPredictionModels.nbn;/Us
+    \verb ers/christopherboyer/Zotero/storage/D9ZQ4QKU/Steyerberg - 2019 - Clin
+    \verb ical Prediction Models A Practical Approach t.pdf
+    \endverb
+    \field{year}{2019}
+  \endentry
+
+  \entry{altman_what_2000}{article}{}
+    \name{author}{2}{}{%
+      {{hash=ADG}{%
+         family={Altman},
+         familyi={A\bibinitperiod},
+         given={Douglas\bibnamedelima G.},
+         giveni={D\bibinitperiod\bibinitdelim G\bibinitperiod},
+      }}%
+      {{hash=RP}{%
+         family={Royston},
+         familyi={R\bibinitperiod},
+         given={Patrick},
+         giveni={P\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{ADGRP1}
+    \strng{fullhash}{ADGRP1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{abstract}{%
+    Prognostic models are used in medicine for investigating patient outcome in
+  relation to patient and disease characteristics. Such models do not always
+  work well in practice, so it is widely recommended that they need to be
+  validated. The idea of validating a prognostic model is generally taken to
+  mean establishing that it works satisfactorily for patients other than those
+  from whose data it was derived. In this paper we examine what is meant by
+  validation and review why it is necessary. We consider how to validate a
+  model and suggest that it is desirable to consider two rather different
+  aspects \textendash{} statistical and clinical validity \textendash{} and
+  examine some general approaches to validation. We illustrate the issues using
+  several case studies. Copyright \textcopyright{} 2000 John Wiley \& Sons,
+  Ltd.%
+    }
+    \verb{doi}
+    \verb 10.1002/(SICI)1097-0258(20000229)19:4<453::AID-SIM350>3.0.CO;2-5
+    \endverb
+    \field{issn}{1097-0258}
+    \field{number}{4}
+    \field{pages}{453\bibrangedash 473}
+    \field{title}{What Do We Mean by Validating a Prognostic Model?}
+    \field{volume}{19}
+    \field{langid}{english}
+    \verb{file}
+    \verb /Users/christopherboyer/Zotero/storage/VC488NHE/Altman_Royston_2000_W
+    \verb hat do we mean by validating a prognostic model.pdf;/Users/christophe
+    \verb rboyer/Zotero/storage/N6DRNIF2/(SICI)1097-0258(20000229)194453AID-SIM
+    \verb 3503.0.html
+    \endverb
+    \field{journaltitle}{Statistics in Medicine}
+    \field{annotation}{%
+    \_eprint:
+  https://onlinelibrary.wiley.com/doi/pdf/10.1002/\%28SICI\%291097-0258\%2820000229\%2919\%3A4\%3C453\%3A\%3AAID-SIM350\%3E3.0.CO\%3B2-5%
+    }
+    \field{year}{2000}
+  \endentry
+
+  \entry{hernan_causal_2020}{book}{}
+    \name{author}{2}{}{%
+      {{hash=HMA}{%
+         family={Hern{\'a}n},
+         familyi={H\bibinitperiod},
+         given={Miguel\bibnamedelima A},
+         giveni={M\bibinitperiod\bibinitdelim A\bibinitperiod},
+      }}%
+      {{hash=RJM}{%
+         family={Robins},
+         familyi={R\bibinitperiod},
+         given={James\bibnamedelima M},
+         giveni={J\bibinitperiod\bibinitdelim M\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {{Chapman \& Hall/CRC}}%
+    }
+    \strng{namehash}{HMARJM1}
+    \strng{fullhash}{HMARJM1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{title}{Causal {{Inference}}: {{What If}}}
+    \field{langid}{english}
+    \list{location}{1}{%
+      {{Boca Raton}}%
+    }
+    \verb{file}
+    \verb /Users/christopherboyer/Zotero/storage/SV2T525Y/Hernán and Robins -
+    \verb Causal Inference What If.pdf
+    \endverb
+    \field{year}{2020}
+  \endentry
+
+  \entry{robins_new_1986}{article}{}
+    \name{author}{1}{}{%
+      {{hash=RJ}{%
+         family={Robins},
+         familyi={R\bibinitperiod},
+         given={James},
+         giveni={J\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{RJ1}
+    \strng{fullhash}{RJ1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{abstract}{%
+    In observational cohort mortality studies with prolonged periods of
+  exposure to the agent under study, it is not uncommon for risk factors for
+  death to be determinants of subsequent exposure. For instance, in
+  occupational mortality studies date of termination of employment is both a
+  determinant of future exposure (since terminated individuals receive no
+  further exposure) and an independent risk factor for death (since disabled
+  individuals tend to leave employment). When current risk factor status
+  determines subsequent exposure and is determined by previous exposure,
+  standard analyses that estimate age-specific mortality rates as a function of
+  cumulative exposure may underestimate the true effect of exposure on
+  mortality whether or not one adjusts for the risk factor in the analysis.
+  This observation raises the question, which if any population parameters can
+  be given a causal interpretation in observational mortality studies? In
+  answer, we offer a graphical approach to the identification and computation
+  of causal parameters in mortality studies with sustained exposure periods.
+  This approach is shown to be equivalent to an approach in which the
+  observational study is identified with a hypothetical double-blind randomized
+  trial in which data on each subject's assigned treatment protocol has been
+  erased from the data file. Causal inferences can then be made by comparing
+  mortality as a function of treatment protocol, since, in a double-blind
+  randomized trial missing data on treatment protocol, the association of
+  mortality with treatment protocol can still be estimated. We reanalyze the
+  mortality experience of a cohort of arsenic-exposed copper smelter workers
+  with our method and compare our results with those obtained using standard
+  methods. We find an adverse effect of arsenic exposure on all-cause and lung
+  cancer mortality which standard methods fail to detect.%
+    }
+    \verb{doi}
+    \verb 10.1016/0270-0255(86)90088-6
+    \endverb
+    \field{issn}{0270-0255}
+    \field{number}{9}
+    \field{pages}{1393\bibrangedash 1512}
+    \field{title}{A New Approach to Causal Inference in Mortality Studies with
+  a Sustained Exposure Period\textemdash Application to Control of the Healthy
+  Worker Survivor Effect}
+    \field{volume}{7}
+    \field{langid}{english}
+    \verb{file}
+    \verb /Users/christopherboyer/Zotero/storage/CLIME2RP/Robins_1986_A new app
+    \verb roach to causal inference in mortality studies with a sustained.pdf;/
+    \verb Users/christopherboyer/Zotero/storage/Q5ZA6LD4/0270025586900886.html
+    \endverb
+    \field{journaltitle}{Mathematical Modelling}
+    \field{month}{01}
+    \field{year}{1986}
+  \endentry
+
+  \entry{robins_graphical_1987}{article}{}
+    \name{author}{1}{}{%
+      {{hash=RJ}{%
+         family={Robins},
+         familyi={R\bibinitperiod},
+         given={James},
+         giveni={J\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{RJ1}
+    \strng{fullhash}{RJ1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{abstract}{%
+    In observational cohort mortality studies with prolonged periods of
+  exposure to the agent under study, independent risk factors for death
+  commonly determine subsequent exposure to the study agent. For example, in
+  occupational mortality studies, date of termination of employment is both a
+  determinant of subsequent exposure to the chemical agent under study (since
+  terminated individuals receive no further exposure) and an independent risk
+  factor for death (since disabled individuals tend to leave employment). When
+  a risk factor determines subsequent exposure and is determined by previous
+  exposure, standard analyses that estimate age-specific mortality rates as a
+  function of cumulative exposure can underestimate the true effect of exposure
+  on mortality, whether or not one adjusts for the risk factor in the analysis.
+  This observation raises the question, "Which, if any, empirical population
+  parameter can be causally interpreted as the true effect of exposure in
+  observational mortality studies?" In answer, we offer a graphical approach to
+  the identification and estimation of causal parameters in mortality studies
+  with sustained exposure periods. We reanalyze the mortality experience of a
+  cohort of arsenic-exposed copper smelter workers using our approach and
+  compare our results with those obtained using standard methods. We find an
+  adverse effect of arsenic exposure on all cause and lung cancer mortality,
+  which standard methods failed to detect. The analytic approach introduced in
+  this paper may be necessary to control bias in any epidemiologic study in
+  which there exists a risk factor which both determines subsequent exposure
+  and is determined by previous exposure to the agent under study.%
+    }
+    \verb{doi}
+    \verb 10.1016/S0021-9681(87)80018-8
+    \endverb
+    \field{issn}{00219681}
+    \field{pages}{139S\bibrangedash 161S}
+    \field{title}{A Graphical Approach to the Identification and Estimation of
+  Causal Parameters in Mortality Studies with Sustained Exposure Periods}
+    \field{volume}{40}
+    \field{langid}{english}
+    \verb{file}
+    \verb /Users/christopherboyer/Zotero/storage/53G3EYXD/Robins - 1987 - A gra
+    \verb phical approach to the identification and est.pdf
+    \endverb
+    \field{journaltitle}{Journal of Chronic Diseases}
+    \field{month}{01}
+    \field{year}{1987}
+  \endentry
+
+  \entry{sperrin_using_2018}{article}{}
+    \name{author}{6}{}{%
+      {{hash=SM}{%
+         family={Sperrin},
+         familyi={S\bibinitperiod},
+         given={Matthew},
+         giveni={M\bibinitperiod},
+      }}%
+      {{hash=MGP}{%
+         family={Martin},
+         familyi={M\bibinitperiod},
+         given={Glen\bibnamedelima P.},
+         giveni={G\bibinitperiod\bibinitdelim P\bibinitperiod},
+      }}%
+      {{hash=PA}{%
+         family={Pate},
+         familyi={P\bibinitperiod},
+         given={Alexander},
+         giveni={A\bibinitperiod},
+      }}%
+      {{hash=STV}{%
+         family={Staa},
+         familyi={S\bibinitperiod},
+         given={Tjeerd\bibnamedelima Van},
+         giveni={T\bibinitperiod\bibinitdelim V\bibinitperiod},
+      }}%
+      {{hash=PN}{%
+         family={Peek},
+         familyi={P\bibinitperiod},
+         given={Niels},
+         giveni={N\bibinitperiod},
+      }}%
+      {{hash=BI}{%
+         family={Buchan},
+         familyi={B\bibinitperiod},
+         given={Iain},
+         giveni={I\bibinitperiod},
+      }}%
+    }
+    \keyw{clinical prediction models,counterfactual causal
+  inference,longitudinal data,marginal structural models,treatment
+  drop-in,validation}
+    \strng{namehash}{SM+1}
+    \strng{fullhash}{SMMGPPASTVPNBI1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{abstract}{%
+    Clinical prediction models (CPMs) can inform decision making about
+  treatment initiation, which requires predicted risks assuming no treatment is
+  given. However, this is challenging since CPMs are usually derived using data
+  sets where patients received treatment, often initiated postbaseline as
+  ``treatment drop-ins.'' This study proposes the use of marginal structural
+  models (MSMs) to adjust for treatment drop-in. We illustrate the use of MSMs
+  in the CPM framework through simulation studies that represent randomized
+  controlled trials and real-world observational data and the example of statin
+  initiation for cardiovascular disease prevention. The simulations include a
+  binary treatment and a covariate, each recorded at two timepoints and having
+  a prognostic effect on a binary outcome. The bias in predicted risk was
+  examined in a model ignoring treatment, a model fitted on treatment-na\"ive
+  patients (at baseline), a model including baseline treatment, and the MSM. In
+  all simulation scenarios, all models except the MSM underestimated the risk
+  of outcome given absence of treatment. These results were supported in the
+  statin initiation example, which showed that ignoring statin initiation
+  postbaseline resulted in models that significantly underestimated the risk of
+  a cardiovascular disease event occurring within 10 years. Consequently, CPMs
+  that do not acknowledge treatment drop-in can lead to underallocation of
+  treatment. In conclusion, when developing CPMs to predict treatment-na\"ive
+  risk, researchers should consider using MSMs to adjust for treatment drop-in,
+  and also seek to exploit the ability of MSMs to allow estimation of
+  individual treatment effects.%
+    }
+    \verb{doi}
+    \verb 10.1002/sim.7913
+    \endverb
+    \field{issn}{1097-0258}
+    \field{number}{28}
+    \field{pages}{4142\bibrangedash 4154}
+    \field{title}{Using Marginal Structural Models to Adjust for Treatment
+  Drop-in When Developing Clinical Prediction Models}
+    \field{volume}{37}
+    \field{langid}{english}
+    \verb{file}
+    \verb /Users/christopherboyer/Zotero/storage/Z34DXC8S/Sperrin et al_2018_Us
+    \verb ing marginal structural models to adjust for treatment drop-in when.p
+    \verb df;/Users/christopherboyer/Zotero/storage/EN27BKBI/sim.html
+    \endverb
+    \field{journaltitle}{Statistics in Medicine}
+    \field{annotation}{%
+    \_eprint: https://onlinelibrary.wiley.com/doi/pdf/10.1002/sim.7913%
+    }
+    \field{year}{2018}
+  \endentry
+
+  \entry{chernozhukov_doubledebiased_2018}{article}{}
+    \name{author}{7}{}{%
+      {{hash=CV}{%
+         family={Chernozhukov},
+         familyi={C\bibinitperiod},
+         given={Victor},
+         giveni={V\bibinitperiod},
+      }}%
+      {{hash=CD}{%
+         family={Chetverikov},
+         familyi={C\bibinitperiod},
+         given={Denis},
+         giveni={D\bibinitperiod},
+      }}%
+      {{hash=DM}{%
+         family={Demirer},
+         familyi={D\bibinitperiod},
+         given={Mert},
+         giveni={M\bibinitperiod},
+      }}%
+      {{hash=DE}{%
+         family={Duflo},
+         familyi={D\bibinitperiod},
+         given={Esther},
+         giveni={E\bibinitperiod},
+      }}%
+      {{hash=HC}{%
+         family={Hansen},
+         familyi={H\bibinitperiod},
+         given={Christian},
+         giveni={C\bibinitperiod},
+      }}%
+      {{hash=NW}{%
+         family={Newey},
+         familyi={N\bibinitperiod},
+         given={Whitney},
+         giveni={W\bibinitperiod},
+      }}%
+      {{hash=RJ}{%
+         family={Robins},
+         familyi={R\bibinitperiod},
+         given={James},
+         giveni={J\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {{Oxford Academic}}%
+    }
+    \strng{namehash}{CV+1}
+    \strng{fullhash}{CVCDDMDEHCNWRJ1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{abstract}{%
+    Summary. We revisit the classic semi-parametric problem of inference on a
+  low-dimensional parameter \texttheta 0 in the presence of high-dimensional
+  nuisance parameters%
+    }
+    \verb{doi}
+    \verb 10.1111/ectj.12097
+    \endverb
+    \field{issn}{1368-4221}
+    \field{number}{1}
+    \field{pages}{C1\bibrangedash C68}
+    \field{title}{Double/Debiased Machine Learning for Treatment and Structural
+  Parameters}
+    \field{volume}{21}
+    \field{langid}{english}
+    \verb{file}
+    \verb /Users/christopherboyer/Zotero/storage/4HFXNX6R/Chernozhukov et al_20
+    \verb 18_Double-debiased machine learning for treatment and structural para
+    \verb meters.pdf
+    \endverb
+    \field{journaltitle}{Econom J}
+    \field{month}{02}
+    \field{year}{2018}
+  \endentry
+
+  \entry{robins_higher_2008}{article}{}
+    \name{author}{4}{}{%
+      {{hash=RJ}{%
+         family={Robins},
+         familyi={R\bibinitperiod},
+         given={James},
+         giveni={J\bibinitperiod},
+      }}%
+      {{hash=LL}{%
+         family={Li},
+         familyi={L\bibinitperiod},
+         given={Lingling},
+         giveni={L\bibinitperiod},
+      }}%
+      {{hash=TE}{%
+         family={Tchetgen},
+         familyi={T\bibinitperiod},
+         given={Eric},
+         giveni={E\bibinitperiod},
+      }}%
+      {{hash=vA}{%
+         family={{van der Vaart}},
+         familyi={v\bibinitperiod},
+         given={Aad},
+         giveni={A\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {{Institute of Mathematical Statistics}}%
+    }
+    \strng{namehash}{RJ+1}
+    \strng{fullhash}{RJLLTEvA1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{abstract}{%
+    {$<$}!-- *** Custom HTML *** --{$><$}p{$>$} We present a theory of point
+  and interval estimation for nonlinear functionals in parametric, semi-, and
+  non-parametric models based on higher order influence functions (Robins
+  (2004), Section 9; Li et al. (2004), Tchetgen et al. (2006), Robins et al.
+  (2007)). Higher order influence functions are higher order U-statistics. Our
+  theory extends the first order semiparametric theory of Bickel et al. (1993)
+  and van der Vaart (1991) by incorporating the theory of higher order scores
+  considered by Pfanzagl (1990), Small and McLeish (1994) and Lindsay and
+  Waterman (1996). The theory reproduces many previous results, produces new
+  non-\$\textbackslash sqrt\{n\}\$ results, and opens up the ability to perform
+  optimal non-\$\textbackslash sqrt\{n\}\$ inference in complex high
+  dimensional models. We present novel rate-optimal point and interval
+  estimators for various functionals of central importance to biostatistics in
+  settings in which estimation at the expected \$\textbackslash sqrt\{n\}\$
+  rate is not possible, owing to the curse of dimensionality. We also show that
+  our higher order influence functions have a multi-robustness property that
+  extends the double robustness property of first order influence functions
+  described by Robins and Rotnitzky (2001) and van der Laan and Robins (2003).
+  {$<$}/p{$>$}%
+    }
+    \verb{doi}
+    \verb 10.1214/193940307000000527
+    \endverb
+    \field{pages}{335\bibrangedash 422}
+    \field{title}{Higher Order Influence Functions and Minimax Estimation of
+  Nonlinear Functionals}
+    \field{volume}{2}
+    \verb{file}
+    \verb /Users/christopherboyer/Zotero/storage/FFPC4U34/Robins et al. - 2008
+    \verb - Higher order influence functions and minimax estim.pdf
+    \endverb
+    \field{journaltitle}{Probability and Statistics: Essays in Honor of David
+  A. Freedman}
+    \field{month}{01}
+    \field{year}{2008}
+  \endentry
+
+  \entry{steingrimsson_transporting_2021}{misc}{}
+    \name{author}{3}{}{%
+      {{hash=SJA}{%
+         family={Steingrimsson},
+         familyi={S\bibinitperiod},
+         given={Jon\bibnamedelima A.},
+         giveni={J\bibinitperiod\bibinitdelim A\bibinitperiod},
+      }}%
+      {{hash=GC}{%
+         family={Gatsonis},
+         familyi={G\bibinitperiod},
+         given={Constantine},
+         giveni={C\bibinitperiod},
+      }}%
+      {{hash=DIJ}{%
+         family={Dahabreh},
+         familyi={D\bibinitperiod},
+         given={Issa\bibnamedelima J.},
+         giveni={I\bibinitperiod\bibinitdelim J\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {{arXiv}}%
+    }
+    \keyw{Statistics - Applications}
+    \strng{namehash}{SJA+1}
+    \strng{fullhash}{SJAGCDIJ1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{abstract}{%
+    We consider methods for transporting a prediction model and assessing its
+  performance for use in a new target population, when outcome and covariate
+  information for model development is available from a simple random sample
+  from the source population, but only covariate information is available on a
+  simple random sample from the target population. We discuss how to tailor the
+  prediction model for use in the target population, how to assess model
+  performance in the target population (e.g., by estimating the target
+  population mean squared error), and how to perform model and tuning parameter
+  selection in the context of the target population. We provide identifiability
+  results for the target population mean squared error of a potentially
+  misspecified prediction model under a sampling design where the source study
+  and the target population samples are obtained separately. We also introduce
+  the concept of prediction error modifiers that can be used to reason about
+  the need for tailoring measures of model performance to the target population
+  and provide an illustration of the methods using simulated data.%
+    }
+    \verb{eprint}
+    \verb 2101.11182
+    \endverb
+    \field{number}{arXiv:2101.11182}
+    \field{title}{Transporting a Prediction Model for Use in a New Target
+  Population}
+    \verb{file}
+    \verb /Users/christopherboyer/Zotero/storage/2IAXZKVU/Steingrimsson et al.
+    \verb - 2021 - Transporting a prediction model for use in a new t.pdf;/User
+    \verb s/christopherboyer/Zotero/storage/LPJGGJPX/2101.html
+    \endverb
+    \field{eprinttype}{arxiv}
+    \field{eprintclass}{stat}
+    \field{month}{04}
+    \field{year}{2021}
+    \warn{\item Can't use 'eprinttype' + 'archiveprefix'}
+  \endentry
+
+  \entry{morrison_robust_2022}{misc}{}
+    \name{author}{5}{}{%
+      {{hash=MS}{%
+         family={Morrison},
+         familyi={M\bibinitperiod},
+         given={Samantha},
+         giveni={S\bibinitperiod},
+      }}%
+      {{hash=GC}{%
+         family={Gatsonis},
+         familyi={G\bibinitperiod},
+         given={Constantine},
+         giveni={C\bibinitperiod},
+      }}%
+      {{hash=DIJ}{%
+         family={Dahabreh},
+         familyi={D\bibinitperiod},
+         given={Issa\bibnamedelima J.},
+         giveni={I\bibinitperiod\bibinitdelim J\bibinitperiod},
+      }}%
+      {{hash=LB}{%
+         family={Li},
+         familyi={L\bibinitperiod},
+         given={Bing},
+         giveni={B\bibinitperiod},
+      }}%
+      {{hash=SJA}{%
+         family={Steingrimsson},
+         familyi={S\bibinitperiod},
+         given={Jon\bibnamedelima A.},
+         giveni={J\bibinitperiod\bibinitdelim A\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {{arXiv}}%
+    }
+    \keyw{Statistics - Methodology}
+    \strng{namehash}{MS+1}
+    \strng{fullhash}{MSGCDIJLBSJA1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{abstract}{%
+    We present methods for estimating loss-based measures of the performance of
+  a prediction model in a target population that differs from the source
+  population in which the model was developed, in settings where outcome and
+  covariate data are available from the source population but only covariate
+  data are available on a simple random sample from the target population.
+  Prior work adjusting for differences between the two populations has used
+  various weighting estimators with inverse odds or density ratio weights.
+  Here, we develop more robust estimators for the target population risk
+  (expected loss) that can be used with data-adaptive (e.g., machine
+  learning-based) estimation of nuisance parameters. We examine the
+  large-sample properties of the estimators and evaluate finite sample
+  performance in simulations. Last, we apply the methods to data from lung
+  cancer screening using nationally representative data from the National
+  Health and Nutrition Examination Survey (NHANES) and extend our methods to
+  account for the complex survey design of the NHANES.%
+    }
+    \verb{eprint}
+    \verb 2210.01980
+    \endverb
+    \field{number}{arXiv:2210.01980}
+    \field{title}{Robust {{Estimation}} of {{Loss-Based Measures}} of {{Model
+  Performance}} under {{Covariate Shift}}}
+    \verb{file}
+    \verb /Users/christopherboyer/Zotero/storage/XN43N64I/Morrison et al. - 202
+    \verb 2 - Robust Estimation of Loss-Based Measures of Model .pdf;/Users/chr
+    \verb istopherboyer/Zotero/storage/YS6CUI3A/2210.html
+    \endverb
+    \field{eprinttype}{arxiv}
+    \field{eprintclass}{stat}
+    \field{month}{10}
+    \field{year}{2022}
+    \warn{\item Can't use 'eprinttype' + 'archiveprefix'}
+  \endentry
+
+  \entry{brier_verification_1950}{article}{}
+    \name{author}{1}{}{%
+      {{hash=BGW}{%
+         family={Brier},
+         familyi={B\bibinitperiod},
+         given={Glenn\bibnamedelima W.},
+         giveni={G\bibinitperiod\bibinitdelim W\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {{American Meteorological Society}}%
+    }
+    \strng{namehash}{BGW1}
+    \strng{fullhash}{BGW1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \verb{doi}
+    \verb 10.1175/1520-0493(1950)078<0001:VOFEIT>2.0.CO;2
+    \endverb
+    \field{issn}{0027-0644}
+    \field{number}{1}
+    \field{pages}{1\bibrangedash 3}
+    \field{title}{{{VERIFICATION OF FORECASTS EXPRESSED IN TERMS OF
+  PROBABILITY}}}
+    \field{volume}{78}
+    \field{langid}{english}
+    \verb{file}
+    \verb /Users/christopherboyer/Zotero/storage/59XLUUPQ/Brier_1950_VERIFICATI
+    \verb ON OF FORECASTS EXPRESSED IN TERMS OF PROBABILITY.pdf;/Users/christop
+    \verb herboyer/Zotero/storage/GR5LU8GU/VERIFICATION-OF-FORECASTS-EXPRESSED-
+    \verb IN-TERMS-OF.html
+    \endverb
+    \field{journaltitle}{Mon. Wea. Rev.}
+    \field{month}{01}
+    \field{year}{1950}
+  \endentry
+
+  \entry{bild_multi-ethnic_2002}{article}{}
+    \name{author}{16}{}{%
+      {{hash=BDE}{%
+         family={Bild},
+         familyi={B\bibinitperiod},
+         given={Diane\bibnamedelima E.},
+         giveni={D\bibinitperiod\bibinitdelim E\bibinitperiod},
+      }}%
+      {{hash=BDA}{%
+         family={Bluemke},
+         familyi={B\bibinitperiod},
+         given={David\bibnamedelima A.},
+         giveni={D\bibinitperiod\bibinitdelim A\bibinitperiod},
+      }}%
+      {{hash=BGL}{%
+         family={Burke},
+         familyi={B\bibinitperiod},
+         given={Gregory\bibnamedelima L.},
+         giveni={G\bibinitperiod\bibinitdelim L\bibinitperiod},
+      }}%
+      {{hash=DR}{%
+         family={Detrano},
+         familyi={D\bibinitperiod},
+         given={Robert},
+         giveni={R\bibinitperiod},
+      }}%
+      {{hash=DRAV}{%
+         family={Diez\bibnamedelima Roux},
+         familyi={D\bibinitperiod\bibinitdelim R\bibinitperiod},
+         given={Ana\bibnamedelima V.},
+         giveni={A\bibinitperiod\bibinitdelim V\bibinitperiod},
+      }}%
+      {{hash=FAR}{%
+         family={Folsom},
+         familyi={F\bibinitperiod},
+         given={Aaron\bibnamedelima R.},
+         giveni={A\bibinitperiod\bibinitdelim R\bibinitperiod},
+      }}%
+      {{hash=GP}{%
+         family={Greenland},
+         familyi={G\bibinitperiod},
+         given={Philip},
+         giveni={P\bibinitperiod},
+      }}%
+      {{hash=JDR}{%
+         family={JacobsJr.},
+         familyi={J\bibinitperiod},
+         given={David\bibnamedelima R.},
+         giveni={D\bibinitperiod\bibinitdelim R\bibinitperiod},
+      }}%
+      {{hash=KR}{%
+         family={Kronmal},
+         familyi={K\bibinitperiod},
+         given={Richard},
+         giveni={R\bibinitperiod},
+      }}%
+      {{hash=LK}{%
+         family={Liu},
+         familyi={L\bibinitperiod},
+         given={Kiang},
+         giveni={K\bibinitperiod},
+      }}%
+      {{hash=NJC}{%
+         family={Nelson},
+         familyi={N\bibinitperiod},
+         given={Jennifer\bibnamedelima Clark},
+         giveni={J\bibinitperiod\bibinitdelim C\bibinitperiod},
+      }}%
+      {{hash=OD}{%
+         family={O'Leary},
+         familyi={O\bibinitperiod},
+         given={Daniel},
+         giveni={D\bibinitperiod},
+      }}%
+      {{hash=SMF}{%
+         family={Saad},
+         familyi={S\bibinitperiod},
+         given={Mohammed\bibnamedelima F.},
+         giveni={M\bibinitperiod\bibinitdelim F\bibinitperiod},
+      }}%
+      {{hash=SS}{%
+         family={Shea},
+         familyi={S\bibinitperiod},
+         given={Steven},
+         giveni={S\bibinitperiod},
+      }}%
+      {{hash=SM}{%
+         family={Szklo},
+         familyi={S\bibinitperiod},
+         given={Moyses},
+         giveni={M\bibinitperiod},
+      }}%
+      {{hash=TRP}{%
+         family={Tracy},
+         familyi={T\bibinitperiod},
+         given={Russell\bibnamedelima P.},
+         giveni={R\bibinitperiod\bibinitdelim P\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{BDE+1}
+    \strng{fullhash}{BDEBDABGLDRDRAVFARGPJDRKRLKNJCODSMFSSSMTRP1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{shorttitle}
+    \field{abstract}{%
+    The Multi-Ethnic Study of Atherosclerosis was initiated in July 2000 to
+  investigate the prevalence, correlates, and progression of subclinical
+  cardiovascular disease (CVD) in a population-based sample of 6,500 men and
+  women aged 45\textendash 84 years. The cohort will be selected from six US
+  field centers. Approximately 38\% of the cohort will be White, 28\%
+  African-American, 23\% Hispanic, and 11\% Asian (of Chinese descent).
+  Baseline measurements will include measurement of coronary calcium using
+  computed tomography; measurement of ventricular mass and function using
+  cardiac magnetic resonance imaging; measurement of flow-mediated brachial
+  artery endothelial vasodilation, carotid intimal-medial wall thickness, and
+  distensibility of the carotid arteries using ultrasonography; measurement of
+  peripheral vascular disease using ankle and brachial blood pressures;
+  electrocardiography; and assessments of microalbuminuria, standard CVD risk
+  factors, sociodemographic factors, life habits, and psychosocial factors.
+  Blood samples will be assayed for putative biochemical risk factors and
+  stored for use in nested case-control studies. DNA will be extracted and
+  lymphocytes will be immortalized for genetic studies. Measurement of selected
+  subclinical disease indicators and risk factors will be repeated for the
+  study of progression over 7 years. Participants will be followed through 2008
+  for identification and characterization of CVD events, including acute
+  myocardial infarction and other coronary heart disease, stroke, peripheral
+  vascular disease, and congestive heart failure; therapeutic interventions for
+  CVD; and mortality.%
+    }
+    \verb{doi}
+    \verb 10.1093/aje/kwf113
+    \endverb
+    \field{issn}{0002-9262}
+    \field{number}{9}
+    \field{pages}{871\bibrangedash 881}
+    \field{shorttitle}{Multi-{{Ethnic Study}} of {{Atherosclerosis}}}
+    \field{title}{Multi-{{Ethnic Study}} of {{Atherosclerosis}}: {{Objectives}}
+  and {{Design}}}
+    \field{volume}{156}
+    \verb{file}
+    \verb /Users/christopherboyer/Zotero/storage/HI8Z8UM5/Bild et al. - 2002 -
+    \verb Multi-Ethnic Study of Atherosclerosis Objectives .pdf;/Users/christop
+    \verb herboyer/Zotero/storage/PN3LUGW2/255904.html
+    \endverb
+    \field{journaltitle}{American Journal of Epidemiology}
+    \field{month}{11}
+    \field{year}{2002}
+  \endentry
+
+  \entry{grundy_scott_m_2018_2019}{article}{}
+    \name{author}{24}{}{%
+      {{hash=G}{%
+         family={{Grundy Scott M.}},
+         familyi={G\bibinitperiod},
+      }}%
+      {{hash=S}{%
+         family={{Stone Neil J.}},
+         familyi={S\bibinitperiod},
+      }}%
+      {{hash=B}{%
+         family={{Bailey Alison L.}},
+         familyi={B\bibinitperiod},
+      }}%
+      {{hash=B}{%
+         family={{Beam Craig}},
+         familyi={B\bibinitperiod},
+      }}%
+      {{hash=B}{%
+         family={{Birtcher Kim K.}},
+         familyi={B\bibinitperiod},
+      }}%
+      {{hash=B}{%
+         family={{Blumenthal Roger S.}},
+         familyi={B\bibinitperiod},
+      }}%
+      {{hash=B}{%
+         family={{Braun Lynne T.}},
+         familyi={B\bibinitperiod},
+      }}%
+      {{hash=d}{%
+         family={{de Ferranti Sarah}},
+         familyi={d\bibinitperiod},
+      }}%
+      {{hash=F}{%
+         family={{Faiella-Tommasino Joseph}},
+         familyi={F\bibinitperiod},
+      }}%
+      {{hash=F}{%
+         family={{Forman Daniel E.}},
+         familyi={F\bibinitperiod},
+      }}%
+      {{hash=G}{%
+         family={{Goldberg Ronald}},
+         familyi={G\bibinitperiod},
+      }}%
+      {{hash=H}{%
+         family={{Heidenreich Paul A.}},
+         familyi={H\bibinitperiod},
+      }}%
+      {{hash=H}{%
+         family={{Hlatky Mark A.}},
+         familyi={H\bibinitperiod},
+      }}%
+      {{hash=J}{%
+         family={{Jones Daniel W.}},
+         familyi={J\bibinitperiod},
+      }}%
+      {{hash=L}{%
+         family={{Lloyd-Jones Donald}},
+         familyi={L\bibinitperiod},
+      }}%
+      {{hash=L}{%
+         family={{Lopez-Pajares Nuria}},
+         familyi={L\bibinitperiod},
+      }}%
+      {{hash=N}{%
+         family={{Ndumele Chiadi E.}},
+         familyi={N\bibinitperiod},
+      }}%
+      {{hash=O}{%
+         family={{Orringer Carl E.}},
+         familyi={O\bibinitperiod},
+      }}%
+      {{hash=P}{%
+         family={{Peralta Carmen A.}},
+         familyi={P\bibinitperiod},
+      }}%
+      {{hash=S}{%
+         family={{Saseen Joseph J.}},
+         familyi={S\bibinitperiod},
+      }}%
+      {{hash=S}{%
+         family={{Smith Sidney C.}},
+         familyi={S\bibinitperiod},
+      }}%
+      {{hash=S}{%
+         family={{Sperling Laurence}},
+         familyi={S\bibinitperiod},
+      }}%
+      {{hash=V}{%
+         family={{Virani Salim S.}},
+         familyi={V\bibinitperiod},
+      }}%
+      {{hash=Y}{%
+         family={{Yeboah Joseph}},
+         familyi={Y\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {{American Heart Association}}%
+    }
+    \strng{namehash}{G+1}
+    \strng{fullhash}{GSBBBBBdFFGHHJLLNOPSSSVY1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{shorttitle}
+    \verb{doi}
+    \verb 10.1161/CIR.0000000000000625
+    \endverb
+    \field{number}{25}
+    \field{pages}{e1082\bibrangedash e1143}
+    \field{shorttitle}{2018
+  {{AHA}}/{{ACC}}/{{AACVPR}}/{{AAPA}}/{{ABC}}/{{ACPM}}/{{ADA}}/{{AGS}}/{{APhA}}/{{ASPC}}/{{NLA}}/{{PCNA
+  Guideline}} on the {{Management}} of {{Blood Cholesterol}}}
+    \field{title}{2018
+  {{AHA}}/{{ACC}}/{{AACVPR}}/{{AAPA}}/{{ABC}}/{{ACPM}}/{{ADA}}/{{AGS}}
+  /{{APhA}}/{{ASPC}}/{{NLA}}/{{PCNA Guideline}} on the {{Management}} of
+  {{Blood Cholesterol}}: {{A Report}} of the {{American College}} of
+  {{Cardiology}}/{{American Heart Association Task Force}} on {{Clinical
+  Practice Guidelines}}}
+    \field{volume}{139}
+    \verb{file}
+    \verb /Users/christopherboyer/Zotero/storage/3R2ECT5I/Grundy Scott M. et al
+    \verb . - 2019 - 2018 AHAACCAACVPRAAPAABCACPMADAAGSAPhAASP.pdf;/Users/chris
+    \verb topherboyer/Zotero/storage/KUK7GXDL/CIR.html
+    \endverb
+    \field{journaltitle}{Circulation}
+    \field{month}{06}
+    \field{year}{2019}
+  \endentry
+
+  \entry{kent_predictive_2020}{article}{}
+    \name{author}{17}{}{%
+      {{hash=KDM}{%
+         family={Kent},
+         familyi={K\bibinitperiod},
+         given={David\bibnamedelima M.},
+         giveni={D\bibinitperiod\bibinitdelim M\bibinitperiod},
+      }}%
+      {{hash=PJK}{%
+         family={Paulus},
+         familyi={P\bibinitperiod},
+         given={Jessica\bibnamedelima K.},
+         giveni={J\bibinitperiod\bibinitdelim K\bibinitperiod},
+      }}%
+      {{hash=vD}{%
+         family={{van Klaveren}},
+         familyi={v\bibinitperiod},
+         given={David},
+         giveni={D\bibinitperiod},
+      }}%
+      {{hash=DR}{%
+         family={D'Agostino},
+         familyi={D\bibinitperiod},
+         given={Ralph},
+         giveni={R\bibinitperiod},
+      }}%
+      {{hash=GS}{%
+         family={Goodman},
+         familyi={G\bibinitperiod},
+         given={Steve},
+         giveni={S\bibinitperiod},
+      }}%
+      {{hash=HR}{%
+         family={Hayward},
+         familyi={H\bibinitperiod},
+         given={Rodney},
+         giveni={R\bibinitperiod},
+      }}%
+      {{hash=IJP}{%
+         family={Ioannidis},
+         familyi={I\bibinitperiod},
+         given={John\bibnamedelima P.A.},
+         giveni={J\bibinitperiod\bibinitdelim P\bibinitperiod},
+      }}%
+      {{hash=PB}{%
+         family={{Patrick-Lake}},
+         familyi={P\bibinitperiod},
+         given={Bray},
+         giveni={B\bibinitperiod},
+      }}%
+      {{hash=MS}{%
+         family={Morton},
+         familyi={M\bibinitperiod},
+         given={Sally},
+         giveni={S\bibinitperiod},
+      }}%
+      {{hash=PM}{%
+         family={Pencina},
+         familyi={P\bibinitperiod},
+         given={Michael},
+         giveni={M\bibinitperiod},
+      }}%
+      {{hash=RG}{%
+         family={Raman},
+         familyi={R\bibinitperiod},
+         given={Gowri},
+         giveni={G\bibinitperiod},
+      }}%
+      {{hash=RJS}{%
+         family={Ross},
+         familyi={R\bibinitperiod},
+         given={Joseph\bibnamedelima S.},
+         giveni={J\bibinitperiod\bibinitdelim S\bibinitperiod},
+      }}%
+      {{hash=SHP}{%
+         family={Selker},
+         familyi={S\bibinitperiod},
+         given={Harry\bibnamedelima P.},
+         giveni={H\bibinitperiod\bibinitdelim P\bibinitperiod},
+      }}%
+      {{hash=VR}{%
+         family={Varadhan},
+         familyi={V\bibinitperiod},
+         given={Ravi},
+         giveni={R\bibinitperiod},
+      }}%
+      {{hash=VA}{%
+         family={Vickers},
+         familyi={V\bibinitperiod},
+         given={Andrew},
+         giveni={A\bibinitperiod},
+      }}%
+      {{hash=WJB}{%
+         family={Wong},
+         familyi={W\bibinitperiod},
+         given={John\bibnamedelima B.},
+         giveni={J\bibinitperiod\bibinitdelim B\bibinitperiod},
+      }}%
+      {{hash=SEW}{%
+         family={Steyerberg},
+         familyi={S\bibinitperiod},
+         given={Ewout\bibnamedelima W.},
+         giveni={E\bibinitperiod\bibinitdelim W\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {{American College of Physicians}}%
+    }
+    \strng{namehash}{KDM+1}
+    \strng{fullhash}{KDMPJKvDDRGSHRIJPPBMSPMRGRJSSHPVRVAWJBSEW1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \verb{doi}
+    \verb 10.7326/M18-3667
+    \endverb
+    \field{issn}{0003-4819}
+    \field{number}{1}
+    \field{pages}{35\bibrangedash 45}
+    \field{title}{The {{Predictive Approaches}} to {{Treatment}} Effect
+  {{Heterogeneity}} ({{PATH}}) {{Statement}}}
+    \field{volume}{172}
+    \verb{file}
+    \verb /Users/christopherboyer/Zotero/storage/98NN8QA4/Kent et al. - 2020 -
+    \verb The Predictive Approaches to Treatment effect Hete.pdf
+    \endverb
+    \field{journaltitle}{Ann Intern Med}
+    \field{month}{01}
+    \field{year}{2020}
+  \endentry
+
+  \entry{schuler_comparison_2018}{misc}{}
+    \name{author}{4}{}{%
+      {{hash=SA}{%
+         family={Schuler},
+         familyi={S\bibinitperiod},
+         given={Alejandro},
+         giveni={A\bibinitperiod},
+      }}%
+      {{hash=BM}{%
+         family={Baiocchi},
+         familyi={B\bibinitperiod},
+         given={Michael},
+         giveni={M\bibinitperiod},
+      }}%
+      {{hash=TR}{%
+         family={Tibshirani},
+         familyi={T\bibinitperiod},
+         given={Robert},
+         giveni={R\bibinitperiod},
+      }}%
+      {{hash=SN}{%
+         family={Shah},
+         familyi={S\bibinitperiod},
+         given={Nigam},
+         giveni={N\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {{arXiv}}%
+    }
+    \keyw{Computer Science - Machine Learning,Statistics - Machine Learning}
+    \strng{namehash}{SA+1}
+    \strng{fullhash}{SABMTRSN1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{abstract}{%
+    Practitioners in medicine, business, political science, and other fields
+  are increasingly aware that decisions should be personalized to each patient,
+  customer, or voter. A given treatment (e.g. a drug or advertisement) should
+  be administered only to those who will respond most positively, and certainly
+  not to those who will be harmed by it. Individual-level treatment effects can
+  be estimated with tools adapted from machine learning, but different models
+  can yield contradictory estimates. Unlike risk prediction models, however,
+  treatment effect models cannot be easily evaluated against each other using a
+  held-out test set because the true treatment effect itself is never directly
+  observed. Besides outcome prediction accuracy, several metrics that can
+  leverage held-out data to evaluate treatment effects models have been
+  proposed, but they are not widely used. We provide a didactic framework that
+  elucidates the relationships between the different approaches and compare
+  them all using a variety of simulations of both randomized and observational
+  data. Our results show that researchers estimating heterogenous treatment
+  effects need not limit themselves to a single model-fitting algorithm.
+  Instead of relying on a single method, multiple models fit by a diverse set
+  of algorithms should be evaluated against each other using an objective
+  function learned from the validation set. The model minimizing that objective
+  should be used for estimating the individual treatment effect for future
+  individuals.%
+    }
+    \verb{eprint}
+    \verb 1804.05146
+    \endverb
+    \field{number}{arXiv:1804.05146}
+    \field{title}{A Comparison of Methods for Model Selection When Estimating
+  Individual Treatment Effects}
+    \verb{file}
+    \verb /Users/christopherboyer/Zotero/storage/VTWMTN5E/Schuler et al. - 2018
+    \verb  - A comparison of methods for model selection when e.pdf;/Users/chri
+    \verb stopherboyer/Zotero/storage/U7DKNPLU/1804.html
+    \endverb
+    \field{eprinttype}{arxiv}
+    \field{eprintclass}{cs, stat}
+    \field{month}{06}
+    \field{year}{2018}
+    \warn{\item Can't use 'eprinttype' + 'archiveprefix'}
+  \endentry
+
+  \entry{rolling2014model}{article}{}
+    \name{author}{2}{}{%
+      {{hash=RCA}{%
+         family={Rolling},
+         familyi={R\bibinitperiod},
+         given={Craig\bibnamedelima A},
+         giveni={C\bibinitperiod\bibinitdelim A\bibinitperiod},
+      }}%
+      {{hash=YY}{%
+         family={Yang},
+         familyi={Y\bibinitperiod},
+         given={Yuhong},
+         giveni={Y\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {{Wiley Online Library}}%
+    }
+    \strng{namehash}{RCAYY1}
+    \strng{fullhash}{RCAYY1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{number}{4}
+    \field{pages}{749\bibrangedash 769}
+    \field{title}{Model Selection for Estimating Treatment Effects}
+    \field{volume}{76}
+    \verb{file}
+    \verb /Users/christopherboyer/Zotero/storage/L2TDHEBS/Rolling and Yang - 20
+    \verb 14 - Model selection for estimating treatment effects.pdf
+    \endverb
+    \field{journaltitle}{Journal of the Royal Statistical Society: Series B
+  (Statistical Methodology)}
+    \field{year}{2014}
+  \endentry
+
+  \entry{xu_calibration_2022}{misc}{}
+    \name{author}{2}{}{%
+      {{hash=XY}{%
+         family={Xu},
+         familyi={X\bibinitperiod},
+         given={Yizhe},
+         giveni={Y\bibinitperiod},
+      }}%
+      {{hash=YS}{%
+         family={Yadlowsky},
+         familyi={Y\bibinitperiod},
+         given={Steve},
+         giveni={S\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {{arXiv}}%
+    }
+    \keyw{Statistics - Machine Learning,Statistics - Methodology}
+    \strng{namehash}{XYYS1}
+    \strng{fullhash}{XYYS1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{abstract}{%
+    Recently, many researchers have advanced data-driven methods for modeling
+  heterogeneous treatment effects (HTEs). Even still, estimation of HTEs is a
+  difficult task -- these methods frequently over- or under-estimate the
+  treatment effects, leading to poor calibration of the resulting models.
+  However, while many methods exist for evaluating the calibration of
+  prediction and classification models, formal approaches to assess the
+  calibration of HTE models are limited to the calibration slope. In this
+  paper, we define an analogue of the \textbackslash smash\{(\$\textbackslash
+  ell\_2\$)\} expected calibration error for HTEs, and propose a robust
+  estimator. Our approach is motivated by doubly robust treatment effect
+  estimators, making it unbiased, and resilient to confounding, overfitting,
+  and high-dimensionality issues. Furthermore, our method is straightforward to
+  adapt to many structures under which treatment effects can be identified,
+  including randomized trials, observational studies, and survival analysis. We
+  illustrate how to use our proposed metric to evaluate the calibration of
+  learned HTE models through the application to the CRITEO-UPLIFT Trial.%
+    }
+    \verb{eprint}
+    \verb 2203.13364
+    \endverb
+    \field{number}{arXiv:2203.13364}
+    \field{title}{Calibration {{Error}} for {{Heterogeneous Treatment
+  Effects}}}
+    \verb{file}
+    \verb /Users/christopherboyer/Zotero/storage/TBQ3NVJK/Xu and Yadlowsky - 20
+    \verb 22 - Calibration Error for Heterogeneous Treatment Effe.pdf;/Users/ch
+    \verb ristopherboyer/Zotero/storage/TSRIVP8P/2203.html
+    \endverb
+    \field{eprinttype}{arxiv}
+    \field{eprintclass}{stat}
+    \field{month}{03}
+    \field{year}{2022}
+    \warn{\item Can't use 'eprinttype' + 'archiveprefix'}
+  \endentry
+
+  \entry{van2003unified}{book}{}
+    \name{author}{2}{}{%
+      {{hash=VMJ}{%
+         family={{Van der Laan}},
+         familyi={V\bibinitperiod},
+         given={Mark\bibnamedelima J},
+         giveni={M\bibinitperiod\bibinitdelim J\bibinitperiod},
+      }}%
+      {{hash=RJM}{%
+         family={Robins},
+         familyi={R\bibinitperiod},
+         given={James\bibnamedelima M},
+         giveni={J\bibinitperiod\bibinitdelim M\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {{Springer}}%
+    }
+    \strng{namehash}{VMJRJM1}
+    \strng{fullhash}{VMJRJM1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{title}{Unified Methods for Censored Longitudinal Data and Causality}
+    \field{volume}{5}
+    \field{year}{2003}
+  \endentry
+
+  \entry{alaa_validating_2019}{inproceedings}{}
+    \name{author}{2}{}{%
+      {{hash=AA}{%
+         family={Alaa},
+         familyi={A\bibinitperiod},
+         given={Ahmed},
+         giveni={A\bibinitperiod},
+      }}%
+      {{hash=SMVD}{%
+         family={Schaar},
+         familyi={S\bibinitperiod},
+         given={Mihaela Van\bibnamedelima Der},
+         giveni={M\bibinitperiod\bibinitdelim V\bibinitperiod\bibinitdelim
+  D\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {{PMLR}}%
+    }
+    \strng{namehash}{AASMVD1}
+    \strng{fullhash}{AASMVD1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{abstract}{%
+    The problem of estimating causal effects of treatments from observational
+  data falls beyond the realm of supervised learning \{\textemdash\} because
+  counterfactual data is inaccessible, we can never observe the true causal
+  effects. In the absence of "supervision", how can we evaluate the performance
+  of causal inference methods? In this paper, we use influence functions
+  \{\textemdash\} the functional derivatives of a loss function \{\textemdash\}
+  to develop a model validation procedure that estimates the estimation error
+  of causal inference methods. Our procedure utilizes a Taylor-like expansion
+  to approximate the loss function of a method on a given dataset in terms of
+  the influence functions of its loss on a "synthesized", proximal dataset with
+  known causal effects. Under minimal regularity assumptions, we show that our
+  procedure is consistent and efficient. Experiments on 77 benchmark datasets
+  show that using our procedure, we can accurately predict the comparative
+  performances of state-of-the-art causal inference methods applied to a given
+  observational study.%
+    }
+    \field{booktitle}{Proceedings of the 36th {{International Conference}} on
+  {{Machine Learning}}}
+    \field{issn}{2640-3498}
+    \field{pages}{191\bibrangedash 201}
+    \field{title}{Validating {{Causal Inference Models}} via {{Influence
+  Functions}}}
+    \field{langid}{english}
+    \verb{file}
+    \verb /Users/christopherboyer/Zotero/storage/2UNYSEZK/Alaa and Schaar - 201
+    \verb 9 - Validating Causal Inference Models via Influence F.pdf
+    \endverb
+    \field{month}{05}
+    \field{year}{2019}
+  \endentry
+
+  \entry{hernan_instruments_2006}{article}{}
+    \name{author}{2}{}{%
+      {{hash=HMA}{%
+         family={Hernan},
+         familyi={H\bibinitperiod},
+         given={Miguel\bibnamedelima A},
+         giveni={M\bibinitperiod\bibinitdelim A\bibinitperiod},
+      }}%
+      {{hash=RJM}{%
+         family={Robins},
+         familyi={R\bibinitperiod},
+         given={James\bibnamedelima M},
+         giveni={J\bibinitperiod\bibinitdelim M\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{HMARJM2}
+    \strng{fullhash}{HMARJM2}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{abstract}{%
+    The use of instrumental variable (IV) methods is attractive because, even
+  in the presence of unmeasured confounding, such methods may consistently
+  estimate the average causal effect of an exposure on an outcome. However, for
+  this consistent estimation to be achieved, several strong conditions must
+  hold. We review the definition of an instrumental variable, describe the
+  conditions required to obtain consistent estimates of causal effects, and
+  explore their implications in the context of a recent application of the
+  instrumental variables approach. We also present (1) a description of the
+  connection between 4 causal models\textemdash{} counterfactuals, causal
+  directed acyclic graphs, nonparametric structural equation models, and linear
+  structural equation models\textemdash that have been used to describe
+  instrumental variables methods; (2) a unified presentation of IV methods for
+  the average causal effect in the study population through structural mean
+  models; and (3) a discussion and new extensions of instrumental variables
+  methods based on assumptions of monotonicity.%
+    }
+    \field{number}{4}
+    \field{title}{Instruments for {{Causal Inference}}}
+    \field{volume}{17}
+    \field{langid}{english}
+    \verb{file}
+    \verb /Users/christopherboyer/Zotero/storage/GAM4I3EW/Hernan and Robins - 2
+    \verb 006 - Instruments for Causal Inference.pdf
+    \endverb
+    \field{year}{2006}
+  \endentry
+
+  \entry{tchetgen_introduction_2020}{misc}{}
+    \name{author}{5}{}{%
+      {{hash=TEJT}{%
+         family={Tchetgen},
+         familyi={T\bibinitperiod},
+         given={Eric J.\bibnamedelima Tchetgen},
+         giveni={E\bibinitperiod\bibinitdelim J\bibinitperiod\bibinitdelim
+  T\bibinitperiod},
+      }}%
+      {{hash=YA}{%
+         family={Ying},
+         familyi={Y\bibinitperiod},
+         given={Andrew},
+         giveni={A\bibinitperiod},
+      }}%
+      {{hash=CY}{%
+         family={Cui},
+         familyi={C\bibinitperiod},
+         given={Yifan},
+         giveni={Y\bibinitperiod},
+      }}%
+      {{hash=SX}{%
+         family={Shi},
+         familyi={S\bibinitperiod},
+         given={Xu},
+         giveni={X\bibinitperiod},
+      }}%
+      {{hash=MW}{%
+         family={Miao},
+         familyi={M\bibinitperiod},
+         given={Wang},
+         giveni={W\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {{arXiv}}%
+    }
+    \keyw{62A01,Statistics - Methodology}
+    \strng{namehash}{TEJT+1}
+    \strng{fullhash}{TEJTYACYSXMW1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{abstract}{%
+    A standard assumption for causal inference from observational data is that
+  one has measured a sufficiently rich set of covariates to ensure that within
+  covariate strata, subjects are exchangeable across observed treatment values.
+  Skepticism about the exchangeability assumption in observational studies is
+  often warranted because it hinges on investigators' ability to accurately
+  measure covariates capturing all potential sources of confounding.
+  Realistically, confounding mechanisms can rarely if ever, be learned with
+  certainty from measured covariates. One can therefore only ever hope that
+  covariate measurements are at best proxies of true underlying confounding
+  mechanisms operating in an observational study, thus invalidating causal
+  claims made on basis of standard exchangeability conditions. Causal learning
+  from proxies is a challenging inverse problem which has to date remained
+  unresolved. In this paper, we introduce a formal potential outcome framework
+  for proximal causal learning, which while explicitly acknowledging covariate
+  measurements as imperfect proxies of confounding mechanisms, offers an
+  opportunity to learn about causal effects in settings where exchangeability
+  on the basis of measured covariates fails. Sufficient conditions for
+  nonparametric identification are given, leading to the proximal g-formula and
+  corresponding proximal g-computation algorithm for estimation. These may be
+  viewed as generalizations of Robins' foundational g-formula and g-computation
+  algorithm, which account explicitly for bias due to unmeasured confounding.
+  Both point treatment and time-varying treatment settings are considered, and
+  an application of proximal g-computation of causal effects is given for
+  illustration.%
+    }
+    \verb{eprint}
+    \verb 2009.10982
+    \endverb
+    \field{number}{arXiv:2009.10982}
+    \field{title}{An {{Introduction}} to {{Proximal Causal Learning}}}
+    \verb{file}
+    \verb /Users/christopherboyer/Zotero/storage/5E2UM395/Tchetgen et al. - 202
+    \verb 0 - An Introduction to Proximal Causal Learning.pdf;/Users/christophe
+    \verb rboyer/Zotero/storage/DNQT46XW/2009.html
+    \endverb
+    \field{eprinttype}{arxiv}
+    \field{eprintclass}{stat}
+    \field{month}{09}
+    \field{year}{2020}
+    \warn{\item Can't use 'eprinttype' + 'archiveprefix'}
+  \endentry
+
+  \entry{robins_sensitivity_2000}{inproceedings}{}
+    \name{author}{3}{}{%
+      {{hash=RJM}{%
+         family={Robins},
+         familyi={R\bibinitperiod},
+         given={James\bibnamedelima M.},
+         giveni={J\bibinitperiod\bibinitdelim M\bibinitperiod},
+      }}%
+      {{hash=RA}{%
+         family={Rotnitzky},
+         familyi={R\bibinitperiod},
+         given={Andrea},
+         giveni={A\bibinitperiod},
+      }}%
+      {{hash=SDO}{%
+         family={Scharfstein},
+         familyi={S\bibinitperiod},
+         given={Daniel\bibnamedelima O.},
+         giveni={D\bibinitperiod\bibinitdelim O\bibinitperiod},
+      }}%
+    }
+    \name{editor}{2}{}{%
+      {{hash=HME}{%
+         family={Halloran},
+         familyi={H\bibinitperiod},
+         given={M.\bibnamedelima Elizabeth},
+         giveni={M\bibinitperiod\bibinitdelim E\bibinitperiod},
+      }}%
+      {{hash=BD}{%
+         family={Berry},
+         familyi={B\bibinitperiod},
+         given={Donald},
+         giveni={D\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {{Springer}}%
+    }
+    \keyw{Consistency Assumption,Current Status Data,Influence
+  Function,Marginal Structural Model,Semiparametric Model}
+    \strng{namehash}{RJM+1}
+    \strng{fullhash}{RJMRASDO1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{abstract}{%
+    In both observational and randomized studies, subjects commonly drop out of
+  the study (i.e., become censored) before end of follow-up. If, conditional on
+  the history of the observed data up to t, the hazard of dropping out of the
+  study (i.e., censoring) at time t does not depend on the possibly unobserved
+  data subsequent to t, we say drop-out is ignorable or explainable (Rubin,
+  1976). On the other hand, if the hazard of drop-out depends on the possibly
+  unobserved future, we say drop-out is non-ignorable or, equivalently, that
+  there is selection bias on unobservables. Neither the existence of selection
+  bias on unobservables nor its magnitude is identifiable from the joint
+  distribution of the observables. In view of this fact, we argue that the data
+  analyst should conduct a ``sensitivity analysis'' to quantify how one's
+  inference concerning an outcome of interest varies as a function of the
+  magnitude of non-identifiable selection bias.%
+    }
+    \field{booktitle}{Statistical {{Models}} in {{Epidemiology}}, the
+  {{Environment}}, and {{Clinical Trials}}}
+    \verb{doi}
+    \verb 10.1007/978-1-4612-1284-3_1
+    \endverb
+    \field{isbn}{978-1-4612-1284-3}
+    \field{pages}{1\bibrangedash 94}
+    \field{series}{The {{IMA Volumes}} in {{Mathematics}} and Its
+  {{Applications}}}
+    \field{title}{Sensitivity {{Analysis}} for {{Selection}} Bias and
+  Unmeasured {{Confounding}} in Missing {{Data}} and {{Causal}} Inference
+  Models}
+    \field{langid}{english}
+    \list{location}{1}{%
+      {{New York, NY}}%
+    }
+    \verb{file}
+    \verb /Users/christopherboyer/Zotero/storage/HUG7Z4C2/Robins et al. - 2000
+    \verb - Sensitivity Analysis for Selection bias and unmeas.pdf
+    \endverb
+    \field{year}{2000}
+  \endentry
+
+  \entry{bickel_discriminative_2009}{article}{}
+    \name{author}{3}{}{%
+      {{hash=BS}{%
+         family={Bickel},
+         familyi={B\bibinitperiod},
+         given={Steffen},
+         giveni={S\bibinitperiod},
+      }}%
+      {{hash=BM}{%
+         family={Br{\"u}ckner},
+         familyi={B\bibinitperiod},
+         given={Michael},
+         giveni={M\bibinitperiod},
+      }}%
+      {{hash=ST}{%
+         family={Scheffer},
+         familyi={S\bibinitperiod},
+         given={Tobias},
+         giveni={T\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{BS+1}
+    \strng{fullhash}{BSBMST1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{abstract}{%
+    We address classification problems for which the training instances are
+  governed by an input distribution that is allowed to differ arbitrarily from
+  the test distribution---problems also referred to as classification under
+  covariate shift. We derive a solution that is purely discriminative: neither
+  training nor test distribution are modeled explicitly. The problem of
+  learning under covariate shift can be written as an integrated optimization
+  problem. Instantiating the general optimization problem leads to a kernel
+  logistic regression and an exponential model classifier for covariate shift.
+  The optimization problem is convex under certain conditions; our findings
+  also clarify the relationship to the known kernel mean matching procedure. We
+  report on experiments on problems of spam filtering, text classification, and
+  landmine detection.%
+    }
+    \field{issn}{1532-4435}
+    \field{pages}{2137\bibrangedash 2155}
+    \field{title}{Discriminative {{Learning Under Covariate Shift}}}
+    \field{volume}{10}
+    \verb{file}
+    \verb /Users/christopherboyer/Zotero/storage/VCG7XND8/Bickel et al. - 2009
+    \verb - Discriminative Learning Under Covariate Shift.pdf
+    \endverb
+    \field{journaltitle}{J. Mach. Learn. Res.}
+    \field{month}{12}
+    \field{year}{2009}
+  \endentry
+
+  \entry{sugiyama_covariate_2007}{article}{}
+    \name{author}{3}{}{%
+      {{hash=SM}{%
+         family={Sugiyama},
+         familyi={S\bibinitperiod},
+         given={Masashi},
+         giveni={M\bibinitperiod},
+      }}%
+      {{hash=KM}{%
+         family={Krauledat},
+         familyi={K\bibinitperiod},
+         given={Matthias},
+         giveni={M\bibinitperiod},
+      }}%
+      {{hash=MKR}{%
+         family={M{\"u}ller},
+         familyi={M\bibinitperiod},
+         given={Klaus-Robert},
+         giveni={K\bibinithyphendelim R\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{SM+2}
+    \strng{fullhash}{SMKMMKR1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{abstract}{%
+    A common assumption in supervised learning is that the input points in the
+  training set follow the same probability distribution as the input points
+  that will be given in the future test phase. However, this assumption is not
+  satisfied, for example, when the outside of the training region is
+  extrapolated. The situation where the training input points and test input
+  points follow different distributions while the conditional distribution of
+  output values given input points is unchanged is called the covariate shift.
+  Under the covariate shift, standard model selection techniques such as cross
+  validation do not work as desired since its unbiasedness is no longer
+  maintained. In this paper, we propose a new method called importance weighted
+  cross validation (IWCV), for which we prove its unbiasedness even under the
+  covariate shift. The IWCV procedure is the only one that can be applied for
+  unbiased classification under covariate shift, whereas alternatives to IWCV
+  exist for regression. The usefulness of our proposed method is illustrated by
+  simulations, and furthermore demonstrated in the brain-computer interface,
+  where strong non-stationarity effects can be seen between training and test
+  sessions.%
+    }
+    \field{issn}{1533-7928}
+    \field{number}{35}
+    \field{pages}{985\bibrangedash 1005}
+    \field{title}{Covariate {{Shift Adaptation}} by {{Importance Weighted Cross
+  Validation}}}
+    \field{volume}{8}
+    \verb{file}
+    \verb /Users/christopherboyer/Zotero/storage/DUY9D24N/Sugiyama et al. - 200
+    \verb 7 - Covariate Shift Adaptation by Importance Weighted .pdf
+    \endverb
+    \field{journaltitle}{Journal of Machine Learning Research}
+    \field{year}{2007}
+  \endentry
+
+  \entry{steingrimsson_extending_2022}{article}{}
+    \name{author}{1}{}{%
+      {{hash=SJA}{%
+         family={Steingrimsson},
+         familyi={S\bibinitperiod},
+         given={Jon\bibnamedelima A},
+         giveni={J\bibinitperiod\bibinitdelim A\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{SJA1}
+    \strng{fullhash}{SJA1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{abstract}{%
+    Prediction models are often built and evaluated using data from a
+  population that differs from the target population where model-derived
+  predictions are intended to be used in. In this article, we present methods
+  for evaluating model performance in the target population when some
+  observations are right censored. The methods assume that outcome and
+  covariate data are available from a source population used for model
+  development and covariates, but no outcome data, are available from the
+  target population. We evaluate the finite sample performance of the proposed
+  estimators using simulations and apply the methods to transport a prediction
+  model built using data from a lung cancer screening trial to a nationally
+  representative population of participants eligible for lung cancer
+  screening.%
+    }
+    \verb{doi}
+    \verb 10.1093/biostatistics/kxac011
+    \endverb
+    \field{issn}{1465-4644, 1468-4357}
+    \field{pages}{kxac011}
+    \field{title}{Extending Prediction Models for Use in a New Target
+  Population with Failure Time Outcomes}
+    \field{langid}{english}
+    \verb{file}
+    \verb /Users/christopherboyer/Zotero/storage/JCS39J6N/Steingrimsson - 2022
+    \verb - Extending prediction models for use in a new targe.pdf
+    \endverb
+    \field{journaltitle}{Biostatistics}
+    \field{month}{04}
+    \field{year}{2022}
+  \endentry
+
+  \entry{li_estimating_2022}{article}{}
+    \name{author}{4}{}{%
+      {{hash=LB}{%
+         family={Li},
+         familyi={L\bibinitperiod},
+         given={Bing},
+         giveni={B\bibinitperiod},
+      }}%
+      {{hash=GC}{%
+         family={Gatsonis},
+         familyi={G\bibinitperiod},
+         given={Constantine},
+         giveni={C\bibinitperiod},
+      }}%
+      {{hash=DIJ}{%
+         family={Dahabreh},
+         familyi={D\bibinitperiod},
+         given={Issa\bibnamedelima J.},
+         giveni={I\bibinitperiod\bibinitdelim J\bibinitperiod},
+      }}%
+      {{hash=SJA}{%
+         family={Steingrimsson},
+         familyi={S\bibinitperiod},
+         given={Jon\bibnamedelima A.},
+         giveni={J\bibinitperiod\bibinitdelim A\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{LB+1}
+    \strng{fullhash}{LBGCDIJSJA1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{abstract}{%
+    We propose methods for estimating the area under the receiver operating
+  characteristic (ROC) curve (AUC) of a prediction model in a target population
+  that differs from the source population that provided the data used for
+  original model development. If covariates that are associated with model
+  performance, as measured by the AUC, have a different distribution in the
+  source and target populations, then AUC estimators that only use data from
+  the source population will not reflect model performance in the target
+  population. Here, we provide identification results for the AUC in the target
+  population when outcome and covariate data are available from the sample of
+  the source population, but only covariate data are available from the sample
+  of the target population. In this setting, we propose three estimators for
+  the AUC in the target population and show that they are consistent and
+  asymptotically normal. We evaluate the finite-sample performance of the
+  estimators using simulations and use them to estimate the AUC in a nationally
+  representative target population from the National Health and Nutrition
+  Examination Survey for a lung cancer risk prediction model developed using
+  source population data from the National Lung Screening Trial.%
+    }
+    \verb{doi}
+    \verb 10.1111/biom.13796
+    \endverb
+    \field{issn}{0006-341X, 1541-0420}
+    \field{pages}{biom.13796}
+    \field{title}{Estimating the Area under the {{ROC}} Curve When Transporting
+  a Prediction Model to a Target Population}
+    \field{langid}{english}
+    \verb{file}
+    \verb /Users/christopherboyer/Zotero/storage/GDD4YP4N/Li et al. - 2022 - Es
+    \verb timating the area under the ROC curve when trans.pdf
+    \endverb
+    \field{journaltitle}{Biometrics}
+    \field{month}{11}
+    \field{year}{2022}
+  \endentry
+\enddatalist
+\endinput

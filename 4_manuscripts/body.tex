@@ -1,0 +1,280 @@
+\section{Introduction} \label{sec:introduction}
+Prediction models are often deployed in settings that are different from those in which they are trained. One of the ways settings may differ is that the natural course of treatment after baseline may vary, particularly for models with a longer time horizon \cite{van_geloven_prediction_2020}. For example, a prediction model fit in a population where 5\% are treated over the follow up period may not produce valid predictions in one where 50\% are treated and vice versa. Even when models are deployed in the same population, treatment policies may change over time, affecting who is likely to be treated and leading to problems of ``domain adaption'' or ``dataset shift'' \cite{finlayson_clinician_2021,subbaswamy_development_2020}. These differences between the training and deployment environments can cause the performance of models to degrade, particularly when, as is often the case, model predictors are themselves correlated with, or direct determinants of, treatment \cite{pajouheshnia_accounting_2017}. 
+
+Ideally, when faced with such a change in the treatment environment one would simply re-train the model. However, collecting the necessary data  in the new setting may be inordinately expensive or time consuming. Absent sufficient resources or as a stop gap, one might consider tailoring the original model to target the expected outcome that would be observed were treatment administered to everyone as in the deployment setting but using only training data. Alternatively, one might simply wish to estimate how poorly the existing model is likely to perform in the deployment setting, to determine whether data collection efforts are worthwhile. In either case, the implicit inquiries are counterfactual.
+
+Beyond accounting for descrepancies between training and deployment, there are also instances in which the target prediction estimand is explicitly counterfactual. For instance, a model may be used to inform clinical decisions about whether to initiate treatment or to compare outcomes under alternative treatment strategies \cite{lin_scoping_2021,dickerman_predicting_2022,schulam_reliable_2017-1}. This could involve risk-based rules for treatment adoption or the transportation or direct estimation of treatment effects. In some circumstances, models may be built and evaluated without explicit appeal to counterfactuals, such as when effects are modeled in a randomized trial and used in the same population. However, as often is the case, when training data are obtained in an observational setting where treatment initiation over follow up is not strictly controlled by the investigator, the predictions most relevant to decision-making are counterfactual \cite{dickerman_counterfactual_2020,schulam_reliable_2017-1}. 
+
+In both instances, we need methods for tailoring models to target counterfactual queries, even when data on the full set of potential outcomes is not available. We also need performance metrics that agnostically evaluate model performance in these new environments independent of whether the prediction model itself is correctly specified. In this paper, we examine the conditions under which tailoring a prediction model to counterfactual outcomes is possible using training data alone. Under similar conditions, we also show that the counterfactual performance of the model may be estimated independently from the method used to fit the model and may be evaluated even if the model is misspecified or does not target the counterfactual estimand directly. This is a key result as it implies the counterfactual performance of a model can be identified and estimated even for models that are ``wrong''. Absent better data or in the meantime while such data are being collected, performance metrics may therefore be used to differentiate between better and worse-performing models or to quantify how badly a model is likely to perform in a hypothetical environment.
+
+
+\section{Set up and notation} \label{sec:setup}
+Let $Y$ be the outcome of interest, $X$ a baseline covariate vector, and $A$ an indicator of treatment over the follow up period. We assume all are obtained via a simple random sample from a  population $\{(X_i, A_i, Y_i)\}_{i=1}^n$ in which the initiation of treatment follows it's natural course. Covariates in $X$ include possible predictors of the outcome which do not act as confounders ($P$), as well as joint determinants of the outcome and treatment which act as confounders ($L$). We would like to build a prediction model for $Y$ using covariates $X^*$ which are a subset of $X$, i.e. $X^* \subset X$, and are chosen on the basis of availability and prediction potential rather than necessarily for their causal relationship to the outcome. To fix concepts, we assume for now $A$ is a point treatment, i.e. that either treatment is always initiated immediately after baseline or there is no effect of duration of treatment on the outcome. However, we extend this to the case that treaments are time-varying in the appendix. We also assume for now that there is no loss to follow up. An example directed acyclic graph for this process is shown in Figure \ref{fig:dag1}. 
+
+\begin{figure}[t]
+    \centering
+    \begin{tikzpicture}[> = stealth, shorten > = 1pt, auto, node distance = 2.5cm, inner sep = 0pt,minimum size = 0.5pt, semithick]
+    \tikzstyle{every state}=[
+      draw = white,
+      fill = white
+    ]
+    \node[state] (l0) {$L$};
+    \node[state] (a0) [right of=l0] {$A$};
+    \node[state] (y1) [right of=a0] {$Y$};
+    \node[state] (p0) [below of=l0] {$P$};
+    \node[state] (u0) [above of=l0] {$U$};
+
+    \path[->] (l0) edge node {} (a0);
+    \path[->] (l0) edge [out=20, in=160, looseness=1.5] node {} (y1);
+
+    \path[->] (a0) edge node {} (y1);
+    
+    \path[->] (p0) edge node {} (y1);
+
+    \path[->] (u0) edge node {} (y1);
+    \path[->] (u0) edge node {} (l0);
+    \end{tikzpicture}
+    \caption{Example directed acyclic graph for prediction in a setting with a single time fixed treatment $A$ over follow up.}
+    \label{fig:dag1}
+\end{figure}
+
+The data are randomly split into a training set and a test set with $n = n_{train} + n_{test}$. Let $D_{train}$ and $D_{test}$ be indicators of whether an observation is in the training set or test set respectively. As is customary, we use the training set to build a prediction model for the expected outcome conditional on covariates $E[Y| X^*]$ and the test set to evaluate model performance. Let $\mu_{\beta}(X^*)$ be a parametric model indexed by parameter $\beta$ and $\mu_{\widehat{\beta}}(X^*)$ be the ``fitted'' model using parameter estimates $\widehat{\beta}$. We allow for the possibility that model $\mu_{\beta}(X^*)$ is misspecified. For a particular estimand such as $E[Y | X^*]$, a model is correctly specified if there exists $\beta_0 \in \mathcal{B}$, where $\mathcal{B}$ is the parameter space of $\beta$, such that $\mu_{\beta_0}(X^*) = E[Y | X^*]$ and the model is misspecified if no such $\beta_0$ exists.  In several places, we use $f(\cdot)$ generically to denote a density.
+
+To define counterfactual estimands of interest, let $Y^a$ be the potential outcome under an intervention which sets treatment $A$ to $a$. To keep our notation simple, here we limit our focus to so-called \textit{static} and \textit{deterministic} interventions, in which the potential outcome desired is the outcome under a fixed value of $A$, but extend to \textit{random} and \textit{dynamic} regimes, such as those mentioned in the introduction, in the appendix. 
+
+\section{Training and performance targets} \label{sec:targets}
+Our goal is to make and assess predictions in a counterfactual version of the source population in which treatment policies differ, for instance if no one in source population took treatment, if everyone did, or if specific guidelines changed. To make predictions, we posit a parametric model $\mu_{\beta}(X^*)$ for the expected potential outcome conditional on covariates $E[Y^a | X^*]$, which we wish to estimate from the training dataset. The model may be tailored to the counterfactual outcome $Y^a$, in the sense that it was trained to target $E[Y^a | X^*]$ directly, or it may be a model for another target such as the  expected (factual) outcome in the source population $E[Y | X^*]$ and we would like to know how it might perform in a counterfactual setting.
+
+To determine the performance of the model, one generally relates its fitted predictions $\mu_{\widehat{\beta}}(X^*)$ to the observed outcomes $Y^a$ using any of a number of metrics from the prediction literature \cite{harrell_multivariable_1996,steyerberg_clinical_2019,altman_what_2000}. However, for counterfactual predictions, this is not as simple as the potential outcome $Y^a$ is not observed for all individuals. Yet, as we will show, under certain conditions the expected value of the metric may still be identified from the observed data in the test set. An example target performance metric of interest is 
+\begin{equation*}
+    \psi = E[(Y^a - \mu_{\widehat{\beta}}(X^*))^2]
+\end{equation*}
+where the squared error loss $(Y^a - \mu_{\widehat{\beta}}(X^*))^2$ quantifies the discrepancy between the potential outcome under treatment level $A = a$ and the model prediction $\mu_{\widehat{\beta}}(X^*)$ in terms of the squared difference. In the main text, we focus on the mean squared error as the metric $\psi$ for assessing performance of the model. However, in the appendix we extend our results to that case that $\psi$ is any member of a generic class of loss functions $L(Y^a,  \mu_{\widehat{\beta}}(X^*))$ as well as common metrics such as model discrimination and risk calibration. Importantly, $\psi$ is always defined without assuming $\mu_{\widehat{\beta}}(X^*)$ is correctly specified.
+
+\section{Identifiability conditions} \label{sec:identifiability}
+We will assume the following identifiability assumptions which have been described in more detail elsewhere \cite{hernan_causal_2020,robins_new_1986,robins_graphical_1987}.
+
+\begin{enumerate}
+    \item \textit{Exchangeability.} $Y^a \perp\!\!\!\perp A \mid X$ 
+    \item \textit{Consistency.} $Y^a = Y$ if $A = a$
+    \item \textit{Positivity.} For all $x$, $\Pr(A = a \mid X = x) > 0$ 
+\end{enumerate}
+
+The first condition stipulates that treatment initiation over follow up is conditionally independent of the potential outcome given covariates $X$. This would be ensured by design in a randomized trial in which, participants are randomized to treatment or no treatment conditional covariates $X$. The second condition implies that observed outcomes among those with $A = a$ reflect potential outcomes under corresponding level of treatment. It would be violated if, for instance, there were multiple hidden versions of the therapy under consideration. Finally, the third positivity condition implies that there is a positive probability of observed treatment level $A = a$ in all strata of $X$.  
+
+\section{Tailoring a model for counterfactual predictions} \label{sec:model}
+
+As we show in section \ref{sec:model_proof} of the appendix, under the conditions above the expected potential outcome conditional on covariates $X^*$ is identified by the expression
+\begin{equation}\label{eqn:estimand1}
+    E[Y^a \mid X^*] = E[E[Y \mid X, A = a, D_{train} = 1] \mid X^*, D_{train} = 1]
+\end{equation}
+or, equivalently 
+\begin{equation}\label{eqn:estimand2}
+    E[Y^a \mid X^*] = E\left[\frac{I(A = a)}{\Pr(A = a \mid X, D_{train} = 1)} Y \mid X^*, D_{train} = 1\right]
+\end{equation}
+in the training dataset. Both suggest possible targets for tailoring the model for counterfactual predictions using only the training data. 
+
+For simplicity, assume for a moment that $X = X^*$, that is the predictors included in the model are also those necessary to ensure exchangeability. Note that in this case the right hand side of equation \ref{eqn:estimand1} above reduces to $E[Y \mid X, A = a, D_{train} =1]$ which suggests tailoring the model for the counterfactual prediction target $E[Y^a \mid X]$ using the training data could be accomplished by subsetting to participants with corresponding treatment level $A = a$ and fitting model $\mu_\beta(X)$ for the observed $Y$ conditional $X$. Such a model will be consistent for $E[Y^a \mid X]$ provided it is correctly specified. Generally though there will not be perfect overlap between the covariates necessary to ensure exchangeability and those available for prediction. When $X^*$ is a subset of $X$, tailoring a model for counterfactual prediction will require some method of marginalizing over the covariates in $X$ that are not in $X^*$, either analytically or using Monte Carlo methods. This will also generally be true for random and dynamic interventions.
+
+Under the same identifiability conditions, equation \ref{eqn:estimand2} suggests an alternative approach to targeting $E[Y^a \mid X]$ using the training data is to fit a weighted model $\mu_\beta(X^*)$, using for instance weighted maximum likelihood, with weights equal to the probability of receiving treatment level $A = a$ conditional on covariates $X$ necessary to ensure exchangeability, i.e. $W = \frac{I(A = a)}{\Pr(A = a \mid X, D_{train} = 1)}$. This is the basis for several previously proposed methods for counterfactual prediction based on inverse probability of treatment weighting \cite{sperrin_using_2018}. Note that, unlike the first approach, it is possible to specify a subset of predictors $X^*$ used in the prediction model $\mu_\beta(X^*)$ as compared to the full set of covariates $X$ required for exchangeability which are only necessary for defining the weights $W$. This means tailoring the model for counterfactual predictions using this approach can be accomplished using off-the-shelf software.
+
+\section{Assessing model performance} \label{sec:performance}
+
+Using the same conditions, in section \ref{sec:tf_proof} of the appendix we show the model performance metric $\psi$ is identifiable using data from the test set through the expression
+\begin{equation}\label{eqn:mse1}
+    \psi = E\left[E[(Y - \mu_{\widehat{\beta}}(X^*))^2 \mid X, A=a, D_{test} = 1] \mid D_{test} = 1\right]
+\end{equation}
+or, equivalently using an inverse probability weighted expression 
+\begin{equation}\label{eqn:mse2}
+    \psi = E\left[\frac{I(A = a)}{\Pr(A = a \mid X, D_{test} = 1)}(Y - \mu_{\widehat{\beta}}(X^*))^2 \mid D_{test} = 1\right]
+\end{equation}
+regardless of whether the model $\mu_{\widehat{\beta}}(X^*)$ has been tailored to target $E[Y^a \mid X]$ or is correctly specified in general. 
+As previously the two expression suggest two different approaches for the estimation of model performance using the test data alone. 
+
+First, using the sample analog of expression (\ref{eqn:mse1}), an estimator of the target MSE is 
+\begin{equation}\label{eqn:cl_estimator}
+    \widehat{\psi}_{CL} = \frac{1}{n_{test}} \sum_{i=1}^nI(D_{test, i} = 1)\widehat{h}_a(X_i)
+\end{equation}
+where $\widehat{h}_a(X)$ is an estimator for the conditional loss $E[(Y - \mu_{\widehat{\beta}}(X^*))^2 \mid X, A=a, D_{test} = 1]$. To keep notation simple, we supress the dependency of $\widehat{h}_a(X)$ on $\mu_{\widehat{\beta}}$. When the dimension of $X$ is small it may be possible to use the sample analog of $\widehat{h}_a(X)$ as an estimator as well. In practice, though, some form of modeling will often be required. In this case, $\widehat{\psi}_{CL}$ is a consistent estimator for $\psi$ as long as $\widehat{h}_a(X)$ is correctly specified.
+
+Next, using the sample analog of expression (\ref{eqn:mse2}), an alternative weight-based estimator of the target MSE is 
+\begin{equation}\label{eqn:ipw_estimator}
+    \widehat{\psi}_{IPW} = \frac{1}{n_{test}} \sum_{i=1}^n \frac{I(A_i = a, D_{test, i} = 1)}{\widehat{e}_a(X_i)}(Y_i - \mu_{\widehat{\beta}}(X^*_i))^2
+\end{equation}
+where $\widehat{e}_a(X)$ is an estimator of the probability of receiving treatment level $A = a$ conditional on $X$, i.e. $\Pr(A = a \mid X, D_{test} = 1)$. Again, when the dimension of $X$ is small it may be possible to use the sample analog of $\widehat{e}_a(X)$ as an estimator, but in practice, it will have to be modeled. The weighting estimator $\widehat{\psi}_{IPW}$ is a consistent estimator of $\psi$ as long as $\widehat{e}_a(X)$ is correctly specified.
+
+The conditional loss estimator (\ref{eqn:cl_estimator}) relies on correctly specifying the model for the conditional loss and the weighting estimator (\ref{eqn:ipw_estimator})  relies on correctly specifying the model for the probability of treatment. In some settings, one estimator may be preferred over the other when more is known about one process, such as when the algorithm for administering treatment is clearly defined. In practice though, both may be difficult to specify correctly. Using data-adaptive and more flexible machine learning estimators for estimation of these nuisance models offers the possibility of capturing arbitrarily complex data generation processes. However, these estimators generally have slower rates of convergence than the $\sqrt{n}$ rates of parametric models and therefore will not yield asymptotically valid confidence intervals \cite{chernozhukov_doubledebiased_2018}. An alternative is to use a doubly-robust estimator which combines models for $\widehat{h}_a(X)$ and $\widehat{e}_a(X)$, such as
+\begin{equation}
+    \widehat{\psi}_{DR} = \frac{1}{n_{test}} \sum_{i=1}^n I(D_{test,i} = 1) \left[ \widehat{h}_a(X_i) + \frac{I(A_i = a)}{\widehat{e}_a(X_i)} \left\{ (Y - \mu_{\widehat{\beta}}(X^*_i))^2 - \widehat{h}_a(X_i)\right\}\right]
+\end{equation}
+As we show in the Appendix, under mild regularity conditions \cite{robins_higher_2008}, this estimator will be consistent if one of $\widehat{h}_a(X)$ and $\widehat{e}_a(X)$ is correctly specified. They also permit the use of machine learning or data-adaptive estimators that are not $\sqrt{n}$-covergent allowing for more flexible estimation of the nuisance functions. This is due to the fact that the empirical process terms governing the convergence of $\widehat{\psi}_{DR}$ involve a product of the errors for $\widehat{h}_a(X)$ and $\widehat{e}_a(X)$ which converge under the weaker condition that only the \textit{combined} rate of convergence for both nuisance functions is at least $\sqrt{n}$.
+%Note that $\widehat{\psi}_{CL}$ and $\widehat{\psi}_{IPW}$ are both special cases of $\widehat{\psi}_{DR}$. That is, when $\widehat{h}_a(X_i) = 1$ for all i $\widehat{\psi}_{DR}=\widehat{\psi}_{IPW}$ and likewise when $\widehat{e}_a(X_i) = 1$ for all i $\widehat{\psi}_{DR}=\widehat{\psi}_{CL}$.
+
+\section{Model and tuning parameter selection} \label{sec:selection}
+
+To this point, we have assumed that $\mu_{\beta}(X^*)$ is a pre-specified parametric model and ignored any form of model selection (e.g. variable or other specification search) or data-adaptive tuning parameter selection. However, in reality analysts often select between multiple models or perform a data-adaptive search through a parameter space for tuning parameter selection when developing a prediction model \cite{steyerberg_clinical_2019}. When done rigorously, analysts typically use methods such as cross-validation or the bootstrap to perform selection. These techniques rely on optimizing some measure of model performance, such as the MSE.
+
+When performing model or tuning parameter selection for counterfactual prediction, the results from the previous sections suggest that the model performance measure should be targeted to the counterfactual performance in a population in which the hypothetical intervention were universally applied. For example, when using cross-validation for model selection the analyst splits the data into $K$ mutually exclusive ``folds'' and estimates the candidate models using $K - 1$ of the folds and estimates the performance of each in the held out fold. This process is repeated $K$ times where each fold is left out once. The final estimate of performance is the average of the $K$ estimates and the model with best overall performance is selected (or, alternatively, the tuning parameter with the best performance). When targeting counterfactual predictions, at each stage in the procedure the analyst should use modified performance measures such as those in section \ref{sec:performance} above. Failure to do so, can lead to sub-optimal selection with respect to the counterfactual prediction of interest. 
+
+%\section{Time-varying treatments} \label{sec:time-varying}
+
+\section{Simulation} \label{sec:simulation}
+In this section we perform two simulation experiments to illustrate (i) the benefits of tailoring models to the correct counterfactual estimand of interest, (ii) the potential for bias when using naive estimators of model performance such as the MSE, (iii) the importance of correct specification of the nuisance models when estimating counterfactual performance, and (iv) the properties of the doubly-robust estimator under misspecification of the nuisance models. We adapt data generation processes previously used for transporting models between settings under covariate shift \cite{steingrimsson_transporting_2021,morrison_robust_2022}.
+
+\subsection{Experiment 1}
+We simulated treatment initiation over the follow up period based on the logistic model $\operatorname{Pr}(A=1 \mid X)=\operatorname{expit} (1.5-0.3 X)$, where predictors $X$ are drawn from $X \sim$ Uniform $(0,10)$. Under this model, about 50\% initiate treatment over follow up but those with higher values of $X$ are less likely to start treatment than those with lower values of $X$. We then simulated the outcome using the linear model $Y=1+X+0.5 X^2- 3A + \varepsilon$, where $\varepsilon \sim \mathcal{N}(0, X)$.  We set the total sample size to 1000 and the data were randomly split in a 1:1 ratio into a training and a test set. The full process may be written:
+\begin{align*}
+    X & \sim \text{Unif}(0, 10) \\
+    A & \sim \text{Bernoulli}\{\operatorname{expit}(-1.5 + 0.3 \cdot X)\} \\
+    Y & \sim \text{Normal}(1 + X + 0.5 X^2 - 3 A, X)
+\end{align*}
+ 
+Our goal was to estimate a model in a counterfactual population in which no one initiated treatment over follow up, i.e. we targeted $E[Y^{a=0} \mid X]$. Under this data generating mechanism, the MSE under no treatment is larger than the MSE under the natural course and identifiability conditions 1-3 are satisfied. We considered two specifications of prediction models $\mu_{\beta}(X^*)$:
+\begin{enumerate}
+    \item a correctly specified linear regression model that included the main effects of $X$ and $X^2$, i.e. $\mu_{\beta}(X^*) = \beta_0 + \beta_1 X + \beta_2 X^2$.
+    \item a misspecified linear regression model that only included the main effect of $X$, i.e. $\mu_{\beta}(X^*) = \beta_0 + \beta_1 X$.
+\end{enumerate} 
+For each specification, we also considered two estimation strategies: one using ordinary least squares regression (OLS) and ignoring treatment initiation and the other using weighted least squares regression (WLS) where the weights were equal to the inverse of the probability of being untreated. As discussed above the latter specifically targets the counterfactual estimand under no treatment. Finally, we considered two approaches for estimating the performance of the models in the test set: a naive estimate of the MSE using observed outcome values, i.e. 
+$$\widehat{\psi}_{Naive} = \frac{1}{n_{test}} \sum_{i=1}^n I(D_{test,i} = 1) (Y_i - \mu_{\widehat{\beta}}(X^*))^2,$$ 
+and the inverse-probability weighted estimator $\widehat{\psi}_{IPW}$ from section \ref{sec:performance}. For the latter, we fit a correctly specified logistic regression model for $e_a(X)$, i.e. $e_a(X) = \operatorname{expit}(\alpha_0 + \alpha_1 X)$, in the test set to estimate the weights. Lastly, we also calculated the true counterfactual MSE if we had access to the potential outcomes $Y^{a=0}$ by generating test data under same process as above but forcing $A = 0$ for everyone and then estimating counterfactual MSE and averaging across simulations.
+
+\begin{table}[t]
+    \centering
+    \begin{threeparttable}
+        \begin{tabular}{p{3cm}R{1.2cm}R{1.2cm}R{1.2cm}}
+        \toprule
+        Model $\mu_{\beta}(X)$ & $\widehat{\psi}_{Naive}$ & $\widehat{\psi}_{IPW}$ & Truth  \\
+        \midrule
+        Correct & & & \\
+        \hspace{1em}OLS & 2.9 & 3.6 & 3.6\\
+        \hspace{1em}WLS & 5.5 & 1.0 & 1.0\\
+        \addlinespace[0.25em]
+        Misspecified & & & \\
+        \hspace{1em}OLS & 16.8 & 17.5 & 17.5\\
+        \hspace{1em}WLS & 19.5 & 15.0 & 15.0\\
+        \bottomrule
+        \end{tabular}
+        \begin{tablenotes}
+        \item \noindent Correct and misspecified refers to the specification of the  prediction model $\mu_\beta(X)$. OLS = model estimation using ordinary least squares regression (unweighted); WLS = model estimation using weighted least squares regression with weights equal to the inverse probability of being untreated. Results were averaged over 10,000 simulations. The true counterfactual MSE was obtained using numerical methods. 
+        \end{tablenotes}
+        \end{threeparttable}
+    
+\end{table}
+
+Table 1 shows the results of the experiment based on 10,000 monte carlo simulations. In general, correctly specified models yielded smaller average MSE than misspecified models. Comparing the performance of OLS and WLS estimation, when using $\widehat{\psi}_{Naive}$, the naive estimator of the MSE, OLS seemed to produce better predictions than WLS when correctly specified (average MSE of 2.9 vs. 5.5) as well as when misspecified (average MSE of 16.8 vs. 19.5). In contrast, when using $\widehat{\psi}_{IPW}$, the inverse-probability weighted estimate of the MSE, WLS performed better than OLS both when the model was correctly specified (average MSE of 1.0 vs. 3.6) and when misspecified (average MSE of 15.0 vs. 17.5). For reference, in the last column we show the true counterfactual MSE that would be obtained if one had access to the potential outcomes (obtained via numerical methods). We find that the average of the inverse probability weighted estimator across the simulations was equivalent to this quantity for all specifications and for both OLS and WLS estimation. This suggests that only the modified estimators of model performance in section \ref{sec:performance} are able to accurately estimate the counterfactual performance of the model. Indeed, under this data generation process, if one were to use the naive estimator one might erroneously conclude that the OLS model is the better choice.
+
+
+\subsection{Experiment 2}
+
+In the previous experiment we assumed the nuisance models for the MSE were correctly specified. Here we consider estimation of the MSE in the more likely case that nuisance models are  misspecified. This time, we simulated treatment initation over follow up $A$ based on the logistic model $\operatorname{Pr}[A=1 \mid X]=\operatorname{expit}\left(-0.3+0.2 \sum_{i=1}^3 X_{(i)}+0.3 \sum_{i=1}^3\left(X_{(i)}\right)^2\right)$, where $X$ is now a vector of predictors drawn from a 10-dimensional mean zero multivariate normal and $X_{(i)}$ is the $i$th component of the vector $X$. This resulted in expected treatment initiation over follow up of 61\%. We also simulated a binary outcome from a Bernoulli distribution with mean $\operatorname{expit}\left(-0.3+0.2 \sum_{i=1}^3 X_{(i)}+0.3 \sum_{i=1}^3\left(X_{(i)}\right)^2 - 0.5A \right)$. Again, we set the total sample size to 1000, but this time we randomly split the data in a 2:1 ratio into a training and a test set. 
+\begin{align*}
+    X & \sim \text{MVN}(\mathbf{0}, \boldsymbol{\Sigma}) \\
+    A & \sim \text{Bernoulli}\left\{\text{expit}\left(-0.3 + 0.2 \sum_{i=1}^3 X_{(i)}+ 0.3 \sum_{i=1}^3 X_{(i)}^2\right)\right\} \\
+    Y & \sim \text{Bernoulli}\left\{\text{expit}\left(-0.3 + 0.2 \sum_{i=1}^3 X_{(i)}+ 0.3 \sum_{i=1}^3 X_{(i)}^2 - 0.5 A\right)\right\}
+\end{align*}
+
+Our prediction model was a main effects logistic regression model fit in the training data, i.e. $\mu\left(X^*\right) = \operatorname{expit}(\beta_0 + \sum_{i=1}^{10} \beta_i X_{(i)})$. This model was misspecified with respect to the true generation process. As previously, we assessed the counterfactual performance of the model in an untreated population using the MSE, which for a binary outcome is equivalent to the Brier score \cite{brier_verification_1950}. In general, positing a parametric model for $h_0(X)=\mathrm{E}[(Y-g\left(X^*\right))^2 \mid X, A=0]$ may be difficult as the outcome is the squared difference. However, for binary outcomes, by expanding the square we can show it is enough to estimate $\operatorname{Pr}[Y=1 \mid X, A=0]$, which is what we did in practice. To determine the effect of the specification of nuisance models $e_a(X)$ and $h_a(X)$ on performance estimates, we compared four MSE estimators (${\psi}_{Naive}$, ${\psi}_{IPW}$, ${\psi}_{CL}$, and ${\psi}_{DR}$) using different combinations of correctly specified and misspecified models for $e_a(X)$ and $h_a(X)$:
+\begin{enumerate}
+    \item Correct $e_a(X)$ - main effects logistic regression model with linear and quadratic terms, i.e. $e_a(X) = \operatorname{expit}(\alpha_0 + \sum_{i=1}^{10} \alpha_{1,i} X_{(i)} + \sum_{i=1}^{10} \alpha_{2,i} X_{(i)}^2)$.
+    \item Misspecified $e_a(X)$ - main effects logistic regression model with linear terms only terms, i.e. $e_a(X) = \operatorname{expit}(\alpha_0 + \sum_{i=1}^{10} \alpha_{1,i} X_{(i)})$.
+    \item Correct $h_a(X)$ - main effects logistic regression model with linear and quadratic terms, i.e. $h_a(X) = \operatorname{expit}(\gamma_0 + \sum_{i=1}^{10} \gamma_{1,i} X_{(i)} + \sum_{i=1}^{10} \gamma_{2,i} X_{(i)}^2)$.
+    \item Misspecified $h_a(X)$ - main effects logistic regression model with linear terms only terms, i.e. $h_a(X) = \operatorname{expit}(\gamma_0 + \sum_{i=1}^{10} \gamma_{1,i} X_{(i)})$.
+\end{enumerate}
+Finally, we also considered using more flexible estimation techniques for nuisance terms $e_a(X)$ and $h_a(X)$. Specifically, we fit generalized additive models for both using the \texttt{mgcv} package in $\mathrm{R}$ entering all covariates as splines using the default options in the \texttt{gam} function.
+
+\begin{table}[t]
+    \centering
+    \footnotesize
+    \begin{threeparttable}
+\begin{tabular}{lrrr}
+\toprule
+Estimator $\widehat{\psi}$ & Mean & Bias ($\times 10^2$) & Bias (\%) \\
+\midrule
+Naive & 0.244 & 0.603 & 2.5\\
+\addlinespace[0.25em]
+Correct & & & \\
+\hspace{1em}CL & 0.238 & 0.058 & 0.2\\
+\hspace{1em}IPW & 0.238 & 0.095 & 0.4\\
+\hspace{1em}DR & 0.238 & 0.045 & 0.2\\
+\addlinespace[0.25em]
+$e_a(X)$ misspecified & & & \\
+\hspace{1em}CL & 0.238 & 0.058 & 0.2\\
+\hspace{1em}IPW & 0.245 & 0.770 & 3.2\\
+\hspace{1em}DR & 0.238 & 0.059 & 0.2\\
+\addlinespace[0.25em] 
+$h_a(X)$ misspecified & & & \\
+\hspace{1em}CL & 0.246 & 0.867 & 3.6\\
+\hspace{1em}IPW & 0.238 & 0.095 & 0.4\\
+\hspace{1em}DR & 0.238 & 0.076 & 0.3\\
+\addlinespace[0.25em] 
+both misspecified & & & \\
+\hspace{1em}CL, gam & 0.240 & 0.227 & 1.0\\
+\hspace{1em}IPW, gam & 0.240 & 0.275 & 1.2\\
+\hspace{1em}DR, gam & 0.238 & 0.095 & 0.4\\
+\addlinespace[0.25em] 
+Truth & 0.238 & 0.000 & 0.0\\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}
+\item Correct and misspecified refers to the specification of the nuisance models ($e_a(X)$ or $h_a(X)$) for the MSE. Results were averaged over 10,000 simulations. 
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+Table 2 shows the results. As in the previous experiment, the naive empirical estimator of the MSE was biased relative to the true counterfactual MSE with a relative bias of 2.5\%. When all models were correctly specified, the weighting, conditional loss, and doubly robust estimators were all unbiased (relative bias between 0.2\% to 0.4\%). When $e_a(X)$ was misspecified, the weighting estimator was biased (relative bias of 3.2\%) but the conditional loss and doubly robust estimator were unbiased (relative bias of 0.2\%). Under misspecification of $h_a(X)$ (relative bias of 3.6\%), the conditional loss estimator was biased, but the weighting estimator and the doubly robust estimator were unbiased (relative bias of 0.4\% and 0.3\%). When both models $e_a(X)$ and $h_a(X)$ were misspecified all estimators, including the doubly robust estimator, were biased. Finally, when a generalized additive model was used to estimate both $e_a(X)$ and $h_a(X)$, only the doubly robust estimator was approximately unbiased (relative bias of 0.4\%). Across all scenarios, the weighting estimator generally had the largest standard errors and widest confidence intervals and the conditional loss estimator had the smallest standard errors and the shortest confidence intervals.
+
+\section{Application to prediction of statin-naive risk} \label{sec:results}
+Here we apply our proposed methods to evaluate the counterfactual performance of two prediction models targeting the statin-naive risk of cardiovascular disease: one that was explicitly tailored for the counterfactual estimand of interest and a second that was not. 
+
+\subsection{Study design and data}
+The Multi-Ethnic Study on Atherosclerosis (MESA) study is a population-based sample of 6,814 men and women aged 45 to 84 drawn from six communities (Baltimore; Chicago; Forsyth County, North Carolina; Los Angeles; New York; and St. Paul, Minnesota) in the United States between 2000 and 2002. The sampling procedure, design, and methods of the study have been described previously \cite{bild_multi-ethnic_2002}. Study teams conducted five examination visits between 2000 and 2011 in 18 to 24 month intervals focused on the prevalence, correlates, and progression of subclinical cardiovascular disease. These examinations included assessments of lipid-lowering (primarily statins) medication use as well as cardiovascular risk factors such as systolic blood pressure, serum cholesterol, cigarette smoking, height, weight, and diabetes. 
+
+In a previous analysis, we used MESA data to emulate a statin trial and benchmarked our results against those from published randomized trials. To construct a model of the statin-naive risk, we then emulated a single arm trial in which no one started statins over a 10-year follow up period. To determine trial eligibility, we followed the AHA guidelines \cite{grundy_scott_m_2018_2019} on statin use which stipulate that patients aged 40 to 75 with serum LDL cholesterol levels between 70 mg/dL and 190 mg/dL and no history of cardiovascular disease should initiate statins if their (statin-free) risk exceeds 7.5\%. Therefore, we considered MESA participants who completed the baseline examination, had no previous history of statin use, no history of cardiovascular disease, and who met the criteria described in the guidelines (excluding the risk threshold) as eligible to participate in the trial. The primary endpoint was time to atherosclerotic cardiovascular disease (ASCVD), defined as nonfatal myocardial infarction, coronary heart disease death, or ischemic stroke. 
+
+Follow up began at the second examination cycle to enable a ``wash out'' period for statin use and to ensure adequate pre-treatment covariates to control confouding. In the original analysis, we constructed a sequence of nested trials, however here for simplicity we limited our attention to the first trial. We used the questionnaire in examinations three through five to determine statin initiation over the follow up period. Because the exact timing of statin initiation was not known with precision, we estimated it by drawing a random month between the current and previous examinations. 
+
+Of the 6,814 MESA participants who completed the baseline examination, 4,149 met the eligibility criteria for our trial emulation. There were 288 ASCVD events and 190 non-ASCVD deaths. For the sake of clarity, here we dropped those lost to follow up and ignored competing risks although in practice both can be accommodated in our framework for evaluting the performance of a counterfactual prediction model. For model training and evaluation we further split the dataset into training and test sets of equal size. 
+
+\subsection{Model estimation and performance}
+We compared two prediction models: one that was explicitly tailored to the statin-naive risk and a second that was not. Both models used the same specification with baseline predictors commonly used in cardiovascular risk prediction: age, sex, smoking status, diabetes history, systolic blood pressure, anti-hypertensive medication use and total and HDL serum cholesterol levels. In the main text, to be consistent with our initial set up we assume the effect of statins is independent of duration and therefore may be viewed as a time-fixed intervention. Both trial evidence and subject matter knowledge suggest this is implausible, and we consider time-varying effects in the appendix.
+
+We tailored the first model for the statin-naive risk using inverse probability of censoring weights. In the emulated single arm trial, statin initiation can be viewed as ``non-adherence'' which can be adjusted for by inverse probability weighting, therefore we censored participants when they initiated statins. To calculate the weights, we estimated two logistic regression models: one for the probability of remaining untreated given past covariate history (denominator model) and one for probability of remaining untreated given the selected baseline predictors (numerator model). The list of covariates in the weight models are given in the appendix. To create a prediction model for the statin-naive risk, we used the estimated weights to fit a weighted logistic regression model conditional on the baseline predictors of interest. 
+
+For comparison, we fit a second traditional (factual) prediction model by regressing the observed ASCVD event indicator on the same set of baseline predictors, but ignoring treatment initiation over the follow up period. This approach targets the natural course risk rather than the statin-naive risk. We fit the model using standard logistic regression based on maximum likelihood.
+
+To assess the performance of the models, we estimated the naive and counterfactual MSE in the test set. For the latter we used the conditional loss, inverse probability weighting, and doubly robust estimators of the MSE. Models for the initiation of treatment $e_a(X)$ and for the conditional loss $h_a(X)$ were implemented as main effects logistic regression models. As in the simulation example, to estimate the conditional loss it is sufficient to model $\operatorname{Pr}[Y=1 \mid X, A=0]$ alone. To quantify uncertainty, we used the non-parametric bootstrap with 1000 bootstrap replicates.
+
+\subsection{Results}
+
+\begin{table}[t]
+    \centering
+    \caption{Estimated MSE in a statin-naive population for two prediction models using emulated trial data from MESA.}
+    \begin{threeparttable}
+        \begin{tabular}{lcccc}
+        \toprule
+        Model $\mu_\beta(X)$ & $\widehat{\psi}_{Naive}$ & $\widehat{\psi}_{CL}$ & $\widehat{\psi}_{IPW}$ & $\widehat{\psi}_{DR}$\\
+        \midrule
+        Logistic & 0.066 & 0.091 & 0.111 & 0.095\\
+         & (0.003) & (0.006) & (0.012) & (0.007)\\
+        Weighted Logistic & 0.070 & 0.090 & 0.102 & 0.091\\
+         & (0.003) & (0.004) & (0.008) & (0.005)\\
+        \bottomrule
+        \end{tabular}
+        \begin{tablenotes}
+        \item The first column refers to the posited prediction model: the first model is an (unweighted) logistic regression model and the second is a logistic regression model with inverse probability weights for remaining statin-free. $\widehat{\psi}_{Naive}$ is the empirical estimator of the MSE using factual outcomes, $\widehat{\psi}_{CL}$ is the conditional loss estimator, $\widehat{\psi}_{IPW}$ is the inverse probability weighting estimator, $\widehat{\psi}_{DR}$ is the doubly-robust estimator. Standard error estimates are shown in parentheses obtained via 1000 bootstrap replicates.
+        \end{tablenotes}
+        \end{threeparttable}
+\end{table}
+
+Table 3 shows estimates of the MSE and the associated standard errors in a hypothetical statin-naive population for both prediction models using the naive empirical, conditional loss, weighting, and doubly robust estimators. The conditional loss, weighting, and doubly robust estimators of the MSE yielded estimates that were substantially (30-50\%) greater than those of the naive empirical estimator, suggesting performance of both models in statin-naive population is worse than in the source population. Of the three estimators of the statin-naive MSE, the weighting estimator had greater standard errors than the doubly robust estimator (by 50-70\%) as well as the conditional loss estimator (by 100\%). Consistent with the first simulation experiment, the inverse probability weighted logistic model, which was tailored to target the statin-naive risk, performed worse in the source population, but had lower MSE in the counterfactual statin-naive population. 
+
+
+\section{Discussion} \label{sec:discussion}
+Many practical problems in prediction modeling involve counterfactuals, such as when treatment varies between training and deployment or when predictions are meant to inform treatment initiation. Here, we considered cases where predictions under hypothetical interventions were desired but only training data from observational sources were available. We described how to tailor models to target counterfactual estimands and the identification conditions necessary to unbiasedly estimate them. Separately, we also discussed how to adjust common measures of model performance to estimate the counterfactual performance of the model under the same hypothetical interventions. Importantly, our performance results were valid even when the prediction model is misspecified. A key insight was that for counterfactual prediction standard performance measures will be biased, but performance could be assessed independently from the method used to tailor the model. For loss-based metrics of performance, we proposed three estimators based on modeling the conditional loss, the probability of treatment, and a doubly robust estimator that can be used with data-adaptive estimators of either nuisance function. 
+
+In this paper, we have focused on measures of performance under a particular treatment regime. However, prediction models may instead target the estimation treatment effects, i.e. the comparison between treatment regimes. In some cases, effects may be easier to communicate to end users or may be desirable to evaluate benefits versus harms of treatment initiation \cite{kent_predictive_2020}. Several authors have proposed model performance metrics which are similar to our own \cite{schuler_comparison_2018,rolling2014model,xu_calibration_2022,van2003unified,alaa_validating_2019}.
+
+Throughout, we did not assume that the covariates needed to satisfy the exchangeability assumption were the same covariates used in the prediction model. This is important as, in practice,  predictors are often chosen subject to clinical contraints in the data available to end users rather than what would be optimal from a causal perspective \cite{steyerberg_clinical_2019}. However, we did assume that a sufficient set of covariates could be identified at the time of training to ensure exchanageability. Alternative identification conditions are beyond the scope of this study, but it is possible that counterfactual performance metrics could also be identified, for instance, if an instrumental variable \cite{hernan_instruments_2006} were available or under a more general proximal inference framework \cite{tchetgen_introduction_2020}. It's also possible to develop sensitivity analyses for exploring how violations of this assumption might affect model performance estimates \cite{robins_sensitivity_2000}.
+
+In this work, we have also implicitly assumed that the distribution of predictors are the same in the training and deployment setting. However, in many cases the covariate distributions are likely to differ \cite{bickel_discriminative_2009,sugiyama_covariate_2007}. Like differences in treatment initiation, this may cause the performance of the prediction model to degrade, particularly when the model is misspecified. Methods for transporting prediction models from source to target populations which mirror our own have previously been proposed \cite{steingrimsson_extending_2022,steingrimsson_transporting_2021,li_estimating_2022,morrison_robust_2022}. In future work, it's possible that our results could be integrated with those to allow for both sources of difference between training and deployment.
+

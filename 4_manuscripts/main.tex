@@ -1,0 +1,64 @@
+\documentclass[12pt]{article}
+
+\input{setup}
+
+\addbibresource{paper3.bib}
+
+\begin{document}
+
+\begin{titlepage}
+\title{Assessing the performance of counterfactual predictions} % \thanks{abc}}
+\author{}
+% \author[1]{Christopher Boyer\thanks{email: \href{mailto:cboyer@g.harvard.edu}{cboyer@g.harvard.edu}}}
+% \author[1]{Andrew Beam}
+% \author[1,2]{James Robins}
+% \author[1,3]{Goodarz Danaei}
+% \affil[1]{Department of Epidemiology, Harvard T.H. Chan School of Public Health, Boston, MA.}
+% \affil[2]{Department of Biostatistics, Harvard T.H. Chan School of Public Health, Boston, MA.}
+% \affil[3]{Department of Global Health and Population, Harvard T.H. Chan School of Public Health, Boston, MA.}
+\date{\today}
+\maketitle
+
+\begin{abstract}
+\noindent \input{abstract.tex}
+\vspace{0in} \\
+\noindent\textbf{Keywords:} causal inference, prediction model, treatment drop-in, transportability, model performance, machine learning \\
+
+\bigskip
+\end{abstract}
+\setcounter{page}{0}
+\thispagestyle{empty}
+\end{titlepage}
+\pagebreak \newpage
+
+\doublespacing
+
+\input{body.tex}
+
+\clearpage
+
+\printbibliography
+
+\clearpage
+
+\begin{appendix}
+    \renewcommand{\thefigure}{A\arabic{figure}}
+    \setcounter{figure}{0}
+    
+    \renewcommand{\thetable}{A\arabic{table}}
+    \setcounter{table}{0}
+    
+    \renewcommand{\theequation}{A\arabic{equation}}
+    \setcounter{equation}{0}
+
+    \renewcommand{\thesection}{\Alph{section}}
+
+%    \appendixwithtoc
+    \newpage
+
+    \input{supplement.tex}
+\end{appendix}
+
+\onehalfspacing
+
+\end{document}

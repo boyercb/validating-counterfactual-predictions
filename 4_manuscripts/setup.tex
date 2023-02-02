@@ -1,0 +1,78 @@
+\usepackage{
+    amssymb,
+    amsmath,
+    amsfonts,
+    eurosym,
+    geometry,
+    ulem,
+    graphicx,
+    caption,
+    color,
+    setspace,
+    sectsty,
+    comment,
+    footmisc,
+    caption,
+    % natbib,
+    pdflscape,
+    subcaption,
+    subfiles,
+    titling,
+    array,
+    hyperref,
+    booktabs,
+    longtable,
+    float,
+    authblk,
+    threeparttable,
+    makecell}
+
+
+\usepackage{relsize}
+
+\usepackage[
+    backend=bibtex,
+    style=nature,
+    date=year,
+    doi=true,
+    isbn=false,
+    url=false,
+    eprint=true
+]{biblatex}
+
+\AtEveryBibitem{%
+  \clearfield{note}%
+}
+\AtEveryBibitem{\clearlist{publisher}}
+\AtEveryBibitem{\clearlist{language}}
+
+\usepackage{pgf,tikz}
+\usetikzlibrary{arrows, automata}
+\usetikzlibrary{shapes.geometric,positioning}
+\usetikzlibrary{positioning,calc}
+
+\usepackage{siunitx}
+\newcolumntype{d}{S[input-symbols = ()]}
+
+\normalem
+
+\renewcommand\Affilfont{\small\itshape}
+
+\onehalfspacing
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{proposition}{Proposition}
+\newenvironment{proof}[1][Proof]{\noindent\textbf{#1.} }{\ \rule{0.5em}{0.5em}}
+
+\newtheorem{hyp}{Hypothesis}
+\newtheorem{subhyp}{Hypothesis}[hyp]
+\renewcommand{\thesubhyp}{\thehyp\alph{subhyp}}
+
+\newcommand{\red}[1]{{\color{red} #1}}
+\newcommand{\blue}[1]{{\color{blue} #1}}
+
+\newcolumntype{L}[1]{>{\raggedright\let\newline\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{C}[1]{>{\centering\let\newline\\arraybackslash\hspace{0pt}}m{#1}}
+%\newcolumntype{R}[1]{>{\raggedleft\let\newline\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{R}[1]{>{\raggedleft\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\geometry{left=1.0in,right=1.0in,top=1.0in,bottom=1.0in}
