@@ -3,9 +3,9 @@ source("1_code/0_packages.R")
 
 source("1_code/1_functions.R")
 
-# source("1_code/2_run_sim_1.R")
-# 
-# source("1_code/3_run_sim_2.R")
+source("1_code/2_run_sim_1.R")
+
+source("1_code/3_run_sim_2.R")
 
 source("1_code/4_load_app_data.R")
 
