@@ -49,15 +49,15 @@ To determine the performance of the model, one generally relates its fitted pred
 \begin{equation*}
     \psi = E[(Y^a - \mu_{\widehat{\beta}}(X^*))^2]
 \end{equation*}
-where the squared error loss $(Y^a - \mu_{\widehat{\beta}}(X^*))^2$ quantifies the discrepancy between the potential outcome under treatment level $A = a$ and the model prediction $\mu_{\widehat{\beta}}(X^*)$ in terms of the squared difference. In the main text, we focus on the mean squared error as the metric $\psi$ for assessing performance of the model. However, in the appendix we extend our results to that case that $\psi$ is any member of a generic class of loss functions $L(Y^a,  \mu_{\widehat{\beta}}(X^*))$ as well as common metrics such as model discrimination and risk calibration. Importantly, $\psi$ is always defined without assuming $\mu_{\widehat{\beta}}(X^*)$ is correctly specified.
+where the squared error loss $(Y^a - \mu_{\widehat{\beta}}(X^*))^2$ quantifies the discrepancy between the potential outcome under treatment level $A = a$ and the model prediction $\mu_{\widehat{\beta}}(X^*)$ in terms of the squared difference. In the main text, we focus on the mean squared error as the metric $\psi$ for assessing performance of the model. However, in the appendix we extend our results to that case that $\psi$ is any member of a generic class of loss functions $L(Y^a,  \mu_{\widehat{\beta}}(X^*))$ as well as common risk-based metrics such as model discrimination and calibration. Importantly, $\psi$ is always defined without assuming $\mu_{\widehat{\beta}}(X^*)$ is correctly specified.
 
 \section{Identifiability conditions} \label{sec:identifiability}
 We will assume the following identifiability assumptions which have been described in more detail elsewhere \cite{hernan_causal_2020,robins_new_1986,robins_graphical_1987}.
 
 \begin{enumerate}
-    \item \textit{Exchangeability.} $Y^a \perp\!\!\!\perp A \mid X$ 
-    \item \textit{Consistency.} $Y^a = Y$ if $A = a$
-    \item \textit{Positivity.} For all $x$, $\Pr(A = a \mid X = x) > 0$ 
+    \item[A1.] \textit{Exchangeability.} $Y^a \perp\!\!\!\perp A \mid X$ 
+    \item[A2.] \textit{Consistency.} $Y^a = Y$ if $A = a$
+    \item[A3.] \textit{Positivity.} For all $x$, $\Pr(A = a \mid X = x) > 0$ 
 \end{enumerate}
 
 The first condition stipulates that treatment initiation over follow up is conditionally independent of the potential outcome given covariates $X$. This would be ensured by design in a randomized trial in which, participants are randomized to treatment or no treatment conditional covariates $X$. The second condition implies that observed outcomes among those with $A = a$ reflect potential outcomes under corresponding level of treatment. It would be violated if, for instance, there were multiple hidden versions of the therapy under consideration. Finally, the third positivity condition implies that there is a positive probability of observed treatment level $A = a$ in all strata of $X$.  
@@ -140,10 +140,11 @@ and the inverse-probability weighted estimator $\widehat{\psi}_{IPW}$ from secti
 
 \begin{table}[t]
     \centering
+    \caption{Simulation results for experiment 1 comparing the performance of OLS and WLS models using the naive and inverse probability weighting (IPW) estimators of the MSE.}
     \begin{threeparttable}
-        \begin{tabular}{p{3cm}R{1.2cm}R{1.2cm}R{1.2cm}}
+        \begin{tabular}{p{3cm}R{1.25cm}R{1.25cm}R{1.25cm}}
         \toprule
-        Model $\mu_{\beta}(X)$ & $\widehat{\psi}_{Naive}$ & $\widehat{\psi}_{IPW}$ & Truth  \\
+        Model $\mu_{\beta}(X)$ & Naive & IPW & Truth  \\
         \midrule
         Correct & & & \\
         \hspace{1em}OLS & 2.9 & 3.6 & 3.6\\
@@ -166,65 +167,101 @@ Table 1 shows the results of the experiment based on 10,000 monte carlo simulati
 
 \subsection{Experiment 2}
 
-In the previous experiment we assumed the nuisance models for the MSE were correctly specified. Here we consider estimation of the MSE in the more likely case that nuisance models are  misspecified. This time, we simulated treatment initation over follow up $A$ based on the logistic model $\operatorname{Pr}[A=1 \mid X]=\operatorname{expit}\left(-0.3+0.2 \sum_{i=1}^3 X_{(i)}+0.3 \sum_{i=1}^3\left(X_{(i)}\right)^2\right)$, where $X$ is now a vector of predictors drawn from a 10-dimensional mean zero multivariate normal and $X_{(i)}$ is the $i$th component of the vector $X$. This resulted in expected treatment initiation over follow up of 61\%. We also simulated a binary outcome from a Bernoulli distribution with mean $\operatorname{expit}\left(-0.3+0.2 \sum_{i=1}^3 X_{(i)}+0.3 \sum_{i=1}^3\left(X_{(i)}\right)^2 - 0.5A \right)$. Again, we set the total sample size to 1000, but this time we randomly split the data in a 2:1 ratio into a training and a test set. 
+In the previous experiment, we assumed the nuisance models for the MSE were correctly specified. Here, we consider estimation of model performance in the more likely case that nuisance models are misspecified. Using the results from section \ref{sec:auc} in the appendix, we also estimate the area under the receiver operating characteristics curve (AUC). We simulated treatment initation over follow up $A$ based on the logistic model $\operatorname{Pr}[A=1 \mid X]=\operatorname{expit}(0.5 - 2 X_1 + 3 X_1^2 + 2 X_2 - X_3)$, where $X$ is now a vector of predictors drawn from a 3-dimensional multivariate normal with mean vector $\mu = (0.2, 0, 0.5)$ and covariance matrix $\Sigma = \text{diag}(0.2, 0.2, 0.2)$. This resulted in expected treatment initiation over follow up of 55\%. We also simulated a binary outcome from a Bernoulli distribution with mean $\operatorname{expit}(0.2 + 3 X_1 - 2 X_1^2 + 2 X_2 + X_3 - 2 A)$, implying an average proportion of positive cases of 66\% among the untreated and 32\% among treated. Again, we set the total sample size to 1000 and randomly split the data in a 1:1 ratio into a training and a test set. 
 \begin{align*}
-    X & \sim \text{MVN}(\mathbf{0}, \boldsymbol{\Sigma}) \\
-    A & \sim \text{Bernoulli}\left\{\text{expit}\left(-0.3 + 0.2 \sum_{i=1}^3 X_{(i)}+ 0.3 \sum_{i=1}^3 X_{(i)}^2\right)\right\} \\
-    Y & \sim \text{Bernoulli}\left\{\text{expit}\left(-0.3 + 0.2 \sum_{i=1}^3 X_{(i)}+ 0.3 \sum_{i=1}^3 X_{(i)}^2 - 0.5 A\right)\right\}
+    X & \sim \text{MVN}(\mu, \Sigma) \\
+    A & \sim \text{Bernoulli}\left\{\text{expit}\left(0.5 - 2 X_1 + 3 X_1^2 + 2 X_2 - X_3\right)\right\} \\
+    Y & \sim \text{Bernoulli}\left\{\text{expit}\left(0.2 + 3 X_1 - 2 X_1^2 + 2 X_2 + X_3 - 2 A\right)\right\}
 \end{align*}
 
-Our prediction model was a main effects logistic regression model fit in the training data, i.e. $\mu\left(X^*\right) = \operatorname{expit}(\beta_0 + \sum_{i=1}^{10} \beta_i X_{(i)})$. This model was misspecified with respect to the true generation process. As previously, we assessed the counterfactual performance of the model in an untreated population using the MSE, which for a binary outcome is equivalent to the Brier score \cite{brier_verification_1950}. In general, positing a parametric model for $h_0(X)=\mathrm{E}[(Y-g\left(X^*\right))^2 \mid X, A=0]$ may be difficult as the outcome is the squared difference. However, for binary outcomes, by expanding the square we can show it is enough to estimate $\operatorname{Pr}[Y=1 \mid X, A=0]$, which is what we did in practice. To determine the effect of the specification of nuisance models $e_a(X)$ and $h_a(X)$ on performance estimates, we compared four MSE estimators (${\psi}_{Naive}$, ${\psi}_{IPW}$, ${\psi}_{CL}$, and ${\psi}_{DR}$) using different combinations of correctly specified and misspecified models for $e_a(X)$ and $h_a(X)$:
+Our prediction model was a main effects logistic regression model fit in the training data, i.e. $\mu\left(X^*\right) = \operatorname{expit}(\beta_0 + \beta_1 X_1 + \beta_2 X_2 + \beta_3 X_3)$. This model was misspecified with respect to the true generation process. We assessed the counterfactual performance of the model in an untreated population using the AUC and the MSE, which for a binary outcome is equivalent to the Brier score \cite{brier_verification_1950}. In general, positing a parametric model for $h_0(X)=\mathrm{E}[(Y-g\left(X^*\right))^2 \mid X, A=0]$ may be difficult as the outcome is the squared difference. However, for binary outcomes, by expanding the square we can show it is enough to estimate $\operatorname{Pr}[Y=1 \mid X, A=0]$, which is what we did in practice. To determine the effect of the specification of nuisance models $e_a(X)$ and $h_a(X)$ on performance estimates, we compared four estimators of AUC and MSE (${\psi}_{Naive}$, ${\psi}_{IPW}$, ${\psi}_{CL}$, and ${\psi}_{DR}$) using different combinations of correctly specified and misspecified models for $e_a(X)$ and $h_a(X)$:
 \begin{enumerate}
-    \item Correct $e_a(X)$ - main effects logistic regression model with linear and quadratic terms, i.e. $e_a(X) = \operatorname{expit}(\alpha_0 + \sum_{i=1}^{10} \alpha_{1,i} X_{(i)} + \sum_{i=1}^{10} \alpha_{2,i} X_{(i)}^2)$.
-    \item Misspecified $e_a(X)$ - main effects logistic regression model with linear terms only terms, i.e. $e_a(X) = \operatorname{expit}(\alpha_0 + \sum_{i=1}^{10} \alpha_{1,i} X_{(i)})$.
-    \item Correct $h_a(X)$ - main effects logistic regression model with linear and quadratic terms, i.e. $h_a(X) = \operatorname{expit}(\gamma_0 + \sum_{i=1}^{10} \gamma_{1,i} X_{(i)} + \sum_{i=1}^{10} \gamma_{2,i} X_{(i)}^2)$.
-    \item Misspecified $h_a(X)$ - main effects logistic regression model with linear terms only terms, i.e. $h_a(X) = \operatorname{expit}(\gamma_0 + \sum_{i=1}^{10} \gamma_{1,i} X_{(i)})$.
+    \item Correct $e_a(X)$ - main effects logistic regression model with linear and quadratic terms.
+    \item Misspecified $e_a(X)$ - main effects logistic regression model with linear terms only terms.
+    \item Correct $h_a(X)$ - main effects logistic regression model with linear and quadratic terms.
+    \item Misspecified $h_a(X)$ - main effects logistic regression model with linear terms only terms.
 \end{enumerate}
 Finally, we also considered using more flexible estimation techniques for nuisance terms $e_a(X)$ and $h_a(X)$. Specifically, we fit generalized additive models for both using the \texttt{mgcv} package in $\mathrm{R}$ entering all covariates as splines using the default options in the \texttt{gam} function.
 
 \begin{table}[t]
     \centering
     \footnotesize
-    \begin{threeparttable}
-\begin{tabular}{lrrr}
-\toprule
-Estimator $\widehat{\psi}$ & Mean & Bias ($\times 10^2$) & Bias (\%) \\
-\midrule
-Naive & 0.244 & 0.603 & 2.5\\
-\addlinespace[0.25em]
-Correct & & & \\
-\hspace{1em}CL & 0.238 & 0.058 & 0.2\\
-\hspace{1em}IPW & 0.238 & 0.095 & 0.4\\
-\hspace{1em}DR & 0.238 & 0.045 & 0.2\\
-\addlinespace[0.25em]
-$e_a(X)$ misspecified & & & \\
-\hspace{1em}CL & 0.238 & 0.058 & 0.2\\
-\hspace{1em}IPW & 0.245 & 0.770 & 3.2\\
-\hspace{1em}DR & 0.238 & 0.059 & 0.2\\
-\addlinespace[0.25em] 
-$h_a(X)$ misspecified & & & \\
-\hspace{1em}CL & 0.246 & 0.867 & 3.6\\
-\hspace{1em}IPW & 0.238 & 0.095 & 0.4\\
-\hspace{1em}DR & 0.238 & 0.076 & 0.3\\
-\addlinespace[0.25em] 
-both misspecified & & & \\
-\hspace{1em}CL, gam & 0.240 & 0.227 & 1.0\\
-\hspace{1em}IPW, gam & 0.240 & 0.275 & 1.2\\
-\hspace{1em}DR, gam & 0.238 & 0.095 & 0.4\\
-\addlinespace[0.25em] 
-Truth & 0.238 & 0.000 & 0.0\\
-\bottomrule
-\end{tabular}
-\begin{tablenotes}
-\item Correct and misspecified refers to the specification of the nuisance models ($e_a(X)$ or $h_a(X)$) for the MSE. Results were averaged over 10,000 simulations. 
-\end{tablenotes}
-\end{threeparttable}
+    \caption{Simulation results for experiment 2 comparing the performance of the naive, conditional loss (CL), inverse-probability weighting (IPW), and doubly robust (DR) estimators of the MSE and AUC under correct and misspecified nuisance models.}
+    % \begin{threeparttable}
+% \begin{tabular}{lrrr}
+% \toprule
+% Estimator $\widehat{\psi}$ & Mean & Bias ($\times 10^2$) & Bias (\%) \\
+% \midrule
+% Naive & 0.244 & 0.603 & 2.5\\
+% \addlinespace[0.25em]
+% Correct & & & \\
+% \hspace{1em}CL & 0.238 & 0.058 & 0.2\\
+% \hspace{1em}IPW & 0.238 & 0.095 & 0.4\\
+% \hspace{1em}DR & 0.238 & 0.045 & 0.2\\
+% \addlinespace[0.25em]
+% $e_a(X)$ misspecified & & & \\
+% \hspace{1em}CL & 0.238 & 0.058 & 0.2\\
+% \hspace{1em}IPW & 0.245 & 0.770 & 3.2\\
+% \hspace{1em}DR & 0.238 & 0.059 & 0.2\\
+% \addlinespace[0.25em] 
+% $h_a(X)$ misspecified & & & \\
+% \hspace{1em}CL & 0.246 & 0.867 & 3.6\\
+% \hspace{1em}IPW & 0.238 & 0.095 & 0.4\\
+% \hspace{1em}DR & 0.238 & 0.076 & 0.3\\
+% \addlinespace[0.25em] 
+% both misspecified & & & \\
+% \hspace{1em}CL, gam & 0.240 & 0.227 & 1.0\\
+% \hspace{1em}IPW, gam & 0.240 & 0.275 & 1.2\\
+% \hspace{1em}DR, gam & 0.238 & 0.095 & 0.4\\
+% \addlinespace[0.25em] 
+% Truth & 0.238 & 0.000 & 0.0\\
+% \bottomrule
+% \end{tabular}
+% \begin{tablenotes}
+% \item Correct and misspecified refers to the specification of the nuisance models ($e_a(X)$ or $h_a(X)$) for the MSE. Results were averaged over 10,000 simulations. 
+% \end{tablenotes}
+% \end{threeparttable}
+\begin{threeparttable}
+    \begin{tabular}{lcccccc}
+    \toprule
+    \multicolumn{1}{c}{ } & \multicolumn{3}{c}{MSE} & \multicolumn{3}{c}{AUC} \\
+    \cmidrule(l{3pt}r{3pt}){2-4} \cmidrule(l{3pt}r{3pt}){5-7}
+    Estimator & Mean & Bias ($\times 10^2$) & Percent & Mean & Bias ($\times 10^2$) & Percent\\
+    \midrule
+    Naive & 0.207 & -0.444 & -2.1 & 0.742 & -4.221 & -5.4\\
+    \addlinespace[0.3em]
+    \multicolumn{7}{l}{Correct}\\
+    \hspace{1em}CL & 0.212 & 0.046 & 0.2 & 0.783 & -0.143 & \vphantom{1} -0.2\\
+    \hspace{1em}IPW & 0.212 & 0.035 & 0.2 & 0.782 & -0.197 & \vphantom{1} -0.3\\
+    \hspace{1em}DR & 0.211 & -0.001 & 0.0 & 0.783 & -0.088 & -0.1\\
+    \addlinespace[0.3em]
+    \multicolumn{7}{l}{$e_a(X)$ misspecified}\\
+    \hspace{1em}CL & 0.212 & 0.046 & 0.2 & 0.783 & -0.143 & -0.2\\
+    \hspace{1em}IPW & 0.221 & 0.999 & 4.7 & 0.762 & -2.209 & -2.8\\
+    \hspace{1em}DR & 0.212 & 0.050 & 0.2 & 0.782 & -0.207 & -0.3\\
+    \addlinespace[0.3em]
+    \multicolumn{7}{l}{$h_a(X)$ misspecified}\\
+    \hspace{1em}CL & 0.217 & 0.613 & 2.9 & 0.777 & -0.708 & -0.9\\
+    \hspace{1em}IPW & 0.212 & 0.035 & 0.2 & 0.782 & -0.197 & -0.3\\
+    \hspace{1em}DR & 0.211 & 0.002 & 0.0 & 0.783 & -0.077 & -0.1\\
+    \addlinespace[0.3em]
+    \multicolumn{7}{l}{both misspecified}\\
+    \hspace{1em}CL, gam & 0.213 & 0.166 & 0.8 & 0.782 & -0.199 & -0.3\\
+    \hspace{1em}IPW, gam & 0.214 & 0.238 & 1.1 & 0.778 & -0.574 & -0.7\\
+    \hspace{1em}DR, gam & 0.211 & 0.031 & 0.1 & 0.784 & -0.067 & -0.1\\
+    Truth & 0.211 &  &  & 0.784 &  & \\
+    \bottomrule
+    \end{tabular}
+    \begin{tablenotes}
+    \item Correct and misspecified refers to the specification of the nuisance models, $e_a(X)$ or $h_a(X)$. Results were averaged over 10,000 simulations.
+    \end{tablenotes}
+    \end{threeparttable}
 \end{table}
 
-Table 2 shows the results. As in the previous experiment, the naive empirical estimator of the MSE was biased relative to the true counterfactual MSE with a relative bias of 2.5\%. When all models were correctly specified, the weighting, conditional loss, and doubly robust estimators were all unbiased (relative bias between 0.2\% to 0.4\%). When $e_a(X)$ was misspecified, the weighting estimator was biased (relative bias of 3.2\%) but the conditional loss and doubly robust estimator were unbiased (relative bias of 0.2\%). Under misspecification of $h_a(X)$ (relative bias of 3.6\%), the conditional loss estimator was biased, but the weighting estimator and the doubly robust estimator were unbiased (relative bias of 0.4\% and 0.3\%). When both models $e_a(X)$ and $h_a(X)$ were misspecified all estimators, including the doubly robust estimator, were biased. Finally, when a generalized additive model was used to estimate both $e_a(X)$ and $h_a(X)$, only the doubly robust estimator was approximately unbiased (relative bias of 0.4\%). Across all scenarios, the weighting estimator generally had the largest standard errors and widest confidence intervals and the conditional loss estimator had the smallest standard errors and the shortest confidence intervals.
+Table 2 shows the results. As in the previous experiment, the naive empirical estimators of the AUC and MSE were biased relative to the true counterfactual values with a relative bias of 2.1\% and $-5.4\%$ respectively. When all models were correctly specified, the weighting, conditional loss, and doubly robust estimators were all unbiased (absolute relative bias between 0.2\% to 0.3\%). When $e_a(X)$ was misspecified, the weighting estimator was biased (relative bias of 4.7\% and -2.8\%) but the conditional loss and doubly robust estimator were unbiased (absolute relative bias of 0.2\% to 0.3\%). Under misspecification of $h_a(X)$, the conditional loss estimator was biased (relative bias of 2.9\% and -0.9\%), but the weighting estimator and the doubly robust estimator were unbiased (absolute relative bias of 0.0\% to 0.3\%). When both models $e_a(X)$ and $h_a(X)$ were misspecified all estimators, including the doubly robust estimator, were biased. Finally, when a more flexible generalized additive model was used to estimate both $e_a(X)$ and $h_a(X)$, the doubly robust estimator was approximately unbiased (absolute relative bias of 0.1\%). Across all scenarios, the weighting estimator generally had the largest standard errors and the conditional loss estimator had the smallest standard errors.
 
 \section{Application to prediction of statin-naive risk} \label{sec:results}
-Here we apply our proposed methods to evaluate the counterfactual performance of two prediction models targeting the statin-naive risk of cardiovascular disease: one that was explicitly tailored for the counterfactual estimand of interest and a second that was not. 
+In this section, we apply our proposed methods to evaluate the counterfactual performance of two prediction models targeting the statin-naive risk of cardiovascular disease: one that was explicitly tailored for the counterfactual estimand of interest and a second that was not. 
 
 \subsection{Study design and data}
 The Multi-Ethnic Study on Atherosclerosis (MESA) study is a population-based sample of 6,814 men and women aged 45 to 84 drawn from six communities (Baltimore; Chicago; Forsyth County, North Carolina; Los Angeles; New York; and St. Paul, Minnesota) in the United States between 2000 and 2002. The sampling procedure, design, and methods of the study have been described previously \cite{bild_multi-ethnic_2002}. Study teams conducted five examination visits between 2000 and 2011 in 18 to 24 month intervals focused on the prevalence, correlates, and progression of subclinical cardiovascular disease. These examinations included assessments of lipid-lowering (primarily statins) medication use as well as cardiovascular risk factors such as systolic blood pressure, serum cholesterol, cigarette smoking, height, weight, and diabetes. 
@@ -236,38 +273,65 @@ Follow up began at the second examination cycle to enable a ``wash out'' period 
 Of the 6,814 MESA participants who completed the baseline examination, 4,149 met the eligibility criteria for our trial emulation. There were 288 ASCVD events and 190 non-ASCVD deaths. For the sake of clarity, here we dropped those lost to follow up and ignored competing risks although in practice both can be accommodated in our framework for evaluting the performance of a counterfactual prediction model. For model training and evaluation we further split the dataset into training and test sets of equal size. 
 
 \subsection{Model estimation and performance}
+\begin{table}[t]
+    \centering
+    \caption{Estimated MSE in a statin-naive population for two prediction models using emulated trial data from MESA.}
+    % \begin{threeparttable}
+    %     \begin{tabular}{lcccc}
+    %     \toprule
+    %     Model $\mu_\beta(X)$ & $\widehat{\psi}_{Naive}$ & $\widehat{\psi}_{CL}$ & $\widehat{\psi}_{IPW}$ & $\widehat{\psi}_{DR}$\\
+    %     \midrule
+    %     Logistic & 0.066 & 0.091 & 0.111 & 0.095\\
+    %      & (0.003) & (0.006) & (0.012) & (0.007)\\
+    %     Weighted Logistic & 0.070 & 0.090 & 0.102 & 0.091\\
+    %      & (0.003) & (0.004) & (0.008) & (0.005)\\
+    %     \bottomrule
+    %     \end{tabular}
+    %     \begin{tablenotes}
+    %     \item The first column refers to the posited prediction model: the first model is an (unweighted) logistic regression model and the second is a logistic regression model with inverse probability weights for remaining statin-free. $\widehat{\psi}_{Naive}$ is the empirical estimator of the MSE using factual outcomes, $\widehat{\psi}_{CL}$ is the conditional loss estimator, $\widehat{\psi}_{IPW}$ is the inverse probability weighting estimator, $\widehat{\psi}_{DR}$ is the doubly-robust estimator. Standard error estimates are shown in parentheses obtained via 1000 bootstrap replicates.
+    %     \end{tablenotes}
+    %     \end{threeparttable}
+    \begin{threeparttable}
+        \begin{tabular}{lcccc}
+        \toprule
+        \multicolumn{1}{c}{ } & \multicolumn{2}{c}{MSE} & \multicolumn{2}{c}{AUC} \\
+        \cmidrule(l{3pt}r{3pt}){2-3} \cmidrule(l{3pt}r{3pt}){4-5}
+        Estimator & Logit & Weighted Logit & Logit & Weighted Logit\\
+        \midrule
+        Naive & 0.069 & 0.072 & 0.710 & 0.708\\
+         & (0.003) & (0.003) & (0.013) & (0.014)\\
+        CL & 0.086 & 0.085 & 0.719 & 0.727\\
+         & (0.005) & (0.004) & (0.015) & (0.015)\\
+        IPW & 0.109 & 0.099 & 0.753 & 0.778\\
+         & (0.013) & (0.009) & (0.025) & (0.029)\\
+        DR & 0.090 & 0.087 & 0.740 & 0.751\\
+         & (0.006) & (0.005) & (0.023) & (0.023)\\
+        \bottomrule
+        \end{tabular}
+        \centering
+        \begin{tablenotes}[flushleft]
+        \item The columns refer to the posited prediction model: Logit is an (unweighted) logistic regression model and weighted logit is a logistic regression model with inverse probability weights for remaining statin-free. The rows are the model performance estimates of the MSE and AUC. Naive is the empirical estimator using factual outcomes ($\widehat{\psi}_{Naive}$), CL is the conditional loss estimator ($\widehat{\psi}_{CL}$), IPW is the inverse probability weighting estimator ($\widehat{\psi}_{IPW}$), DR is the doubly-robust estimator ($\widehat{\psi}_{DR}$). Standard error estimates are shown in parentheses obtained via 1000 bootstrap replicates.
+        \end{tablenotes}
+        \end{threeparttable}
+\end{table}
+
 We compared two prediction models: one that was explicitly tailored to the statin-naive risk and a second that was not. Both models used the same specification with baseline predictors commonly used in cardiovascular risk prediction: age, sex, smoking status, diabetes history, systolic blood pressure, anti-hypertensive medication use and total and HDL serum cholesterol levels. In the main text, to be consistent with our initial set up we assume the effect of statins is independent of duration and therefore may be viewed as a time-fixed intervention. Both trial evidence and subject matter knowledge suggest this is implausible, and we consider time-varying effects in the appendix.
 
 We tailored the first model for the statin-naive risk using inverse probability of censoring weights. In the emulated single arm trial, statin initiation can be viewed as ``non-adherence'' which can be adjusted for by inverse probability weighting, therefore we censored participants when they initiated statins. To calculate the weights, we estimated two logistic regression models: one for the probability of remaining untreated given past covariate history (denominator model) and one for probability of remaining untreated given the selected baseline predictors (numerator model). The list of covariates in the weight models are given in the appendix. To create a prediction model for the statin-naive risk, we used the estimated weights to fit a weighted logistic regression model conditional on the baseline predictors of interest. 
 
 For comparison, we fit a second traditional (factual) prediction model by regressing the observed ASCVD event indicator on the same set of baseline predictors, but ignoring treatment initiation over the follow up period. This approach targets the natural course risk rather than the statin-naive risk. We fit the model using standard logistic regression based on maximum likelihood.
 
-To assess the performance of the models, we estimated the naive and counterfactual MSE in the test set. For the latter we used the conditional loss, inverse probability weighting, and doubly robust estimators of the MSE. Models for the initiation of treatment $e_a(X)$ and for the conditional loss $h_a(X)$ were implemented as main effects logistic regression models. As in the simulation example, to estimate the conditional loss it is sufficient to model $\operatorname{Pr}[Y=1 \mid X, A=0]$ alone. To quantify uncertainty, we used the non-parametric bootstrap with 1000 bootstrap replicates.
+To assess the performance of the models, we estimated the naive and counterfactual MSE and AUC in the test set. For the latter we used conditional loss, inverse probability weighting, and doubly robust estimators. Models for the initiation of treatment $e_a(X)$ and for the conditional loss $h_a(X)$ were implemented as main effects logistic regression models. As in the simulation example, to estimate the conditional loss it is sufficient to model $\operatorname{Pr}[Y=1 \mid X, A=0]$ alone. To quantify uncertainty, we used the non-parametric bootstrap with 1000 bootstrap replicates.
 
 \subsection{Results}
 
-\begin{table}[t]
+Table 3 shows estimates of the AUC and MSE and the associated standard errors in a hypothetical statin-naive population for both prediction models using the naive empirical, conditional loss, weighting, and doubly robust estimators. Across both metrics, the conditional loss, weighting, and doubly robust estimators yielded estimates that were greater (30-50\% for MSE, 3-10\% for AUC) than those of the naive empirical estimator, suggesting performance of both models in statin-naive population is worse than in the source population. Of the three estimators of the statin-naive performance, the weighting estimator had greater standard errors than the doubly robust estimator (by 10-100\%) as well as the conditional loss estimator (by 60-160\%). Consistent with the first simulation experiment, the inverse probability weighted logistic model, which was tailored to target the statin-naive risk, performed worse in the source population, but had lower MSE and higher AUC values in the counterfactual statin-naive population. Finally, drawing on the results in section \ref{sec:calibration} in the appendix, we estimate the counterfactual calibration of both prediction models in a statin-naive population using a weighted loess estimator where the weights are based on inverse probability of remaining statin free. Figure \ref{fig:calib} shows the results. As expected, the weighted prediction model, which was tailored to target the statin-naive risk, was better calibrated than the unweighted model, which generally underestimated the counterfactual risk.
+
+\begin{figure}[p]
     \centering
-    \caption{Estimated MSE in a statin-naive population for two prediction models using emulated trial data from MESA.}
-    \begin{threeparttable}
-        \begin{tabular}{lcccc}
-        \toprule
-        Model $\mu_\beta(X)$ & $\widehat{\psi}_{Naive}$ & $\widehat{\psi}_{CL}$ & $\widehat{\psi}_{IPW}$ & $\widehat{\psi}_{DR}$\\
-        \midrule
-        Logistic & 0.066 & 0.091 & 0.111 & 0.095\\
-         & (0.003) & (0.006) & (0.012) & (0.007)\\
-        Weighted Logistic & 0.070 & 0.090 & 0.102 & 0.091\\
-         & (0.003) & (0.004) & (0.008) & (0.005)\\
-        \bottomrule
-        \end{tabular}
-        \begin{tablenotes}
-        \item The first column refers to the posited prediction model: the first model is an (unweighted) logistic regression model and the second is a logistic regression model with inverse probability weights for remaining statin-free. $\widehat{\psi}_{Naive}$ is the empirical estimator of the MSE using factual outcomes, $\widehat{\psi}_{CL}$ is the conditional loss estimator, $\widehat{\psi}_{IPW}$ is the inverse probability weighting estimator, $\widehat{\psi}_{DR}$ is the doubly-robust estimator. Standard error estimates are shown in parentheses obtained via 1000 bootstrap replicates.
-        \end{tablenotes}
-        \end{threeparttable}
-\end{table}
-
-Table 3 shows estimates of the MSE and the associated standard errors in a hypothetical statin-naive population for both prediction models using the naive empirical, conditional loss, weighting, and doubly robust estimators. The conditional loss, weighting, and doubly robust estimators of the MSE yielded estimates that were substantially (30-50\%) greater than those of the naive empirical estimator, suggesting performance of both models in statin-naive population is worse than in the source population. Of the three estimators of the statin-naive MSE, the weighting estimator had greater standard errors than the doubly robust estimator (by 50-70\%) as well as the conditional loss estimator (by 100\%). Consistent with the first simulation experiment, the inverse probability weighted logistic model, which was tailored to target the statin-naive risk, performed worse in the source population, but had lower MSE in the counterfactual statin-naive population. 
-
+    \includegraphics{../3_figures/calib.pdf}
+    \caption{Counterfactual risk calibration curves for prediction models fit using logistic regression with and with out inverse probability weights for statin initiation. The rug plot shows distribution of risk predictions among those who develop ASCVD (top) and those who don't (bottom). The black curve is a local-regression smoothed and inverse probability weighted estimate of the calibration curve targeting the statin-naive risk.\label{fig:calib}}
+\end{figure}
 
 \section{Discussion} \label{sec:discussion}
 Many practical problems in prediction modeling involve counterfactuals, such as when treatment varies between training and deployment or when predictions are meant to inform treatment initiation. Here, we considered cases where predictions under hypothetical interventions were desired but only training data from observational sources were available. We described how to tailor models to target counterfactual estimands and the identification conditions necessary to unbiasedly estimate them. Separately, we also discussed how to adjust common measures of model performance to estimate the counterfactual performance of the model under the same hypothetical interventions. Importantly, our performance results were valid even when the prediction model is misspecified. A key insight was that for counterfactual prediction standard performance measures will be biased, but performance could be assessed independently from the method used to tailor the model. For loss-based metrics of performance, we proposed three estimators based on modeling the conditional loss, the probability of treatment, and a doubly robust estimator that can be used with data-adaptive estimators of either nuisance function. 
