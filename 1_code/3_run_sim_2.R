@@ -25,8 +25,8 @@ with_progress({
       'DR, $h_a(X)$ misspecified',
       'DR, both misspecified',
       'DR gam',
-      'truth',
-      'naive',
+      'Truth',
+      'Naive',
       'CL, correct',
       'CL, $h_a(X)$ misspecified',
       'CL gam',
@@ -49,10 +49,10 @@ final_output2 <-
   as_tibble(final2) |>
   group_by(psi) |>
   mutate(
-    bias = (est - est[type == 'truth']) * 10^2,
-    perc = bias / est[type == 'truth'],
+    bias = (est - est[type == 'Truth']) * sqrt(1000),
+    perc = (est - est[type == 'Truth']) / est[type == 'Truth'] * 100,
     est = specd(est, 3),
-    sd = specd(sd, 3),
+    sd = specd(sd * sqrt(1000), 3),
     bias = specd(bias, 3),
     perc = specd(perc, 1)
   ) |>
@@ -70,12 +70,12 @@ kable(
   col.names = c(
     "Estimator", 
     "Mean",
-    "SD",
-    "Bias ($\\times 10^2$)", 
+    "$\\sqrt{n}\\times\\text{SD}$",
+    "$\\sqrt{n}\\times\\text{Bias}$", 
     "Percent",
     "Mean",
-    "SD",
-    "Bias ($\\times 10^2$)", 
+    "$\\sqrt{n}\\times\\text{SD}$",
+    "$\\sqrt{n}\\times\\text{Bias}$", 
     "Percent"
   ),
   digits = 2,
@@ -92,9 +92,8 @@ kable(
   footnote(
     threeparttable = TRUE,
     general_title = "",
-    general = "Correct and misspecified refers to the specification of the
-    nuisance models, $e_a(X)$ or $h_a(X)$. Results were averaged over
-    10,000 simulations.",
+    general = "Average of estimates, estimated bias, estimated standard deviation (SD), and estimated relative bias for the naive empirical, weighting (IPW), conditional loss (CL), and doubly robust (DR) estimators. $\sqrt{n}$ is the number of observations in the test set. Here, $h_a(X)$ is a model for $\operatorname{Pr}[Y=1 \mid X, A=a]$ and $e_a(X)$ denotes a model for $\Pr[A = a|X]$. Relative bias is calculated as $(\text{estimator} -\text{truth})/\text{truth}$. Correct and misspecified refers to the specification of the
+    nuisance models, $e_a(X)$ or $h_a(X)$. In the final rows, gam indicates that a generalized additive model was used to estimate nuisance models. Results were averaged over 10,000 simulations.",
     escape = FALSE
   )
 
