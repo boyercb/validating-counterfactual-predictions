@@ -30,10 +30,10 @@
         \begin{align*}
             E[Y^a \mid X^*] &= E(E[Y \mid X, A = a, D_{train} = 1] \mid X^*, D_{train} = 1)  \\
             &= E\left(E\left[\frac{I(A = a)}{\Pr[A = a \mid X,D_{train} = 1]}Y \mid X,D_{train} = 1\right] \mid X^*, D_{train} = 1\right)\\
-            &= E\left(\frac{I(A = a)}{\Pr[A = a \mid X,D_{train} = 1]}E\left[Y \mid X,D_{train} = 1\right] \mid X^*, D_{train} = 1\right)\\
+            %&= E\left(\frac{I(A = a)}{\Pr[A = a \mid X,D_{train} = 1]}E\left[Y \mid X,D_{train} = 1\right] \mid X^*, D_{train} = 1\right)\\
             &= E\left[\frac{I(A = a)}{\Pr[A = a \mid X,D_{train} = 1]}Y \mid X^*, D_{train} = 1\right]
         \end{align*}
-        where the second line follows from the definition of conditional expectation, the third removes the constant fraction outside expectation, and the last reverses the law of iterated expectations.
+        where the second line follows from the definition of conditional expectation, and the last reverses the law of iterated expectations.
     \end{proof}
 
     \subsection{Identification of general loss functions}\label{sec:tf_proof}
@@ -66,10 +66,10 @@
         \begin{align*}
             \psi_{\widehat{\beta}} &= E(E[L\{Y, \mu_{\widehat{\beta}}(X^*)\}\mid X,A = a, D_{test} = 1] \mid D_{test} = 1) \\
             &= E\left(E\left[\frac{I(A = a)}{\Pr[A = a \mid X,D_{test} = 1]}L\{Y, \mu_{\widehat{\beta}}(X^*)\} \mid X,D_{test} = 1\right] \mid D_{test} = 1\right)\\
-            &= E\left(\frac{I(A = a)}{\Pr[A = a \mid X,D_{test} = 1]}E\left[L\{Y, \mu_{\widehat{\beta}}(X^*)\} \mid X,D_{test} = 1\right] \mid D_{test} = 1\right)\\
+            % &= E\left(\frac{I(A = a)}{\Pr[A = a \mid X,D_{test} = 1]}E\left[L\{Y, \mu_{\widehat{\beta}}(X^*)\} \mid X,D_{test} = 1\right] \mid D_{test} = 1\right)\\
             &= E\left[\frac{I(A = a)}{\Pr[A = a \mid X,D_{test} = 1]}L\{Y, \mu_{\widehat{\beta}}(X^*)\} \mid D_{test} = 1\right]
         \end{align*}
-        where the second line follows from the definition of conditional expectation, the third removes the constant fraction outside expectation, and the last reverses the law of iterated expectations.
+        where the second line follows from the definition of conditional expectation, and the last reverses the law of iterated expectations.
     \end{proof}
     
     \subsection{Plug-in estimation}
@@ -100,7 +100,7 @@
 \subsection{Set up}
 Here we extend the set up of section \ref{sec:setup} in the case that treatment initiation is time-varying over the follow up period. We now observe $n$ i.i.d. longitudinal samples $\{O_i\}_{i=1}^n$ from a source population. For each observation, let 
 \[O =(\overline{X}_K, \overline{A}_K, Y_{K+1})\]
-where $X_k$ is a vector of covariates, $A_k$ is an indicator of treatment, and $Y_k$ is an event indicator all measured at time $k$, where $k \in \{0,1,\ldots, K\}$. Overbars denote the full history of a variable, such that $\overline{X}_k = (X_0,\dots, X_k)$. Again we assume the goal is to build a prediction model for end of follow up outcome $Y_{K+1}$ conditional on baseline covariates $X^*$ which are now a subset of baseline covariates $X_0$, i.e. $X^* \subset X_0$. An example DAG for a two time point process is shown in Figure \ref{fig:dag2} 
+where $X_k$ is a vector of covariates, $A_k$ is an indicator of treatment, and $Y_k$ is an event indicator all measured at time $k$, where $k \in \{0,1,\ldots, K\}$. Overbars denote the full history of a variable, such that $\overline{X}_k = (X_0,\dots, X_k)$. Again we assume the goal is to build a prediction model for end of follow up outcome $Y_{K+1}$ conditional on baseline covariates $X^*$ which are now a subset of baseline covariates $X_0$, i.e. $X^* \subset X_0$. An example DAG for a two time point process is shown in Figure \ref{fig:dag2}.
 
 We would like to assess the performance of the model in a counterfactual version of the source population in which a new treatment policy is implemented. As previously, $Y^a$ is the potential outcome under an intervention which sets treatment $A$ to $a$. For a sequence of time-varying treatments $\overline{A}_k$, we further define a \textit{treatment regime} as a collection of functions $\{g_k(\overline{a}_{k-1}, \overline{x}_k): k=0,\ldots, K\}$ for determining treatment assignment at each time $k$, possibly based on past treatment and covariate history. For a hypothetical treatment regime $g$, we would like to determine the performance of fitted model $\mu_{\widehat{\beta}}(X^*)$ under the new regime by estimating the expected loss 
 $$\psi_{\widehat{\beta}} = E[L\{Y^g, \mu_{\widehat{\beta}}(X^*)\}]$$
@@ -755,10 +755,10 @@ in the test set.
     \begin{align*}
         \psi_{\widehat{\beta}} &= E[E\{I(Y = 1) \mid X, A = a, \mu_{\widehat{\beta}}(x^*), D_{test} = 1\}\mid \mu_{\widehat{\beta}}(x^*), D_{test} = 1] \\
         &= E\left[E\left\{\frac{I(A = a)}{\Pr[A = a \mid X, \mu_{\widehat{\beta}}(x^*), D_{test} = 1]} I(Y=1) \mid X, \mu_{\widehat{\beta}}(x^*), D_{test} = 1\right\}\mid \mu_{\widehat{\beta}}(x^*), D_{test} = 1\right] \\
-        &= E\left[\frac{I(A = a)}{\Pr[A = a \mid X, \mu_{\widehat{\beta}}(x^*), D_{test} = 1]}E\left\{ I(Y=1) \mid X, \mu_{\widehat{\beta}}(x^*), D_{test} = 1\right\}\mid \mu_{\widehat{\beta}}(x^*), D_{test} = 1\right]\\
+        % &= E\left[\frac{I(A = a)}{\Pr[A = a \mid X, \mu_{\widehat{\beta}}(x^*), D_{test} = 1]}E\left\{ I(Y=1) \mid X, \mu_{\widehat{\beta}}(x^*), D_{test} = 1\right\}\mid \mu_{\widehat{\beta}}(x^*), D_{test} = 1\right]\\
         &= E\left[\frac{I(A = a)}{\Pr[A = a \mid X, \mu_{\widehat{\beta}}(x^*), D_{test} = 1]} I(Y=1) \mid \mu_{\widehat{\beta}}(x^*), D_{test} = 1\right]
     \end{align*}
-    where the second line follows from the definition of conditional expectation, the third removes the constant fraction outside expectation, and the last reverses the law of iterated expectations.
+    where the second line follows from the definition of conditional expectation, and the last reverses the law of iterated expectations.
 \end{proof}
 
 \subsection{Estimation}
