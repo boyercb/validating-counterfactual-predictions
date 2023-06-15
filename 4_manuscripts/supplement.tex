@@ -3,51 +3,51 @@
 
     \subsection{Tailoring models for counterfactual predictions}\label{sec:model_proof}
     Our goal is to build a model that targets the expected potential outcome under a hypothetical intervention, e.g. the parametric model 
-    $$E[Y^a \mid X^*] = \mu_{\beta}(X^*).$$
-    However, we do not observe $Y^a$ for all individuals. Nonetheless, as the following theorem shows, targets like $E[Y^a \mid X^*]$ are identifiable from the observed data $(X, A, Y)$ under certain assumptions. 
+    $$\E[Y^a \mid X^*] = \mu_{\beta}(X^*).$$
+    However, we do not observe $Y^a$ for all individuals. Nonetheless, as the following theorem shows, targets like $\E[Y^a \mid X^*]$ are identifiable from the observed data $(X, A, Y)$ under certain assumptions. 
     
     \begin{theorem}
-     Under conditions A1-A3 in section \ref{sec:identifiability}, $E[Y^a \mid X^*]$ is identified by the observed data functionals
+     Under conditions A1-A3 in section \ref{sec:identifiability}, $\E[Y^a \mid X^*]$ is identified by the observed data functionals
     \begin{equation}
-        E[Y^a \mid X^*] = E[E[Y \mid X, A = a, D_{train} = 1] \mid X^*, D_{train} = 1]
+        \E[Y^a \mid X^*] = \E[\E[Y \mid X, A = a, D_{train} = 1] \mid X^*, D_{train} = 1]
     \end{equation}
     and
     \begin{equation}
-        E[Y^a \mid X^*] = E\left[\frac{I(A = a)}{\Pr[A = a \mid X, D_{train} = 1]} Y \mid X^*, D_{train} = 1\right]
+        \E[Y^a \mid X^*] = \E\left[\frac{I(A = a)}{\Pr[A = a \mid X, D_{train} = 1]} Y \mid X^*, D_{train} = 1\right]
     \end{equation}
-    in which case we can build a model for $E[Y^a \mid X^*]$ by targeting either estimand in the training dataset.
+    in which case we can build a model for $\E[Y^a \mid X^*]$ by targeting either estimand in the training dataset.
     \end{theorem}
     
     \begin{proof}
         For the first representation we have 
         \begin{align*}
-            E[Y^a \mid X^*] & = E[Y^a \mid X^*, D_{train} = 1] \\
-            & = E(E[Y^a\mid X, D_{train} = 1] \mid X^*, D_{train} = 1) \\
-            & = E(E[Y^a\mid X, A = a, D_{train} = 1] \mid X^*, D_{train} = 1) \\
-            & = E(E[Y \mid X, A = a, D_{train} = 1] \mid X^*, D_{train} = 1) 
+            \E[Y^a \mid X^*] & = \E[Y^a \mid X^*, D_{train} = 1] \\
+            & = \E(\E[Y^a\mid X, D_{train} = 1] \mid X^*, D_{train} = 1) \\
+            & = \E(\E[Y^a\mid X, A = a, D_{train} = 1] \mid X^*, D_{train} = 1) \\
+            & = \E(\E[Y \mid X, A = a, D_{train} = 1] \mid X^*, D_{train} = 1) 
         \end{align*}
         where the first line follows from the random sampling of the training set, the second from the law of iterated expectations, the third from the exchangeability condition A1, and the fourth from the consistency condition A2. Recall that $X^*$ is a subset of $X$. For the second representation, we show that it is equivalent to the first 
         \begin{align*}
-            E[Y^a \mid X^*] &= E(E[Y \mid X, A = a, D_{train} = 1] \mid X^*, D_{train} = 1)  \\
-            &= E\left(E\left[\frac{I(A = a)}{\Pr[A = a \mid X,D_{train} = 1]}Y \mid X,D_{train} = 1\right] \mid X^*, D_{train} = 1\right)\\
-            %&= E\left(\frac{I(A = a)}{\Pr[A = a \mid X,D_{train} = 1]}E\left[Y \mid X,D_{train} = 1\right] \mid X^*, D_{train} = 1\right)\\
-            &= E\left[\frac{I(A = a)}{\Pr[A = a \mid X,D_{train} = 1]}Y \mid X^*, D_{train} = 1\right]
+            \E[Y^a \mid X^*] &= \E(\E[Y \mid X, A = a, D_{train} = 1] \mid X^*, D_{train} = 1)  \\
+            &= \E\left(\E\left[\frac{I(A = a)}{\Pr[A = a \mid X,D_{train} = 1]}Y \mid X,D_{train} = 1\right] \mid X^*, D_{train} = 1\right)\\
+            %&= \E\left(\frac{I(A = a)}{\Pr[A = a \mid X,D_{train} = 1]}\E\left[Y \mid X,D_{train} = 1\right] \mid X^*, D_{train} = 1\right)\\
+            &= \E\left[\frac{I(A = a)}{\Pr[A = a \mid X,D_{train} = 1]}Y \mid X^*, D_{train} = 1\right]
         \end{align*}
         where the second line follows from the definition of conditional expectation, and the last reverses the law of iterated expectations.
     \end{proof}
 
     \subsection{Identification of general loss functions}\label{sec:tf_proof}
     Many common model performance measures, such as the mean squared error, Brier score, and absolute error are special cases of a generic loss function $L(Y, \mu_{\widehat{\beta}}(X^*))$. To assess the performance of counterfactual predictions, we would like to estimate 
-    $$\psi_{\widehat{\beta}} = E[L(Y^a, \mu_{\widehat{\beta}}(X^*))]$$
+    $$\psi_{\widehat{\beta}} = \E[L(Y^a, \mu_{\widehat{\beta}}(X^*))]$$
     where $Y^a$ is not observed for all individuals. The following theorem states that, under the conditions of section \ref{sec:identifiability}, $\psi_{\widehat{\beta}}$ is identified using the observed data alone. 
     \begin{theorem}
         Under conditions A1-A3 in section \ref{sec:identifiability} and the time-fixed setup described in section \ref{sec:setup}, the expected loss is identified by the functionals
         \begin{equation}\label{eqn:app_cl_estimand}
-            \psi_{\widehat{\beta}} = E\left(E[L\{Y, \mu_{\widehat{\beta}}(X^*)\} \mid X, A=a, D_{test} = 1] \mid D_{test} = 1\right)
+            \psi_{\widehat{\beta}} = \E\left(\E[L\{Y, \mu_{\widehat{\beta}}(X^*)\} \mid X, A=a, D_{test} = 1] \mid D_{test} = 1\right)
         \end{equation}
         and 
         \begin{equation}\label{eqn:app_ipw_estimand}
-            \psi_{\widehat{\beta}} = E\left[\frac{I(A = a)}{\Pr[A = a \mid X, D_{test} = 1]}L\{Y, \mu_{\widehat{\beta}}(X^*)\} \mid D_{test} = 1\right]
+            \psi_{\widehat{\beta}} = \E\left[\frac{I(A = a)}{\Pr[A = a \mid X, D_{test} = 1]}L\{Y, \mu_{\widehat{\beta}}(X^*)\} \mid D_{test} = 1\right]
         \end{equation}
         in the test set for generic counterfactual loss function $L(Y^{a}, \mu_{\widehat{\beta}})$.
     \end{theorem}
@@ -56,18 +56,18 @@
     \begin{proof}
         For the first representation we have 
         \begin{align*}
-            \psi_{\widehat{\beta}} &= E[L\{Y^{a}, \mu_{\widehat{\beta}}(X^*)\}] \\
-            & = E[L\{Y^{a}, \mu_{\widehat{\beta}}(X^*)\}\mid D_{test} = 1] \\
-            & = E(E[L\{Y^{a}, \mu_{\widehat{\beta}}(X^*)\}\mid X, D_{test} = 1] \mid D_{test} = 1) \\
-            & = E(E[L\{Y^{a}, \mu_{\widehat{\beta}}(X^*)\}\mid X, A = a, D_{test} = 1] \mid D_{test} = 1) \\
-            & = E(E[L\{Y, \mu_{\widehat{\beta}}(X^*)\}\mid X, A = a, D_{test} = 1] \mid D_{test} = 1) 
+            \psi_{\widehat{\beta}} &= \E[L\{Y^{a}, \mu_{\widehat{\beta}}(X^*)\}] \\
+            & = \E[L\{Y^{a}, \mu_{\widehat{\beta}}(X^*)\}\mid D_{test} = 1] \\
+            & = \E(\E[L\{Y^{a}, \mu_{\widehat{\beta}}(X^*)\}\mid X, D_{test} = 1] \mid D_{test} = 1) \\
+            & = \E(\E[L\{Y^{a}, \mu_{\widehat{\beta}}(X^*)\}\mid X, A = a, D_{test} = 1] \mid D_{test} = 1) \\
+            & = \E(\E[L\{Y, \mu_{\widehat{\beta}}(X^*)\}\mid X, A = a, D_{test} = 1] \mid D_{test} = 1) 
         \end{align*}
         where the first line follows from the definition of $\psi_{\widehat{\beta}}$, the second from random sampling of the test set, the third from the law of iterated expectations, the fourth from the exchangeability condition A1, and the fifth from the consistency condition A2. Recall that $X^*$ is a subset of $X$. For the second representation, we show that it is equivalent to the first 
         \begin{align*}
-            \psi_{\widehat{\beta}} &= E(E[L\{Y, \mu_{\widehat{\beta}}(X^*)\}\mid X,A = a, D_{test} = 1] \mid D_{test} = 1) \\
-            &= E\left(E\left[\frac{I(A = a)}{\Pr[A = a \mid X,D_{test} = 1]}L\{Y, \mu_{\widehat{\beta}}(X^*)\} \mid X,D_{test} = 1\right] \mid D_{test} = 1\right)\\
-            % &= E\left(\frac{I(A = a)}{\Pr[A = a \mid X,D_{test} = 1]}E\left[L\{Y, \mu_{\widehat{\beta}}(X^*)\} \mid X,D_{test} = 1\right] \mid D_{test} = 1\right)\\
-            &= E\left[\frac{I(A = a)}{\Pr[A = a \mid X,D_{test} = 1]}L\{Y, \mu_{\widehat{\beta}}(X^*)\} \mid D_{test} = 1\right]
+            \psi_{\widehat{\beta}} &= \E(\E[L\{Y, \mu_{\widehat{\beta}}(X^*)\}\mid X,A = a, D_{test} = 1] \mid D_{test} = 1) \\
+            &= \E\left(\E\left[\frac{I(A = a)}{\Pr[A = a \mid X,D_{test} = 1]}L\{Y, \mu_{\widehat{\beta}}(X^*)\} \mid X,D_{test} = 1\right] \mid D_{test} = 1\right)\\
+            % &= \E\left(\frac{I(A = a)}{\Pr[A = a \mid X,D_{test} = 1]}\E\left[L\{Y, \mu_{\widehat{\beta}}(X^*)\} \mid X,D_{test} = 1\right] \mid D_{test} = 1\right)\\
+            &= \E\left[\frac{I(A = a)}{\Pr[A = a \mid X,D_{test} = 1]}L\{Y, \mu_{\widehat{\beta}}(X^*)\} \mid D_{test} = 1\right]
         \end{align*}
         where the second line follows from the definition of conditional expectation, and the last reverses the law of iterated expectations.
     \end{proof}
@@ -81,16 +81,16 @@
     \begin{equation*}
         \widehat{\psi}_{IPW} = \frac{1}{n_{test}} \sum_{i=1}^n \frac{I(A_i = a, D_{test, i} = 1)}{ \widehat{e}_a(X_i)} L\{Y_i, \mu_{\widehat{\beta}}(X^*_i)\}
     \end{equation*}
-    where $\widehat{h}_a(X)$ is an estimator for $E[L\{Y, \mu_{\widehat{\beta}}(X^*)\}\mid X,A = a, D_{test} = 1]$ and $\widehat{e}_a(X)$ is an estimator for $\Pr[A = a \mid X,D_{test} = 1]$. Using the terminology in Morrison et al., we call the first plug-in estimator the conditional loss estimator $ \widehat{\psi}_{CL}$ and the second the inverse probability weighted estimator $\widehat{\psi}_{IPW}$. 
+    where $\widehat{h}_a(X)$ is an estimator for $\E[L\{Y, \mu_{\widehat{\beta}}(X^*)\}\mid X,A = a, D_{test} = 1]$ and $\widehat{e}_a(X)$ is an estimator for $\Pr[A = a \mid X,D_{test} = 1]$. Using the terminology in Morrison et al., we call the first plug-in estimator the conditional loss estimator $ \widehat{\psi}_{CL}$ and the second the inverse probability weighted estimator $\widehat{\psi}_{IPW}$. 
 
     \subsection{Random and dynamic regimes}\label{sec:randomdynamic}
     Above we consider static interventions which set treatment $A$ to a particular value $a$. We might also consider interventions which probabilistically set $A$ based on a known density, possibly conditional on pre-treatment covariates, e.g. $f^{int}(A \mid X)$. For instance, instead of a counterfactual prediction if everyone or no one had been treated, we may be interested in the prediction if 20\% or 50\% were treated. We term such an intervention a \textit{random} intervention to contrast it with \textit{static} interventions considered previously. Random interventions are closer to the counterfactual interventions of interest under dataset shift which may be approximated as probabilistic changes in the natural course of treatment due to changes in guidelines or prescribing patterns or the wider-availability. For general counterfactual loss function $L\{Y^{g}, \mu_{\widehat{\beta}}\}$, the expected loss under a random intervention is identified by the functionals
     \begin{equation}\label{eqn:rand_cl_estimand}
-        \psi_{\widehat{\beta}} = E\left\{E_{f^{int}}\left(E[L\{Y, \mu_{\widehat{\beta}}(X^*)\} \mid X, A, D_{test} = 1] \mid D_{test} = 1\right)\right\}
+        \psi_{\widehat{\beta}} = \E\left\{\E_{f^{int}}\left(\E[L\{Y, \mu_{\widehat{\beta}}(X^*)\} \mid X, A, D_{test} = 1] \mid D_{test} = 1\right)\right\}
     \end{equation}
     and 
     \begin{equation}\label{eqn:rand_ipw_estimand}
-        \psi_{\widehat{\beta}} = E\left[\frac{I(A = a)}{\Pr[A = a \mid X, D_{test} = 1]}L\{Y, \mu_{\widehat{\beta}}(X^*)\} \mid D_{test} = 1\right]
+        \psi_{\widehat{\beta}} = \E_{f^{int}}\left[\frac{I(A = a)}{\Pr[A = a \mid X, D_{test} = 1]}L\{Y, \mu_{\widehat{\beta}}(X^*)\} \mid D_{test} = 1\right]
     \end{equation}
     in the test set under the time-fixed setup described in section \ref{sec:setup}. The primary difference between these expressions and the ones in section A.1. is that the expectation is taken with respect to the intervention density. 
 
@@ -103,7 +103,7 @@ Here we extend the set up of section \ref{sec:setup} in the case that treatment 
 where $X_k$ is a vector of covariates, $A_k$ is an indicator of treatment, and $Y_k$ is an event indicator all measured at time $k$, where $k \in \{0,1,\ldots, K\}$. Overbars denote the full history of a variable, such that $\overline{X}_k = (X_0,\dots, X_k)$. Again we assume the goal is to build a prediction model for end of follow up outcome $Y_{K+1}$ conditional on baseline covariates $X^*$ which are now a subset of baseline covariates $X_0$, i.e. $X^* \subset X_0$. An example DAG for a two time point process is shown in Figure \ref{fig:dag2}.
 
 We would like to assess the performance of the model in a counterfactual version of the source population in which a new treatment policy is implemented. As previously, $Y^a$ is the potential outcome under an intervention which sets treatment $A$ to $a$. For a sequence of time-varying treatments $\overline{A}_k$, we further define a \textit{treatment regime} as a collection of functions $\{g_k(\overline{a}_{k-1}, \overline{x}_k): k=0,\ldots, K\}$ for determining treatment assignment at each time $k$, possibly based on past treatment and covariate history. For a hypothetical treatment regime $g$, we would like to determine the performance of fitted model $\mu_{\widehat{\beta}}(X^*)$ under the new regime by estimating the expected loss 
-$$\psi_{\widehat{\beta}} = E[L\{Y^g, \mu_{\widehat{\beta}}(X^*)\}]$$
+$$\psi_{\widehat{\beta}} = \E[L\{Y^g, \mu_{\widehat{\beta}}(X^*)\}]$$
 for generalized loss function $L\{Y^g, \mu_{\widehat{\beta}}(X^*)\}$.
 
 \begin{figure}[p]
@@ -216,13 +216,13 @@ The following theorem extends Theorem 2 to the case of a time-varying treatment.
     Under conditions B1-B3 above, the expected counterfactual loss under time-varying regime $g$ is identified by the functionals
     \begin{align}\label{eqn:cl_tv_estimand}
     \begin{split}
-        \psi_{\widehat{\beta}} &= E_{X_0}\bigg[E_{X_1}\bigg\{\ldots E_{X_{K-1}}\bigg(E_{X_{K}}[L\{Y, \mu_{\widehat{\beta}}(X^*)\} \mid \overline{X}_K, \overline{A}_K=\overline{a}^g_K, D_{test} = 1] \\
+        \psi_{\widehat{\beta}} &= \E_{X_0}\bigg[\E_{X_1}\bigg\{\ldots \E_{X_{K-1}}\bigg(\E_{X_{K}}[L\{Y, \mu_{\widehat{\beta}}(X^*)\} \mid \overline{X}_K, \overline{A}_K=\overline{a}^g_K, D_{test} = 1] \\
         & \qquad \big\vert\; \overline{X}_{K-1}, \overline{A}_{K-1}=\overline{a}^g_{K-1}, D_{test} = 1\bigg) \ldots \;\big\vert\; X_{0}, A_{0}=a^g_{0}, D_{test} = 1\bigg\}\;\big\vert\; D_{test} = 1\bigg]
     \end{split}
     \end{align}
 and 
     \begin{equation}\label{eqn:ipw_tv_estimand}
-        \psi_{\widehat{\beta}} = E\left[\frac{I(\overline{A}_K = \overline{a}^g_K, D_{test} = 1)}{\prod_{k=0}^K\Pr[A_k = a^g_k \mid \overline{X}_k, \overline{A}_{k-1} = \overline{a}^g_{k-1}, D_{test} = 1]}L\{Y, \mu_{\widehat{\beta}}(X^*)\} \mid D_{test} = 1\right]
+        \psi_{\widehat{\beta}} = \E\left[\frac{I(\overline{A}_K = \overline{a}^g_K, D_{test} = 1)}{\prod_{k=0}^K\Pr[A_k = a^g_k \mid \overline{X}_k, \overline{A}_{k-1} = \overline{a}^g_{k-1}, D_{test} = 1]}L\{Y, \mu_{\widehat{\beta}}(X^*)\} \mid D_{test} = 1\right]
     \end{equation}
 in the test set for general loss function $L\{Y^{g}, \mu_{\widehat{\beta}}\}$, where the first expression is a sequence of iterated expectations and the second is an inverse-probability weighted expectation.
 \end{theorem}
@@ -230,30 +230,30 @@ in the test set for general loss function $L\{Y^{g}, \mu_{\widehat{\beta}}\}$, w
 \begin{proof}
     For the first representation we have 
     \begin{align*}
-        \psi_{\widehat{\beta}} &= E[L\{Y^{g}, \mu_{\widehat{\beta}}(X^*)\}] \\
-        & = E[L\{Y^{g}, \mu_{\widehat{\beta}}(X^*)\}\mid D_{test} = 1] \\
-        & = E(E[L\{Y^{g}, \mu_{\widehat{\beta}}(X^*)\}\mid X_0, D_{test} = 1] \mid D_{test} = 1) \\
-        & = E(E[L\{Y^{g}, \mu_{\widehat{\beta}}(X^*)\}\mid X_0, A_0 = a^g_0, D_{test} = 1] \mid D_{test} = 1) 
+        \psi_{\widehat{\beta}} &= \E[L\{Y^{g}, \mu_{\widehat{\beta}}(X^*)\}] \\
+        & = \E[L\{Y^{g}, \mu_{\widehat{\beta}}(X^*)\}\mid D_{test} = 1] \\
+        & = \E(\E[L\{Y^{g}, \mu_{\widehat{\beta}}(X^*)\}\mid X_0, D_{test} = 1] \mid D_{test} = 1) \\
+        & = \E(\E[L\{Y^{g}, \mu_{\widehat{\beta}}(X^*)\}\mid X_0, A_0 = a^g_0, D_{test} = 1] \mid D_{test} = 1) 
     \end{align*}
     where the first line follows from the definition of $\psi_{\widehat{\beta}}$, the second from random sampling of the test set, the third from the law of iterated expectations, and the fourth from the exchangeability condition B1. Arguing recursively from $k = 0$ to $K$, we can repeatedly invoke iterated expectations and exchanageability to insert $\overline{X}_k$ and $\overline{A}_k = \overline{a}^g_k$, such that
     \begin{align*}
-        \psi_{\widehat{\beta}} &= E_{X_0}\bigg[E_{X_1}\bigg\{\ldots E_{X_{K-1}}\bigg(E_{X_{K}}[L\{Y^g, \mu_{\widehat{\beta}}(X^*)\} \mid \overline{X}_K, \overline{A}_K=\overline{a}^g_K, D_{test} = 1] \\
+        \psi_{\widehat{\beta}} &= \E_{X_0}\bigg[\E_{X_1}\bigg\{\ldots \E_{X_{K-1}}\bigg(E_{X_{K}}[L\{Y^g, \mu_{\widehat{\beta}}(X^*)\} \mid \overline{X}_K, \overline{A}_K=\overline{a}^g_K, D_{test} = 1] \\
         & \qquad \big\vert\; \overline{X}_{K-1}, \overline{A}_{K-1}=\overline{a}^g_{K-1}, D_{test} = 1\bigg) \ldots \;\big\vert\; X_{0}, A_{0}=a^g_{0}, D_{test} = 1\bigg\}\;\big\vert\; D_{test} = 1\bigg]\\
-        &= E_{X_0}\bigg[E_{X_1}\bigg\{\ldots E_{X_{K-1}}\bigg(E_{X_{K}}[L\{Y, \mu_{\widehat{\beta}}(X^*)\} \mid \overline{X}_K, \overline{A}_K=\overline{a}^g_K, D_{test} = 1] \\
+        &= \E_{X_0}\bigg[\E_{X_1}\bigg\{\ldots \E_{X_{K-1}}\bigg(\E_{X_{K}}[L\{Y, \mu_{\widehat{\beta}}(X^*)\} \mid \overline{X}_K, \overline{A}_K=\overline{a}^g_K, D_{test} = 1] \\
         & \qquad \big\vert\; \overline{X}_{K-1}, \overline{A}_{K-1}=\overline{a}^g_{K-1}, D_{test} = 1\bigg) \ldots \;\big\vert\; X_{0}, A_{0}=a^g_{0}, D_{test} = 1\bigg\}\;\big\vert\; D_{test} = 1\bigg]
     \end{align*}
     where the last line follows by consistency condition B2. For the second representation, note that for the inner most expectations we can proceed as previously
     \begin{align*}
-        & E(E[L\{Y, \mu_{\widehat{\beta}}(X^*)\} \mid \overline{X}_K, \overline{A}_k=\overline{a}^g_K, D_{test} = 1] \mid \overline{X}_{K-1}, \overline{A}_{k-1}=\overline{a}^g_{K-1}, D_{test} = 1) \\
-        &= E\left(E\left[W_K L\{Y, \mu_{\widehat{\beta}}(X^*)\} \mid \overline{X}_K, \overline{A}_{K-1}, D_{test} = 1\right] \mid \overline{X}_{K-1}, \overline{A}_{K-1}, D_{test} = 1\right)\\
-        &= E\left(W_K E\left[L\{Y, \mu_{\widehat{\beta}}(X^*)\} \mid \overline{X}_K, \overline{A}_{K-1}, D_{test} = 1\right] \mid \overline{X}_{K-1}, \overline{A}_{K-1}, D_{test} = 1\right)\\
-        &= E\left[W_K L\{Y, \mu_{\widehat{\beta}}(X^*)\} \mid \overline{X}_{K-1}, \overline{A}_{K-1}, D_{test} = 1\right]
+        & \E(\E[L\{Y, \mu_{\widehat{\beta}}(X^*)\} \mid \overline{X}_K, \overline{A}_k=\overline{a}^g_K, D_{test} = 1] \mid \overline{X}_{K-1}, \overline{A}_{k-1}=\overline{a}^g_{K-1}, D_{test} = 1) \\
+        &= \E\left(\E\left[W_K L\{Y, \mu_{\widehat{\beta}}(X^*)\} \mid \overline{X}_K, \overline{A}_{K-1}, D_{test} = 1\right] \mid \overline{X}_{K-1}, \overline{A}_{K-1}, D_{test} = 1\right)\\
+        &= \E\left(W_K \E\left[L\{Y, \mu_{\widehat{\beta}}(X^*)\} \mid \overline{X}_K, \overline{A}_{K-1}, D_{test} = 1\right] \mid \overline{X}_{K-1}, \overline{A}_{K-1}, D_{test} = 1\right)\\
+        &= \E\left[W_K L\{Y, \mu_{\widehat{\beta}}(X^*)\} \mid \overline{X}_{K-1}, \overline{A}_{K-1}, D_{test} = 1\right]
     \end{align*}
     where the second line follows from the definition of conditional expectation, the third removes the constant fraction outside expectation, and the last reverses the law of iterated expectations and where 
     $$W_K = \frac{I(A_K = a_K^g, D_{test} = 1)}{\Pr[A_K = a_K^g \mid \overline{X}_K, \overline{A}_{K-1}, D_{test} = 1]}$$
     Arguing recursively from $k = 0$ to $K$, we get
     \begin{align*}
-        \psi_{\widehat{\beta}} &= E\left[\frac{I(\overline{A}_K = \overline{a}^g_K, D_{test} = 1)}{\prod_{k=0}^K\Pr[A_k = a^g_k \mid \overline{X}_k, \overline{A}_{k-1} = \overline{a}^g_{k-1}, D_{test} = 1]}L\{Y, \mu_{\widehat{\beta}}(X^*)\} \mid D_{test} = 1\right] 
+        \psi_{\widehat{\beta}} &= \E\left[\frac{I(\overline{A}_K = \overline{a}^g_K, D_{test} = 1)}{\prod_{k=0}^K\Pr[A_k = a^g_k \mid \overline{X}_k, \overline{A}_{k-1} = \overline{a}^g_{k-1}, D_{test} = 1]}L\{Y, \mu_{\widehat{\beta}}(X^*)\} \mid D_{test} = 1\right] 
     \end{align*}
     which is the inverse-probability weighted representation with weights equal to 
     $$W_k = \frac{I(\overline{A}_K = \overline{a}^g_K, D_{test} = 1)}{\prod_{k=0}^K\Pr[A_k = a^g_k \mid \overline{X}_k, \overline{A}_{k-1} = \overline{a}^g_{k-1}, D_{test} = 1]}$$
@@ -261,6 +261,7 @@ in the test set for general loss function $L\{Y^{g}, \mu_{\widehat{\beta}}\}$, w
 \end{proof}
 
 \subsection{Plug-in estimation}
+
 Using sample analogs for the identified expressions \ref{eqn:cl_tv_estimand} and \ref{eqn:ipw_tv_estimand}, we obtain two plug-in estimators for the expected counterfactual loss under a generalized loss function
 \begin{equation*}
     \widehat{\psi}_{CL} = \frac{1}{n_{test}}\sum_{i=1}^nI(D_{test, i} = 1)\widehat{h}_{a_0}(X_i)
@@ -270,9 +271,9 @@ and
     \widehat{\psi}_{IPW} = \frac{1}{n_{test}}\sum_{i=1}^n \frac{I(\overline{A}_{K,i} = \overline{a}^g_{K,i}, D_{test,i} = 1)}{\prod_{k=0}^K \widehat{e}_{a_k}(X_i)} L\{Y_i, \mu_{\widehat{\beta}}(X^*_i)\}
 \end{equation*}
 where $h_{t+1} = L\{Y, \mu_{\widehat{\beta}}(X^*_i)\}$ and $h_{a_0}(X)$ is recursively defined for $t$ = $K, \ldots, 0$
-\[h_{a_t} : (x_t, a_t) E[ h_{a_{t+1}}(X_{t+1}) \mid \overline{X}_t, \overline{A}_t = \overline{a}^g_t]\]
+\[h_{a_t} : (x_t, a_t) \E[ h_{a_{t+1}}(X_{t+1}) \mid \overline{X}_t, \overline{A}_t = \overline{a}^g_t]\]
 
-$\widehat{h}_a(X)$ is an estimator for $E[L\{Y, \mu_{\widehat{\beta}}(X^*)\}\mid X,A = a, D_{test} = 1]$ and $\widehat{e}_{a_k}(X)$ is an estimator for $\Pr[A_k = a^g_k \mid \overline{X}_k, \overline{A}_{k-1} = \overline{a}^g_{k-1}, D_{test} = 1]$. Note that as the number of time points (i.e. $K$) increases, the proportion in the test set who actually follow the regime of interest, i.e. those for whom $I(\overline{A}_K = \overline{a}^g_K, D_{test,i} = 1)=1$ may be prohibitively small, in which case plug-in estimation may not be feasible. In this case, additional modeling assumptions will be necessary to borrow information from other regimes.
+$\widehat{h}_a(X)$ is an estimator for $\E[L\{Y, \mu_{\widehat{\beta}}(X^*)\}\mid X,A = a, D_{test} = 1]$ and $\widehat{e}_{a_k}(X)$ is an estimator for $\Pr[A_k = a^g_k \mid \overline{X}_k, \overline{A}_{k-1} = \overline{a}^g_{k-1}, D_{test} = 1]$. Note that as the number of time points (i.e. $K$) increases, the proportion in the test set who actually follow the regime of interest, i.e. those for whom $I(\overline{A}_K = \overline{a}^g_K, D_{test,i} = 1)=1$ may be prohibitively small, in which case plug-in estimation may not be feasible. In this case, additional modeling assumptions will be necessary to borrow information from other regimes.
 \newpage
 
 % \section{Survival outcome}
@@ -285,10 +286,10 @@ $\widehat{h}_a(X)$ is an estimator for $E[L\{Y, \mu_{\widehat{\beta}}(X^*)\}\mid
 % By definition $C_0 \equiv 0$ and $Y_0 \equiv 0$ as we restrict to those who are uncensored and event-free at the start of follow up. By convention, when $Y_k = 1$ then $\underline{Y}_{k+1} = 1$, $\underline{V}_{k+1} = 0$, and $\underline{C}_{k+1} = 0$, and likewise when $C_k = 1$ then $\underline{Y}_{k+1} = 0$, $\underline{V}_{k+1} = 0$, and $\underline{C}_{k+1} = 1$. An example directed acyclic graph for a two time point process under the above process is shown in Figure \ref{fig:dag_survival}.
 
 % In the survival setting, the analyst typically builds a prediction model targeting the conditional cumulative incidence, $\Pr(T \leq t \mid X^*)$, conditional on covariates $X^*$ for some $t$ representing the desired prediction horizon. Note, as defined above, $\Pr(T \leq t \mid X^*) = \Pr(Y_{k+1} = 1 \mid X^*)$ when $k + 1 = t$. To determine the performance of fitted model $\mu_{\widehat{\beta}}(X^*)$ under a counterfactual regime $g$, we'd like to estimate the expected loss 
-% $$\psi_{\widehat{\beta}} = E[L\{I(T^g\leq t), \mu_{\widehat{\beta}}(X^*)\}]$$
-% for generalized loss function $L\{I(T^g\leq t), \mu_{\widehat{\beta}}(X^*)\}$. This is equivalent to $E[L\{Y^g_{K+1}, \mu_{\widehat{\beta}}(X^*)\}]$ for suitably chosen $K$. Under right censoring, we can extend this to 
-% $$\psi_{\widehat{\beta}} = E[L\{I(T^{g,\overline{c}=0}\leq t), \mu_{\widehat{\beta}}(X^*)\}]$$
-% where $\overline{c}=0$ denotes the counterfactual outcome if no one was censored. This is again equivalent to $E[L\{Y^{g,\overline{c}=0}_{K+1}, \mu_{\widehat{\beta}}(X^*)\}]$ for suitably chosen $K$.
+% $$\psi_{\widehat{\beta}} = \E[L\{I(T^g\leq t), \mu_{\widehat{\beta}}(X^*)\}]$$
+% for generalized loss function $L\{I(T^g\leq t), \mu_{\widehat{\beta}}(X^*)\}$. This is equivalent to $\E[L\{Y^g_{K+1}, \mu_{\widehat{\beta}}(X^*)\}]$ for suitably chosen $K$. Under right censoring, we can extend this to 
+% $$\psi_{\widehat{\beta}} = \E[L\{I(T^{g,\overline{c}=0}\leq t), \mu_{\widehat{\beta}}(X^*)\}]$$
+% where $\overline{c}=0$ denotes the counterfactual outcome if no one was censored. This is again equivalent to $\E[L\{Y^{g,\overline{c}=0}_{K+1}, \mu_{\widehat{\beta}}(X^*)\}]$ for suitably chosen $K$.
 
 
 % \begin{figure}[p]
@@ -300,20 +301,20 @@ $\widehat{h}_a(X)$ is an estimator for $E[L\{Y, \mu_{\widehat{\beta}}(X^*)\}\mid
 %       draw = white,
 %       fill = white
 %     ]
-%     \node[state] (l0) {$L_0$};
-%     \node[state] (a0) [right of=l0] {$A_0$};
-%     \node[state] (c0) [right of=a0] {$C_1$};
-%     \node[state] (y1) [right of=c0] {$Y_1$};
-%     \node[state] (l1) [right of=y1] {$L_1$};
-%     \node[state] (a1) [right of=l1] {$A_1$};
-%     \node[state] (c1) [right of=a1] {$C_2$};
-%     \node[state] (y2) [right of=c1] {$Y_2$};
-%     \node[state] (p0) [below of=l0] {$P_0$};
-%     \node[state] (b0) [right of=p0] {};
-%     \node[state] (b1) [right of=b0] {};
-%     \node[state] (b2) [right of=b1] {};
-%     \node[state] (p1) [right of=b2] {$P_1$};
-%     \node[state] (u0) [below of=b2] {$U$};
+%     \nod\E[state] (l0) {$L_0$};
+%     \nod\E[state] (a0) [right of=l0] {$A_0$};
+%     \nod\E[state] (c0) [right of=a0] {$C_1$};
+%     \nod\E[state] (y1) [right of=c0] {$Y_1$};
+%     \nod\E[state] (l1) [right of=y1] {$L_1$};
+%     \nod\E[state] (a1) [right of=l1] {$A_1$};
+%     \nod\E[state] (c1) [right of=a1] {$C_2$};
+%     \nod\E[state] (y2) [right of=c1] {$Y_2$};
+%     \nod\E[state] (p0) [below of=l0] {$P_0$};
+%     \nod\E[state] (b0) [right of=p0] {};
+%     \nod\E[state] (b1) [right of=b0] {};
+%     \nod\E[state] (b2) [right of=b1] {};
+%     \nod\E[state] (p1) [right of=b2] {$P_1$};
+%     \nod\E[state] (u0) [below of=b2] {$U$};
     
 %     \path[->] (l0) edge node {} (a0);
 %     \path[->] (l0) edge node {} (p1);
@@ -460,35 +461,35 @@ $\widehat{h}_a(X)$ is an estimator for $E[L\{Y, \mu_{\widehat{\beta}}(X^*)\}\mid
 %     \end{align*}
 % and 
 %     \begin{equation*}
-%         \psi_{\widehat{\beta}} = E\left[\frac{I(\overline{A}_K = \overline{a}^g_K)}{\prod_{k=0}^K\Pr(A_k = a^g_k \mid \overline{X}_k, \overline{A}_{k-1} = \overline{a}^g_{k-1}, D_{test} = 1)}L\{Y, \mu_{\widehat{\beta}}(X^*)\} \mid D_{test} = 1\right]
+%         \psi_{\widehat{\beta}} = \E\left[\frac{I(\overline{A}_K = \overline{a}^g_K)}{\prod_{k=0}^K\Pr(A_k = a^g_k \mid \overline{X}_k, \overline{A}_{k-1} = \overline{a}^g_{k-1}, D_{test} = 1)}L\{Y, \mu_{\widehat{\beta}}(X^*)\} \mid D_{test} = 1\right]
 %     \end{equation*}
 % in the test set, where the first is a sequence of iterated expectations and the second is an inverse-probability weighted expectation.
 
 % \begin{proof}
 %     For the first representation we have 
 %     \begin{align*}
-%         \psi_{\widehat{\beta}} &= E[L\{Y^{g}, \mu_{\widehat{\beta}}(X^*)\}] \\
-%         & = E[L\{Y^{g}, \mu_{\widehat{\beta}}(X^*)\}\mid D_{test} = 1] \\
-%         & = E(E[L\{Y^{g}, \mu_{\widehat{\beta}}(X^*)\}\mid X_0, D_{test} = 1] \mid D_{test} = 1) \\
-%         & = E(E[L\{Y^{g}, \mu_{\widehat{\beta}}(X^*)\}\mid X_0, A_0 = a^g_0, D_{test} = 1] \mid D_{test} = 1) 
+%         \psi_{\widehat{\beta}} &= \E[L\{Y^{g}, \mu_{\widehat{\beta}}(X^*)\}] \\
+%         & = \E[L\{Y^{g}, \mu_{\widehat{\beta}}(X^*)\}\mid D_{test} = 1] \\
+%         & = \E(\E[L\{Y^{g}, \mu_{\widehat{\beta}}(X^*)\}\mid X_0, D_{test} = 1] \mid D_{test} = 1) \\
+%         & = \E(\E[L\{Y^{g}, \mu_{\widehat{\beta}}(X^*)\}\mid X_0, A_0 = a^g_0, D_{test} = 1] \mid D_{test} = 1) 
 %     \end{align*}
 %     where the first line follows from the definition of $\psi_{\widehat{\beta}}$, the second from random sampling of the test set, the third from the law of iterated expectations, and the fourth from the exchangeability condition. Arguing recursively from $k = 0$ to $K$, we can repeatedly invoke iterated expectations and exchanageability to insert $\overline{X}_k$ and $\overline{A}_k = \overline{a}^g_k$, such that
 %     \begin{align*}
-%         \psi_{\widehat{\beta}} &= E\left\{E\left(\ldots E[L\{Y^g, \mu_{\widehat{\beta}}(X^*)\} \mid \overline{X}_K, \overline{A}_K=\overline{a}^g_K, D_{test} = 1]\ldots \mid X_{0}, A_{0}=a^g_{0}, D_{test} = 1\right)\mid D_{test} = 1\right\} \\
-%         &= E\left\{E\left(\ldots E[L\{Y, \mu_{\widehat{\beta}}(X^*)\} \mid \overline{X}_K, \overline{A}_K=\overline{a}^g_K, D_{test} = 1]\ldots \mid X_{0}, A_{0}=a^g_{0}, D_{test} = 1\right)\mid D_{test} = 1\right\}
+%         \psi_{\widehat{\beta}} &= E\left\{\E\left(\ldots \E[L\{Y^g, \mu_{\widehat{\beta}}(X^*)\} \mid \overline{X}_K, \overline{A}_K=\overline{a}^g_K, D_{test} = 1]\ldots \mid X_{0}, A_{0}=a^g_{0}, D_{test} = 1\right)\mid D_{test} = 1\right\} \\
+%         &= \E\left\{\E\left(\ldots \E[L\{Y, \mu_{\widehat{\beta}}(X^*)\} \mid \overline{X}_K, \overline{A}_K=\overline{a}^g_K, D_{test} = 1]\ldots \mid X_{0}, A_{0}=a^g_{0}, D_{test} = 1\right)\mid D_{test} = 1\right\}
 %     \end{align*}
 %     where the last line follows by consistency. For the second representation, note that for the inner most expectations we can proceed as previously
 %     \begin{align*}
-%         & E(E[L\{Y, \mu_{\widehat{\beta}}(X^*)\} \mid \overline{X}_K, \overline{A}_k=\overline{a}^g_K, D_{test} = 1] \mid \overline{X}_{K-1}, \overline{A}_{k-1}=\overline{a}^g_{K-1}, D_{test} = 1) \\
-%         &= E\left(E\left[W_K L\{Y, \mu_{\widehat{\beta}}(X^*)\} \mid \overline{X}_K, \overline{A}_{K-1}, D_{test} = 1\right] \mid \overline{X}_{K-1}, \overline{A}_{K-1}, D_{test} = 1\right)\\
-%         &= E\left(W_K E\left[L\{Y, \mu_{\widehat{\beta}}(X^*)\} \mid \overline{X}_K, \overline{A}_{K-1}, D_{test} = 1\right] \mid \overline{X}_{K-1}, \overline{A}_{K-1}, D_{test} = 1\right)\\
-%         &= E\left[W_K L\{Y, \mu_{\widehat{\beta}}(X^*)\} \mid \overline{X}_{K-1}, \overline{A}_{K-1}, D_{test} = 1\right]
+%         & \E(\E[L\{Y, \mu_{\widehat{\beta}}(X^*)\} \mid \overline{X}_K, \overline{A}_k=\overline{a}^g_K, D_{test} = 1] \mid \overline{X}_{K-1}, \overline{A}_{k-1}=\overline{a}^g_{K-1}, D_{test} = 1) \\
+%         &= \E\left(\E\left[W_K L\{Y, \mu_{\widehat{\beta}}(X^*)\} \mid \overline{X}_K, \overline{A}_{K-1}, D_{test} = 1\right] \mid \overline{X}_{K-1}, \overline{A}_{K-1}, D_{test} = 1\right)\\
+%         &= \E\left(W_K \E\left[L\{Y, \mu_{\widehat{\beta}}(X^*)\} \mid \overline{X}_K, \overline{A}_{K-1}, D_{test} = 1\right] \mid \overline{X}_{K-1}, \overline{A}_{K-1}, D_{test} = 1\right)\\
+%         &= \E\left[W_K L\{Y, \mu_{\widehat{\beta}}(X^*)\} \mid \overline{X}_{K-1}, \overline{A}_{K-1}, D_{test} = 1\right]
 %     \end{align*}
 %     where the second line follows from the definition of conditional expectation, the third removes the constant fraction outside expectation, and the last reverses the law of iterated expectations and where 
 %     $$W_K = \frac{I(A_K = a_K^g)}{\Pr(A_K = a_K^g \mid \overline{X}_K, \overline{A}_{K-1}, D_{test} = 1)}$$
 %     Arguing recursively from $k = 0$ to $K$, we get
 %     \begin{align*}
-%         \psi_{\widehat{\beta}} &= E\left[\frac{I(\overline{A}_K = \overline{a}^g_K)}{\prod_{k=0}^K\Pr(A_k = a^g_k \mid \overline{X}_k, \overline{A}_{k-1} = \overline{a}^g_{k-1}, D_{test} = 1)}L\{Y, \mu_{\widehat{\beta}}(X^*)\} \mid D_{test} = 1\right] 
+%         \psi_{\widehat{\beta}} &= \E\left[\frac{I(\overline{A}_K = \overline{a}^g_K)}{\prod_{k=0}^K\Pr(A_k = a^g_k \mid \overline{X}_k, \overline{A}_{k-1} = \overline{a}^g_{k-1}, D_{test} = 1)}L\{Y, \mu_{\widehat{\beta}}(X^*)\} \mid D_{test} = 1\right] 
 %     \end{align*}
 %     which is the inverse-probability weighted representation with weights equal to 
 %     $$W_k = \frac{I(\overline{A}_K = \overline{a}^g_K)}{\prod_{k=0}^K\Pr(A_k = a^g_k \mid \overline{X}_k, \overline{A}_{k-1} = \overline{a}^g_{k-1}, D_{test} = 1)}$$
@@ -502,15 +503,15 @@ $\widehat{h}_a(X)$ is an estimator for $E[L\{Y, \mu_{\widehat{\beta}}(X^*)\}\mid
 \subsection{Efficient influence function}
 We have shown previously that, under the identifiability conditions of section \ref{sec:identifiability}, the expected counterfactual loss of a generalized loss function $L\{Y^a, \mu(X^*)\}$ is identified by the observed data functional
 \begin{equation*}\label{eqn:cl_estimand}
-    \psi = E\left(E[L\{Y, \mu(X^*)\} \mid X, A=a] \right).
+    \psi = \E\left(\E[L\{Y, \mu(X^*)\} \mid X, A=a] \right).
 \end{equation*}
 In the following theorem, we identify the efficient influence function for $\psi$ under a nonparametric model for the observed data in the test set. 
 
 \begin{theorem}
     The influence function for $\psi$ under a nonparametric model for the observable data $O = (X, A, Y)$ is 
 \begin{align*}
-    \chi_{P_0}^1 &= \frac{I(A = a)}{\Pr[A = a \mid X]}(L\{Y, \mu(X^*)\} - E[L\{Y, \mu(X^*)\} \mid X, A=a])  \; + \\
-    & \qquad (E[L\{Y, \mu(X^*)\} \mid X, A=a] - \psi).
+    \chi_{P_0}^1 &= \frac{I(A = a)}{\Pr[A = a \mid X]}(L\{Y, \mu(X^*)\} - \E[L\{Y, \mu(X^*)\} \mid X, A=a])  \; + \\
+    & \qquad (\E[L\{Y, \mu(X^*)\} \mid X, A=a] - \psi).
 \end{align*}
 As the influence function under a nonparametric model is always unique, it is also the efficient influence function. 
 \end{theorem}
@@ -519,21 +520,21 @@ As the influence function under a nonparametric model is always unique, it is al
 \begin{proof}
 To show that $\chi_{P_0}^1$ is the efficient influence function, we will use the well-known fact that the influence function is a solution to 
 \begin{equation*}
-    \frac{d}{dt} \psi_{P_t}\bigg\vert_{t=0} = E_{P_0}(\chi_{P_0}^1g_{P_0})
+    \frac{d}{dt} \psi_{P_t}\bigg\vert_{t=0} = \E_{P_0}(\chi_{P_0}^1g_{P_0})
 \end{equation*}
 where $g_{P_0}$ is the score of the obeservable data under the true law $P_0$ and $P_t$ is a parametric submodel indexed by $t \in [0,1]$ and the pathwise derivative of the submodel is evaluated at $t = 0$ corresponding to the true law $P_0$. Let $h_a(X) = E_{P_0}[L\{Y, \mu(X^*)\} \mid X, A=a]$. Beginning with the left hand side
 \begin{align*}
-    \frac{d}{dt} \psi_{P_t}\bigg\vert_{t=0} &=\frac{d}{dt} E_{P_t}\left(E_{P_t}[L\{Y, \mu(X^*)\} \mid X, A=a] \right)\bigg\vert_{t=0} \\
-    &=\frac{\partial}{\partial t} E_{P_t}\left(E_{P_0}[L\{Y, \mu(X^*)\} \mid X, A=a] \right)\bigg\vert_{t=0} \;+ \\
-    &\qquad  E_{P_0}\left(\frac{\partial}{\partial t} E_{P_t}[L\{Y, \mu(X^*)\} \mid X, A=a] \bigg\vert_{t=0} \right) \\
-    &=E_{P_0}\left[\left\{h_a(X) - \psi \right\}g_{X, A, Y}(O)\right] \;+ \\
-    &\qquad  E_{P_0}\left\{\left( \frac{I(A = a)}{\Pr[A = a \mid X]} \bigg[L\{Y, \mu(X^*)\} - h_a(X) \bigg]\right)g_{X, A, Y}(O)\right\} \\
-    &= E_{P_0}\left\{\left(h_a(X) - \psi + \frac{I(A = a)}{\Pr[A = a \mid X]} \bigg[L\{Y, \mu(X^*)\} - h_a(X) \bigg]\right)g_{X, A, Y}(O)\right\} 
+    \frac{d}{dt} \psi_{P_t}\bigg\vert_{t=0} &=\frac{d}{dt} \E_{P_t}\left(\E_{P_t}[L\{Y, \mu(X^*)\} \mid X, A=a] \right)\bigg\vert_{t=0} \\
+    &=\frac{\partial}{\partial t} \E_{P_t}\left(\E_{P_0}[L\{Y, \mu(X^*)\} \mid X, A=a] \right)\bigg\vert_{t=0} \;+ \\
+    &\qquad  \E_{P_0}\left(\frac{\partial}{\partial t} \E_{P_t}[L\{Y, \mu(X^*)\} \mid X, A=a] \bigg\vert_{t=0} \right) \\
+    &=\E_{P_0}\left[\left\{h_a(X) - \psi \right\}g_{X, A, Y}(O)\right] \;+ \\
+    &\qquad  \E_{P_0}\left\{\left( \frac{I(A = a)}{\Pr[A = a \mid X]} \bigg[L\{Y, \mu(X^*)\} - h_a(X) \bigg]\right)g_{X, A, Y}(O)\right\} \\
+    &= \E_{P_0}\left\{\left(h_a(X) - \psi + \frac{I(A = a)}{\Pr[A = a \mid X]} \bigg[L\{Y, \mu(X^*)\} - h_a(X) \bigg]\right)g_{X, A, Y}(O)\right\} 
 \end{align*}
 where the first line is the definition, the second line applies the chain rule, the third applies definition of the score, and the last uses linearity of expectations. Returning to original supposition, it follows that the influence function is 
 \begin{align*}
-    \chi_{P_0}^1 &= \frac{I(A = a)}{\Pr[A = a \mid X]}(L\{Y, \mu(X^*)\} - E[L\{Y, \mu(X^*)\} \mid X, A=a])  \; + \\
-    & \qquad (E[L\{Y, \mu(X^*)\} \mid X, A=a] - \psi).
+    \chi_{P_0}^1 &= \frac{I(A = a)}{\Pr[A = a \mid X]}(L\{Y, \mu(X^*)\} - \E[L\{Y, \mu(X^*)\} \mid X, A=a])  \; + \\
+    & \qquad (\E[L\{Y, \mu(X^*)\} \mid X, A=a] - \psi).
 \end{align*}
 \end{proof}
 
@@ -591,22 +592,22 @@ Using Assumptions D1 through D4, below we prove:
 
 \subsubsection{Consistency}
 Using the probability limits $e_a^*(X)$ and $h_a^*(X)$ defined previously, the double robust estimator $\widehat{\psi}_{DR}$ converges in probability to 
-$$\widehat{\psi}_{DR} \stackrel{P}{\longrightarrow} E\left[h^*_a(X)+\frac{I(A = a)}{e^*_a(X)}\left(L\left(Y, \mu\left(X^*\right)\right)-h^*_a(X)\right)\right]$$
+$$\widehat{\psi}_{DR} \stackrel{P}{\longrightarrow} \E\left[h^*_a(X)+\frac{I(A = a)}{e^*_a(X)}\left(L\left(Y, \mu\left(X^*\right)\right)-h^*_a(X)\right)\right]$$
 Here we show that the right-hand side is equal to $\psi$ under assumptions D1-
 D4 when either:
 \begin{enumerate}
     \item $\widehat{e}_a(X)$ is correctly specified
     \item $\widehat{h}_a(X)$ is correctly specified
 \end{enumerate}
-First consider the case where $\widehat{e}_a(X)$ is correctly specified, that is $e^*_a(X)=\operatorname{Pr}[A=a \mid X]$, but we do not assume that the limit $h^*_a(X)$ is equal to $\left.\mathrm{E}\left[L\left(Y, g\left(X^*\right)\right) \mid X, A=a\right]\right)$. Recall, as shown previously $\psi = E\left[\frac{I(A = a)}{\Pr[A = a \mid X]}L(Y, \mu_{\widehat{\beta}}(X^*))\right] $
+First consider the case where $\widehat{e}_a(X)$ is correctly specified, that is $e^*_a(X)=\operatorname{Pr}[A=a \mid X]$, but we do not assume that the limit $h^*_a(X)$ is equal to $\left.\mathrm{E}\left[L\left(Y, g\left(X^*\right)\right) \mid X, A=a\right]\right)$. Recall, as shown previously $\psi = \E\left[\frac{I(A = a)}{\Pr[A = a \mid X]}L(Y, \mu_{\widehat{\beta}}(X^*))\right] $
 $$
 \begin{aligned}
-\widehat{\psi}_{DR} & \stackrel{P}{\rightarrow}  E\left[h^*_a(X)+\frac{I(A = a)}{e^*_a(X)}\left(L\left(Y, \mu\left(X^*\right)\right)-h^*_a(X)\right)\right] \\
-& =E\left[h^*_a(X)-\frac{I(A = a)}{e^*_a(X)}h^*_a(X)\right]+\psi \\
-& =E\left[E\left[h^*_a(X)-\frac{I(A = a)}{e^*_a(X)}h^*_a(X) \mid X \right]\right]+\psi \\
-& =E\left[h^*_a(X)-\frac{1}{e^*_a(X)}h^*_a(X) E\left[I(A = a) \mid X \right]\right]+\psi \\
-& =E\left[h^*_a(X)-\frac{1}{e^*_a(X)}h^*_a(X) \Pr\left[A = a \mid X \right]\right]+\psi \\
-& =E\left[h^*_a(X)-h^*_a(X)\right]+\psi \\
+\widehat{\psi}_{DR} & \stackrel{P}{\rightarrow}  \E\left[h^*_a(X)+\frac{I(A = a)}{e^*_a(X)}\left(L\left(Y, \mu\left(X^*\right)\right)-h^*_a(X)\right)\right] \\
+& =\E\left[h^*_a(X)-\frac{I(A = a)}{e^*_a(X)}h^*_a(X)\right]+\psi \\
+& =\E\left[\E\left[h^*_a(X)-\frac{I(A = a)}{e^*_a(X)}h^*_a(X) \mid X \right]\right]+\psi \\
+& =\E\left[h^*_a(X)-\frac{1}{e^*_a(X)}h^*_a(X) \E\left[I(A = a) \mid X \right]\right]+\psi \\
+& =\E\left[h^*_a(X)-\frac{1}{e^*_a(X)}h^*_a(X) \Pr\left[A = a \mid X \right]\right]+\psi \\
+& =\E\left[h^*_a(X)-h^*_a(X)\right]+\psi \\
 & =\psi .
 \end{aligned}
 $$
@@ -614,18 +615,18 @@ Next consider the case when $\widehat{h}_a(X)$ is correctly specified, that is
 $$
 h^*_a(X)=\mathrm{E}\left[L\left(Y, g\left(X^*\right)\right) \mid X, A=a\right]
 $$
-and this time we do not make the assumptions that the limit $e^*_a(X)$ is equal to $\operatorname{Pr}[A=a \mid X]$. Recall, as shown previously $\psi = E\left[E\left[L(Y, \mu_{\widehat{\beta}}(X^*))\mid X, A = a\right]\right] $. 
+and this time we do not make the assumptions that the limit $e^*_a(X)$ is equal to $\operatorname{Pr}[A=a \mid X]$. Recall, as shown previously $\psi = \E\left[\E\left[L(Y, \mu_{\widehat{\beta}}(X^*))\mid X, A = a\right]\right] $. 
 
 $$
 \begin{aligned}
-\widehat{\psi}_{DR} & \stackrel{P}{\rightarrow}  E\left[h^*_a(X)+\frac{I(A = a)}{e^*_a(X)}\left(L\left(Y, \mu\left(X^*\right)\right)-h^*_a(X)\right)\right] \\
-&= E\left[h^*_a(X)\right]+E\left[\frac{I(A = a)}{e^*_a(X)}\left(L\left(Y, \mu\left(X^*\right)\right)-h^*_a(X)\right)\right] \\
-& =\psi+E\left[\frac{I(A = a)}{e^*_a(X)}\left(L\left(Y, \mu\left(X^*\right)\right)-h^*_a(X)\right)\right] \\
-& =\psi+E\left[E\left[\frac{I(A = a)}{e^*_a(X)}\left(L\left(Y, \mu\left(X^*\right)\right)-h^*_a(X)\right) \mid X \right]\right] \\
-& =\psi+E\left[\frac{I(A = a)}{e^*_a(X)} E\left[\left(L\left(Y, \mu\left(X^*\right)\right)-h^*_a(X)\right) \mid X \right]\right] \\
-& =\psi+E\left[E\left[\left(L\left(Y, \mu\left(X^*\right)\right)-h^*_a(X)\right) \mid X, A=a \right]\right] \\
-& =\psi+E\left[E\left[L\left(Y, \mu\left(X^*\right)\right) \mid X, A=a  \right] -h^*_a(X) \right] \\
-& =\psi+E\left[h^*_a(X) -h^*_a(X) \right] \\
+\widehat{\psi}_{DR} & \stackrel{P}{\rightarrow}  \E\left[h^*_a(X)+\frac{I(A = a)}{e^*_a(X)}\left(L\left(Y, \mu\left(X^*\right)\right)-h^*_a(X)\right)\right] \\
+&= \E\left[h^*_a(X)\right]+\E\left[\frac{I(A = a)}{e^*_a(X)}\left(L\left(Y, \mu\left(X^*\right)\right)-h^*_a(X)\right)\right] \\
+& =\psi+\E\left[\frac{I(A = a)}{e^*_a(X)}\left(L\left(Y, \mu\left(X^*\right)\right)-h^*_a(X)\right)\right] \\
+& =\psi+\E\left[\E\left[\frac{I(A = a)}{e^*_a(X)}\left(L\left(Y, \mu\left(X^*\right)\right)-h^*_a(X)\right) \mid X \right]\right] \\
+& =\psi+\E\left[\frac{I(A = a)}{e^*_a(X)} \E\left[\left(L\left(Y, \mu\left(X^*\right)\right)-h^*_a(X)\right) \mid X \right]\right] \\
+& =\psi+\E\left[\E\left[\left(L\left(Y, \mu\left(X^*\right)\right)-h^*_a(X)\right) \mid X, A=a \right]\right] \\
+& =\psi+\E\left[\E\left[L\left(Y, \mu\left(X^*\right)\right) \mid X, A=a  \right] -h^*_a(X) \right] \\
+& =\psi+\E\left[h^*_a(X) -h^*_a(X) \right] \\
 & =\psi .
 \end{aligned}
 $$
@@ -695,8 +696,8 @@ $$
 \begin{aligned}
 n^{-1 / 2} R e & =\mathrm{E}\left[\widehat{h}_a(X)\right]+\mathrm{E}\left[\frac{I(A = a)}{e_a^{\prime}(X)}\left[L\left(Y, \mu\left(X^*\right)\right)-h_a^{\prime}(X)\right]\right]-\psi \\
 & =\mathrm{E}\left[\widehat{h}_a(X)\right]+\mathrm{E}\left[\frac{1}{\widehat{e}_a(X)} \operatorname{Pr}[A=a \mid X]\left\{\mathrm{E}\left[L\left(Y, \mu\left(X^*\right)\right) \mid X, A=a\right]-\widehat{h}_a(X)\right\}\right] \\ 
-&- E\left[E\left[L(Y, \mu_{\widehat{\beta}}(X^*))\mid X, A = a\right]\right]\\
-& =E\left[\left\{\mathrm{E}\left[L\left(Y, \mu\left(X^*\right)\right) \mid X, A=a\right]-\widehat{h}_a(X)\right\}\times\left\{\frac{1}{\widehat{e}_a(X)} \operatorname{Pr}[A=a \mid X]-1\right\}\right]
+&- \E\left[\E\left[L(Y, \mu_{\widehat{\beta}}(X^*))\mid X, A = a\right]\right]\\
+& =\E\left[\left\{\mathrm{E}\left[L\left(Y, \mu\left(X^*\right)\right) \mid X, A=a\right]-\widehat{h}_a(X)\right\}\times\left\{\frac{1}{\widehat{e}_a(X)} \operatorname{Pr}[A=a \mid X]-1\right\}\right]
 \end{aligned}
 $$
 Using the Cauchy-Schwartz inequality we get.
@@ -724,19 +725,19 @@ completing the proof.
 \section{Risk calibration curve}\label{sec:calib}
 When the outcome is binary, another common metric of model performance is risk calibration. Calibration is a measure of the relibability of the risk estimates produced by the fitted model $\mu_{\widehat{\beta}}(X^*)$. For instance, among a sample of patients who receive a risk prediction of 17\% does the outcome really occur for roughly 17\% of them over the follow up period? This can be nonparametrically evalutated across a range of risks by estimating the so-called ``calibration'' curve, i.e. the observed risk as a function of the predicted risk. For counterfactual predictions the relevant calibration curve is the counterfactual risk that would be observed under intervetion $A=a$ as a function of the predicted risk, or
 \begin{equation}\label{eqn:calib_estimand}
-    \psi_{\widehat{\beta}} = E[I(Y^a = 1) \mid \mu_{\widehat{\beta}}(x^*)].
+    \psi_{\widehat{\beta}} = \E[I(Y^a = 1) \mid \mu_{\widehat{\beta}}(x^*)].
 \end{equation}
 
 \subsection{Identification}
-Here we show that the counterfactual calibration curve $\psi_{\widehat{\beta}} = E[I(Y^a = 1) \mid \mu_{\widehat{\beta}}(x^*)]$ is identified using the observed data under the assumptions of section \ref{sec:identifiability}.
+Here we show that the counterfactual calibration curve $\psi_{\widehat{\beta}} = \E[I(Y^a = 1) \mid \mu_{\widehat{\beta}}(x^*)]$ is identified using the observed data under the assumptions of section \ref{sec:identifiability}.
 \begin{theorem}
      Under conditions A1-A3, the risk calibration curve is identified by the observed data functionals
 \begin{equation}\label{eqn:cl_calib_estimand}
-    \psi_{\widehat{\beta}} = E[E\{I(Y = 1) \mid X, A = a, \mu_{\widehat{\beta}}(x^*), D_{test} = 1\}\mid \mu_{\widehat{\beta}}(x^*), D_{test} = 1]
+    \psi_{\widehat{\beta}} = \E[\E\{I(Y = 1) \mid X, A = a, \mu_{\widehat{\beta}}(x^*), D_{test} = 1\}\mid \mu_{\widehat{\beta}}(x^*), D_{test} = 1]
 \end{equation}
 and 
 \begin{equation}\label{eqn:ipw_calib_estimand}
-    \psi_{\widehat{\beta}} = E\left[\frac{I(A = a)}{\Pr[A = a \mid X, \mu_{\widehat{\beta}}(x^*), D_{test} = 1]} I(Y=1) \mid \mu_{\widehat{\beta}}(x^*), D_{test} = 1\right]
+    \psi_{\widehat{\beta}} = \E\left[\frac{I(A = a)}{\Pr[A = a \mid X, \mu_{\widehat{\beta}}(x^*), D_{test} = 1]} I(Y=1) \mid \mu_{\widehat{\beta}}(x^*), D_{test} = 1\right]
 \end{equation}
 in the test set. 
 
@@ -745,18 +746,18 @@ in the test set.
 \begin{proof}
     For the first representation we have 
     \begin{align*}
-        \psi_{\widehat{\beta}} &= E[I(Y^a = 1) \mid \mu_{\widehat{\beta}}(x^*)] \\
-        & = E[I(Y^a = 1) \mid \mu_{\widehat{\beta}}(x^*), D_{test} = 1] \\
-        & = E[E\{I(Y^a = 1) \mid X, \mu_{\widehat{\beta}}(x^*), D_{test} = 1\}\mid \mu_{\widehat{\beta}}(x^*), D_{test} = 1] \\
-        & = E[E\{I(Y^a = 1) \mid X, A = a, \mu_{\widehat{\beta}}(x^*), D_{test} = 1\}\mid \mu_{\widehat{\beta}}(x^*), D_{test} = 1] \\
-        & = E[E\{I(Y = 1) \mid X, A = a, \mu_{\widehat{\beta}}(x^*), D_{test} = 1\}\mid \mu_{\widehat{\beta}}(x^*), D_{test} = 1]
+        \psi_{\widehat{\beta}} &= \E[I(Y^a = 1) \mid \mu_{\widehat{\beta}}(x^*)] \\
+        & = \E[I(Y^a = 1) \mid \mu_{\widehat{\beta}}(x^*), D_{test} = 1] \\
+        & = \E[\E\{I(Y^a = 1) \mid X, \mu_{\widehat{\beta}}(x^*), D_{test} = 1\}\mid \mu_{\widehat{\beta}}(x^*), D_{test} = 1] \\
+        & = \E[\E\{I(Y^a = 1) \mid X, A = a, \mu_{\widehat{\beta}}(x^*), D_{test} = 1\}\mid \mu_{\widehat{\beta}}(x^*), D_{test} = 1] \\
+        & = \E[\E\{I(Y = 1) \mid X, A = a, \mu_{\widehat{\beta}}(x^*), D_{test} = 1\}\mid \mu_{\widehat{\beta}}(x^*), D_{test} = 1]
     \end{align*}
     where the first line follows from the definition of $\psi_{\widehat{\beta}}$, the second from random sampling of the test set, the third from the law of iterated expectations, the fourth from the exchangeability condition A1, and the fifth from the consistency condition A2. Recall that $X^*$ is a subset of $X$. For the second representation, we show that it is equivalent to the first 
     \begin{align*}
-        \psi_{\widehat{\beta}} &= E[E\{I(Y = 1) \mid X, A = a, \mu_{\widehat{\beta}}(x^*), D_{test} = 1\}\mid \mu_{\widehat{\beta}}(x^*), D_{test} = 1] \\
-        &= E\left[E\left\{\frac{I(A = a)}{\Pr[A = a \mid X, \mu_{\widehat{\beta}}(x^*), D_{test} = 1]} I(Y=1) \mid X, \mu_{\widehat{\beta}}(x^*), D_{test} = 1\right\}\mid \mu_{\widehat{\beta}}(x^*), D_{test} = 1\right] \\
-        % &= E\left[\frac{I(A = a)}{\Pr[A = a \mid X, \mu_{\widehat{\beta}}(x^*), D_{test} = 1]}E\left\{ I(Y=1) \mid X, \mu_{\widehat{\beta}}(x^*), D_{test} = 1\right\}\mid \mu_{\widehat{\beta}}(x^*), D_{test} = 1\right]\\
-        &= E\left[\frac{I(A = a)}{\Pr[A = a \mid X, \mu_{\widehat{\beta}}(x^*), D_{test} = 1]} I(Y=1) \mid \mu_{\widehat{\beta}}(x^*), D_{test} = 1\right]
+        \psi_{\widehat{\beta}} &= \E[\E\{I(Y = 1) \mid X, A = a, \mu_{\widehat{\beta}}(x^*), D_{test} = 1\}\mid \mu_{\widehat{\beta}}(x^*), D_{test} = 1] \\
+        &= \E\left[\E\left\{\frac{I(A = a)}{\Pr[A = a \mid X, \mu_{\widehat{\beta}}(x^*), D_{test} = 1]} I(Y=1) \mid X, \mu_{\widehat{\beta}}(x^*), D_{test} = 1\right\}\mid \mu_{\widehat{\beta}}(x^*), D_{test} = 1\right] \\
+        % &= \E\left[\frac{I(A = a)}{\Pr[A = a \mid X, \mu_{\widehat{\beta}}(x^*), D_{test} = 1]}\E\left\{ I(Y=1) \mid X, \mu_{\widehat{\beta}}(x^*), D_{test} = 1\right\}\mid \mu_{\widehat{\beta}}(x^*), D_{test} = 1\right]\\
+        &= \E\left[\frac{I(A = a)}{\Pr[A = a \mid X, \mu_{\widehat{\beta}}(x^*), D_{test} = 1]} I(Y=1) \mid \mu_{\widehat{\beta}}(x^*), D_{test} = 1\right]
     \end{align*}
     where the second line follows from the definition of conditional expectation, and the last reverses the law of iterated expectations.
 \end{proof}
@@ -768,7 +769,7 @@ Unlike previous sections, estimation of the full risk calibration curve using sa
 \section{Area under ROC curve}\label{sec:auc}
 Another common metric for the performance of a risk prediction model $\mu_\beta(X^*)$ is the area under the receiver operating characteristic (ROC) curve, often referred to as simply the area under the curve (AUC). The AUC can be interpreted as the probability that a randomly sampled observation with the outcome has a higher predicted value than a randomly sampled observation without the outcome. In that sense, it is a measure of the discriminative ability of the model, i.e. the ability to distinguish between cases and noncases. For counterfactual predictions the relevant AUC is the counterfactual AUC that would be observed under intervetion $A=a$, or
 \begin{equation}\label{eqn:auc_estimand}
-    \psi_{\widehat{\beta}} = E[I\left(\mu_\beta(X^*_i) > \mu_\beta(X^*_j)\right) \mid Y_i^a = 1, Y_j^a = 0].
+    \psi_{\widehat{\beta}} = \E[I\left(\mu_\beta(X^*_i) > \mu_\beta(X^*_j)\right) \mid Y_i^a = 1, Y_j^a = 0].
 \end{equation}
 
 \subsection{Identification}
@@ -837,11 +838,11 @@ where the second line follows from consistency $E2$, the third from the definiti
 \subsection{Plug-in estimation}
 Using sample analogs for the identified expressions \ref{eqn:cl_auc_estimand} and \ref{eqn:ipw_auc_estimand}, we obtain two plug-in estimators for the counterfactual AUC
     \begin{equation*}
-        \widehat{\psi}_{OM} = \frac{\sum_{i \neq j}^n\widehat{h}_a(X_i) (1 - \widehat{h}_a(X_j)) I(\mu_{\widehat{\beta}}(X_i^*)>\mu_{\widehat{\beta}}(X_j^*), D_{test, i} = 1,  D_{test, j} = 1) }{\sum_{i \neq j}^n\widehat{h}_a(X_i) (1 - \widehat{h}_a(X_j)) I(D_{test, i} = 1,  D_{test, j} = 1)}
+        \widehat{\psi}_{OM}(a) = \frac{\sum_{i \neq j}^n\widehat{h}_a(X_i) (1 - \widehat{h}_a(X_j)) I(\mu_{\widehat{\beta}}(X_i^*)>\mu_{\widehat{\beta}}(X_j^*), D_{test, i} = 1,  D_{test, j} = 1) }{\sum_{i \neq j}^n\widehat{h}_a(X_i) (1 - \widehat{h}_a(X_j)) I(D_{test, i} = 1,  D_{test, j} = 1)}
     \end{equation*}
     and 
     \begin{equation*}
-        \widehat{\psi}_{IPW} = \frac{\mathlarger{\mathlarger{\sum}}_{i \neq j}^n \dfrac{I\left(\mu_{\widehat{\beta}}(X_i^*)>\mu_{\widehat{\beta}}(X_j^*), Y_i = 1, Y_j = 0, A_i = a, A_j = a, D_{test, i} = 1,  D_{test, j} = 1\right)}{\widehat{e}_a(X_i) \widehat{e}_a(X_j)}}{\mathlarger{\mathlarger{\sum}}_{i \neq j}^n\dfrac{I\left(Y_i = 1, Y_j = 0, A_i = a, A_j = a, D_{test, i} = 1,  D_{test, j} = 1\right)}{\widehat{e}_a(X_i) \widehat{e}_a(X_j)}}
+        \widehat{\psi}_{IPW}(a) = \frac{\mathlarger{\mathlarger{\sum}}_{i \neq j}^n \dfrac{I\left(\mu_{\widehat{\beta}}(X_i^*)>\mu_{\widehat{\beta}}(X_j^*), Y_i = 1, Y_j = 0, A_i = a, A_j = a, D_{test, i} = 1,  D_{test, j} = 1\right)}{\widehat{e}_a(X_i) \widehat{e}_a(X_j)}}{\mathlarger{\mathlarger{\sum}}_{i \neq j}^n\dfrac{I\left(Y_i = 1, Y_j = 0, A_i = a, A_j = a, D_{test, i} = 1,  D_{test, j} = 1\right)}{\widehat{e}_a(X_i) \widehat{e}_a(X_j)}}
     \end{equation*}
     where $\widehat{m}_a(X_i, X_j) = \widehat{h}_a(X_i) (1 - \widehat{h}_a(X_j))$ and $\widehat{h}_a$ is an estimator for $\operatorname{Pr}[Y_i=1 | X_i,A_i = a, D_{test,i} = 1]$ and where $\widehat{\pi}_a(X_i, X_j) = \widehat{e}_a(X_i) \widehat{e}_a(X_j)$ and $\widehat{e}_a$ is an estimator for $\Pr[A_i = a | X_i, D_{test,i} = 1]$. Here, we call the first plug-in estimator the outcome model estimator $ \widehat{\psi}_{OM}$ and the second the inverse probability weighted estimator $\widehat{\psi}_{IPW}$. 
 
@@ -853,7 +854,7 @@ Our goal was to emulate a single-arm trial corresponding to the AHA guidelines o
 
 Follow up began at the second examination cycle to enable a ``wash out'' period for statin use and to ensure adequate pre-treatment covariates to control confouding. We constructed a sequence of nested trials starting at each examination cycle from exam 2 through exam 5 and pooled the results from all 4 trials into a single analysis and used a robust variance estimator to account for correlation among duplicated participants. In each nested trial, we used the corresponding questionnaire to determine eligibility as well as statin initiators versus non-initiators. Because the exact timing of statin initiation was not known with precision, in each trial, we estimated the start of follow up for initiators and non-initators by drawing a random month between their current and previous examinations. We explored alternative definitions of the start of follow up in sensitivity analyses in the appendix. To mimic the targeted single-arm trial we limited to non-initiators for development of the prediction models.
 
-\subsection{Propensity score models}
+\subsection{Propensity score models}\label{sec:covs}
 In the emulated single arm trial, statin initiation can be viewed as ``non-adherence'' which can be adjusted for by inverse probability weighting, therefore we censored participants when they initiated statins. To calculate the weights, we estimated two logistic regression models: one for the probability of remaining untreated given past covariate history (denominator model) and one for probability of remaining untreated given the selected baseline predictors (numerator model). In the denominator model we included the following covariates:
 \begin{itemize}
     \item \textit{Demographic factors} - Age, gender, marital status, education, race/ethnicity, employment, health insurance status, depression, perceived discrimination, emotional support, anger and anxiety scales, and neighborhood score.
