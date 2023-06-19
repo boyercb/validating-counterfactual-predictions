@@ -86,11 +86,11 @@
     \subsection{Random and dynamic regimes}\label{sec:randomdynamic}
     Above we consider static interventions which set treatment $A$ to a particular value $a$. We might also consider interventions which probabilistically set $A$ based on a known density, possibly conditional on pre-treatment covariates, e.g. $f^{int}(A \mid X)$. For instance, instead of a counterfactual prediction if everyone or no one had been treated, we may be interested in the prediction if 20\% or 50\% were treated. We term such an intervention a \textit{random} intervention to contrast it with \textit{static} interventions considered previously. Random interventions are closer to the counterfactual interventions of interest under dataset shift which may be approximated as probabilistic changes in the natural course of treatment due to changes in guidelines or prescribing patterns or the wider-availability. For general counterfactual loss function $L\{Y^{g}, \mu_{\widehat{\beta}}\}$, the expected loss under a random intervention is identified by the functionals
     \begin{equation}\label{eqn:rand_cl_estimand}
-        \psi_{\widehat{\beta}}(a) = \E\left\{\E_{f^{int}}\left(\E[L\{Y, \mu_{\widehat{\beta}}(X^*)\} \mid X, A, D_{test} = 1] \mid D_{test} = 1\right)\right\}
+        \psi_{\widehat{\beta}}(A) = \E\left\{\E_{f^{int}}\left(\E[L\{Y, \mu_{\widehat{\beta}}(X^*)\} \mid X, A, D_{test} = 1] \mid D_{test} = 1\right)\right\}
     \end{equation}
     and 
     \begin{equation}\label{eqn:rand_ipw_estimand}
-        \psi_{\widehat{\beta}}(a) = \E_{f^{int}}\left[\frac{I(A = a)}{\Pr[A = a \mid X, D_{test} = 1]}L\{Y, \mu_{\widehat{\beta}}(X^*)\} \mid D_{test} = 1\right]
+        \psi_{\widehat{\beta}}(A) = \E_{f^{int}}\left[\frac{I(A = a)}{\Pr[A = a \mid X, D_{test} = 1]}L\{Y, \mu_{\widehat{\beta}}(X^*)\} \mid D_{test} = 1\right]
     \end{equation}
     in the test set under the time-fixed setup described in section \ref{sec:setup}. The primary difference between these expressions and the ones in section A.1. is that the expectation is taken with respect to the intervention density. 
 
@@ -103,7 +103,7 @@ Here we extend the set up of section \ref{sec:setup} in the case that treatment 
 where $X_k$ is a vector of covariates, $A_k$ is an indicator of treatment, and $Y_k$ is an event indicator all measured at time $k$, where $k \in \{0,1,\ldots, K\}$. Overbars denote the full history of a variable, such that $\overline{X}_k = (X_0,\dots, X_k)$. Again we assume the goal is to build a prediction model for end of follow up outcome $Y_{K+1}$ conditional on baseline covariates $X^*$ which are now a subset of baseline covariates $X_0$, i.e. $X^* \subset X_0$. An example DAG for a two time point process is shown in Figure \ref{fig:dag2}.
 
 We would like to assess the performance of the model in a counterfactual version of the source population in which a new treatment policy is implemented. As previously, $Y^a$ is the potential outcome under an intervention which sets treatment $A$ to $a$. For a sequence of time-varying treatments $\overline{A}_k$, we further define a \textit{treatment regime} as a collection of functions $\{g_k(\overline{a}_{k-1}, \overline{x}_k): k=0,\ldots, K\}$ for determining treatment assignment at each time $k$, possibly based on past treatment and covariate history. For a hypothetical treatment regime $g$, we would like to determine the performance of fitted model $\mu_{\widehat{\beta}}(X^*)$ under the new regime by estimating the expected loss 
-$$\psi_{\widehat{\beta}}(a) = \E[L\{Y^g, \mu_{\widehat{\beta}}(X^*)\}]$$
+$$\psi_{\widehat{\beta}}(g) = \E[L\{Y^g, \mu_{\widehat{\beta}}(X^*)\}]$$
 for generalized loss function $L\{Y^g, \mu_{\widehat{\beta}}(X^*)\}$.
 
 \begin{figure}[p]
@@ -216,13 +216,13 @@ The following theorem extends Theorem 2 to the case of a time-varying treatment.
     Under conditions B1-B3 above, the expected counterfactual loss under time-varying regime $g$ is identified by the functionals
     \begin{align}\label{eqn:cl_tv_estimand}
     \begin{split}
-        \psi_{\widehat{\beta}}(a) &= \E_{X_0}\bigg[\E_{X_1}\bigg\{\ldots \E_{X_{K-1}}\bigg(\E_{X_{K}}[L\{Y, \mu_{\widehat{\beta}}(X^*)\} \mid \overline{X}_K, \overline{A}_K=\overline{a}^g_K, D_{test} = 1] \\
+        \psi_{\widehat{\beta}}(g) &= \E_{X_0}\bigg[\E_{X_1}\bigg\{\ldots \E_{X_{K-1}}\bigg(\E_{X_{K}}[L\{Y, \mu_{\widehat{\beta}}(X^*)\} \mid \overline{X}_K, \overline{A}_K=\overline{a}^g_K, D_{test} = 1] \\
         & \qquad \big\vert\; \overline{X}_{K-1}, \overline{A}_{K-1}=\overline{a}^g_{K-1}, D_{test} = 1\bigg) \ldots \;\big\vert\; X_{0}, A_{0}=a^g_{0}, D_{test} = 1\bigg\}\;\big\vert\; D_{test} = 1\bigg]
     \end{split}
     \end{align}
 and 
     \begin{equation}\label{eqn:ipw_tv_estimand}
-        \psi_{\widehat{\beta}}(a) = \E\left[\frac{I(\overline{A}_K = \overline{a}^g_K, D_{test} = 1)}{\prod_{k=0}^K\Pr[A_k = a^g_k \mid \overline{X}_k, \overline{A}_{k-1} = \overline{a}^g_{k-1}, D_{test} = 1]}L\{Y, \mu_{\widehat{\beta}}(X^*)\} \mid D_{test} = 1\right]
+        \psi_{\widehat{\beta}}(g) = \E\left[\frac{I(\overline{A}_K = \overline{a}^g_K, D_{test} = 1)}{\prod_{k=0}^K\Pr[A_k = a^g_k \mid \overline{X}_k, \overline{A}_{k-1} = \overline{a}^g_{k-1}, D_{test} = 1]}L\{Y, \mu_{\widehat{\beta}}(X^*)\} \mid D_{test} = 1\right]
     \end{equation}
 in the test set for general loss function $L\{Y^{g}, \mu_{\widehat{\beta}}\}$, where the first expression is a sequence of iterated expectations and the second is an inverse-probability weighted expectation.
 \end{theorem}
@@ -230,17 +230,17 @@ in the test set for general loss function $L\{Y^{g}, \mu_{\widehat{\beta}}\}$, w
 \begin{proof}
     For the first representation we have 
     \begin{align*}
-        \psi_{\widehat{\beta}}(a) &= \E[L\{Y^{g}, \mu_{\widehat{\beta}}(X^*)\}] \\
+        \psi_{\widehat{\beta}}(g) &= \E[L\{Y^{g}, \mu_{\widehat{\beta}}(X^*)\}] \\
         & = \E[L\{Y^{g}, \mu_{\widehat{\beta}}(X^*)\}\mid D_{test} = 1] \\
         & = \E(\E[L\{Y^{g}, \mu_{\widehat{\beta}}(X^*)\}\mid X_0, D_{test} = 1] \mid D_{test} = 1) \\
         & = \E(\E[L\{Y^{g}, \mu_{\widehat{\beta}}(X^*)\}\mid X_0, A_0 = a^g_0, D_{test} = 1] \mid D_{test} = 1) 
     \end{align*}
-    where the first line follows from the definition of $\psi_{\widehat{\beta}}(a)$, the second from random sampling of the test set, the third from the law of iterated expectations, and the fourth from the exchangeability condition B1. Arguing recursively from $k = 0$ to $K$, we can repeatedly invoke iterated expectations and exchanageability to insert $\overline{X}_k$ and $\overline{A}_k = \overline{a}^g_k$, such that
+    where the first line follows from the definition of $\psi_{\widehat{\beta}}(g)$, the second from random sampling of the test set, the third from the law of iterated expectations, and the fourth from the exchangeability condition B1. Arguing recursively from $k = 0$ to $K$, we can repeatedly invoke iterated expectations and exchanageability to insert $\overline{X}_k$ and $\overline{A}_k = \overline{a}^g_k$, such that
     \begin{align*}
-        \psi_{\widehat{\beta}}(a) &= \E_{X_0}\bigg[\E_{X_1}\bigg\{\ldots \E_{X_{K-1}}\bigg(E_{X_{K}}[L\{Y^g, \mu_{\widehat{\beta}}(X^*)\} \mid \overline{X}_K, \overline{A}_K=\overline{a}^g_K, D_{test} = 1] \\
-        & \qquad \big\vert\; \overline{X}_{K-1}, \overline{A}_{K-1}=\overline{a}^g_{K-1}, D_{test} = 1\bigg) \ldots \;\big\vert\; X_{0}, A_{0}=a^g_{0}, D_{test} = 1\bigg\}\;\big\vert\; D_{test} = 1\bigg]\\
-        &= \E_{X_0}\bigg[\E_{X_1}\bigg\{\ldots \E_{X_{K-1}}\bigg(\E_{X_{K}}[L\{Y, \mu_{\widehat{\beta}}(X^*)\} \mid \overline{X}_K, \overline{A}_K=\overline{a}^g_K, D_{test} = 1] \\
-        & \qquad \big\vert\; \overline{X}_{K-1}, \overline{A}_{K-1}=\overline{a}^g_{K-1}, D_{test} = 1\bigg) \ldots \;\big\vert\; X_{0}, A_{0}=a^g_{0}, D_{test} = 1\bigg\}\;\big\vert\; D_{test} = 1\bigg]
+        \psi_{\widehat{\beta}}(g) &= \E_{X_0}\bigg[\E_{X_1}\bigg\{\ldots \E_{X_{K}}\bigg(E[L\{Y^g, \mu_{\widehat{\beta}}(X^*)\} \mid \overline{X}_K, \overline{A}_K=\overline{a}^g_K, D_{test} = 1] \\
+        & \qquad \big\vert\; \overline{X}_{K}, \overline{A}_{K}=\overline{a}^g_{K}, D_{test} = 1\bigg) \ldots \;\big\vert\; X_{0}, A_{0}=a^g_{0}, D_{test} = 1\bigg\}\;\big\vert\; D_{test} = 1\bigg]\\
+        &= \E_{X_0}\bigg[\E_{X_1}\bigg\{\ldots \E_{X_{K}}\bigg(\E[L\{Y, \mu_{\widehat{\beta}}(X^*)\} \mid \overline{X}_K, \overline{A}_K=\overline{a}^g_K, D_{test} = 1] \\
+        & \qquad \big\vert\; \overline{X}_{K}, \overline{A}_{K}=\overline{a}^g_{K}, D_{test} = 1\bigg) \ldots \;\big\vert\; X_{0}, A_{0}=a^g_{0}, D_{test} = 1\bigg\}\;\big\vert\; D_{test} = 1\bigg]
     \end{align*}
     where the last line follows by consistency condition B2. For the second representation, note that for the inner most expectations we can proceed as previously
     \begin{align*}
@@ -253,7 +253,7 @@ in the test set for general loss function $L\{Y^{g}, \mu_{\widehat{\beta}}\}$, w
     $$W_K = \frac{I(A_K = a_K^g, D_{test} = 1)}{\Pr[A_K = a_K^g \mid \overline{X}_K, \overline{A}_{K-1}, D_{test} = 1]}$$
     Arguing recursively from $k = 0$ to $K$, we get
     \begin{align*}
-        \psi_{\widehat{\beta}}(a) &= \E\left[\frac{I(\overline{A}_K = \overline{a}^g_K, D_{test} = 1)}{\prod_{k=0}^K\Pr[A_k = a^g_k \mid \overline{X}_k, \overline{A}_{k-1} = \overline{a}^g_{k-1}, D_{test} = 1]}L\{Y, \mu_{\widehat{\beta}}(X^*)\} \mid D_{test} = 1\right] 
+        \psi_{\widehat{\beta}}(g) &= \E\left[\frac{I(\overline{A}_K = \overline{a}^g_K, D_{test} = 1)}{\prod_{k=0}^K\Pr[A_k = a^g_k \mid \overline{X}_k, \overline{A}_{k-1} = \overline{a}^g_{k-1}, D_{test} = 1]}L\{Y, \mu_{\widehat{\beta}}(X^*)\} \mid D_{test} = 1\right] 
     \end{align*}
     which is the inverse-probability weighted representation with weights equal to 
     $$W_k = \frac{I(\overline{A}_K = \overline{a}^g_K, D_{test} = 1)}{\prod_{k=0}^K\Pr[A_k = a^g_k \mid \overline{X}_k, \overline{A}_{k-1} = \overline{a}^g_{k-1}, D_{test} = 1]}$$
@@ -264,11 +264,11 @@ in the test set for general loss function $L\{Y^{g}, \mu_{\widehat{\beta}}\}$, w
 
 Using sample analogs for the identified expressions \ref{eqn:cl_tv_estimand} and \ref{eqn:ipw_tv_estimand}, we obtain two plug-in estimators for the expected counterfactual loss under a generalized loss function
 \begin{equation*}
-    \widehat{\psi}_{CL}(a) = \frac{1}{n_{test}}\sum_{i=1}^nI(D_{test, i} = 1)\widehat{h}_{a_0}(X_i)
+    \widehat{\psi}_{CL}(g) = \frac{1}{n_{test}}\sum_{i=1}^nI(D_{test, i} = 1)\widehat{h}_{a_0}(X_i)
 \end{equation*}
 and 
 \begin{equation*}
-    \widehat{\psi}_{IPW}(a) = \frac{1}{n_{test}}\sum_{i=1}^n \frac{I(\overline{A}_{K,i} = \overline{a}^g_{K,i}, D_{test,i} = 1)}{\prod_{k=0}^K \widehat{e}_{a_k}(X_i)} L\{Y_i, \mu_{\widehat{\beta}}(X^*_i)\}
+    \widehat{\psi}_{IPW}(g) = \frac{1}{n_{test}}\sum_{i=1}^n \frac{I(\overline{A}_{K,i} = \overline{a}^g_{K,i}, D_{test,i} = 1)}{\prod_{k=0}^K \widehat{e}_{a_k}(X_i)} L\{Y_i, \mu_{\widehat{\beta}}(X^*_i)\}
 \end{equation*}
 where $h_{t+1} = L\{Y, \mu_{\widehat{\beta}}(X^*_i)\}$ and $h_{a_0}(X)$ is recursively defined for $t$ = $K, \ldots, 0$
 \[h_{a_t} : (x_t, a_t) \E[ h_{a_{t+1}}(X_{t+1}) \mid \overline{X}_t, \overline{A}_t = \overline{a}^g_t]\]
