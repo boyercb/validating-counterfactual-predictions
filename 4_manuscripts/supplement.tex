@@ -84,13 +84,13 @@
     where $\widehat{h}_a(X)$ is an estimator for $\E[L\{Y, \mu_{\widehat{\beta}}(X^*)\}\mid X,A = a, D_{test} = 1]$ and $\widehat{e}_a(X)$ is an estimator for $\Pr[A = a \mid X,D_{test} = 1]$. Using the terminology in Morrison et al., we call the first plug-in estimator the conditional loss estimator $ \widehat{\psi}_{CL}(a)$ and the second the inverse probability weighted estimator $\widehat{\psi}_{IPW}(a)$. 
 
     \subsection{Random and dynamic regimes}\label{sec:randomdynamic}
-    Above we consider static interventions which set treatment $A$ to a particular value $a$. We might also consider interventions which probabilistically set $A$ based on a known density, possibly conditional on pre-treatment covariates, e.g. $f^{int}(A \mid X)$. For instance, instead of a counterfactual prediction if everyone or no one had been treated, we may be interested in the prediction if 20\% or 50\% were treated. We term such an intervention a \textit{random} intervention to contrast it with \textit{static} interventions considered previously. Random interventions are closer to the counterfactual interventions of interest under dataset shift which may be approximated as probabilistic changes in the natural course of treatment due to changes in guidelines or prescribing patterns or the wider-availability. For general counterfactual loss function $L\{Y^{g}, \mu_{\widehat{\beta}}\}$, the expected loss under a random intervention is identified by the functionals
+    Above we consider static interventions which set treatment $A$ to a particular value $a$. We might also consider interventions which probabilistically set $A$ based on a known density, possibly conditional on pre-treatment covariates, e.g. $f^*(A \mid X)$. For instance, instead of a counterfactual prediction if everyone or no one had been treated, we may be interested in the prediction if 20\% or 50\% were treated. We term such an intervention a \textit{random} intervention to contrast it with \textit{static} interventions considered previously. Random interventions are closer to the counterfactual interventions of interest under dataset shift which may be approximated as probabilistic changes in the natural course of treatment due to changes in guidelines or prescribing patterns or the wider-availability. For general counterfactual loss function $L\{Y^{g}, \mu_{\widehat{\beta}}\}$, the expected loss under a random intervention is identified by the functionals
     \begin{equation}\label{eqn:rand_cl_estimand}
-        \psi_{\widehat{\beta}}(A) = \E\left\{\E_{f^{int}}\left(\E[L\{Y, \mu_{\widehat{\beta}}(X^*)\} \mid X, A, D_{test} = 1] \mid D_{test} = 1\right)\right\}
+        \psi_{\widehat{\beta}}(A) = \E\left\{\E_{f^*(A|X)}\left(\E[L\{Y, \mu_{\widehat{\beta}}(X^*)\} \mid X, A, D_{test} = 1] \mid D_{test} = 1\right), D_{test} = 1\right\}
     \end{equation}
     and 
     \begin{equation}\label{eqn:rand_ipw_estimand}
-        \psi_{\widehat{\beta}}(A) = \E_{f^{int}}\left[\frac{I(A = a)}{\Pr[A = a \mid X, D_{test} = 1]}L\{Y, \mu_{\widehat{\beta}}(X^*)\} \mid D_{test} = 1\right]
+        \psi_{\widehat{\beta}}(A) = \E\left[\frac{f^*(A|X)}{f(A \mid X, D_{test} = 1)}L\{Y, \mu_{\widehat{\beta}}(X^*)\} \mid D_{test} = 1\right]
     \end{equation}
     in the test set under the time-fixed setup described in section \ref{sec:setup}. The primary difference between these expressions and the ones in section A.1. is that the expectation is taken with respect to the intervention density. 
 
@@ -256,8 +256,7 @@ in the test set for general loss function $L\{Y^{g}, \mu_{\widehat{\beta}}\}$, w
         \psi_{\widehat{\beta}}(g) &= \E\left[\frac{I(\overline{A}_K = \overline{a}^g_K, D_{test} = 1)}{\prod_{k=0}^K\Pr[A_k = a^g_k \mid \overline{X}_k, \overline{A}_{k-1} = \overline{a}^g_{k-1}, D_{test} = 1]}L\{Y, \mu_{\widehat{\beta}}(X^*)\} \mid D_{test} = 1\right] 
     \end{align*}
     which is the inverse-probability weighted representation with weights equal to 
-    $$W_k = \frac{I(\overline{A}_K = \overline{a}^g_K, D_{test} = 1)}{\prod_{k=0}^K\Pr[A_k = a^g_k \mid \overline{X}_k, \overline{A}_{k-1} = \overline{a}^g_{k-1}, D_{test} = 1]}$$
-    .
+    $$W_k = \frac{I(\overline{A}_K = \overline{a}^g_K, D_{test} = 1)}{\prod_{k=0}^K\Pr[A_k = a^g_k \mid \overline{X}_k, \overline{A}_{k-1} = \overline{a}^g_{k-1}, D_{test} = 1]}.$$
 \end{proof}
 
 \subsection{Plug-in estimation}
