@@ -1,0 +1,762 @@
+\documentclass[11pt]{article}
+
+\RequirePackage{etex}
+
+\usepackage[margin=1in]{geometry}   
+\usepackage{amsfonts}
+\usepackage{amsmath} 
+\usepackage{amssymb}
+\usepackage{centernot}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{algorithm}% http://ctan.org/pkg/algorithms
+\usepackage{algorithmicx}% http://ctan.org/pkg/algorithmic
+\usepackage[flushleft]{threeparttable}
+
+%\usepackage{indentfirst}
+\usepackage[onehalfspacing]{setspace} 
+\renewcommand{\arraystretch}{0.6} % make sure matrices are not stretched
+
+
+\usepackage{float}
+\usepackage{array}
+\usepackage{caption}
+\usepackage{graphicx}
+\usepackage{adjustbox}
+\usepackage{lscape}
+
+\usepackage{adjustbox}
+
+\usepackage{xcolor}
+
+% larger symbols
+\usepackage{relsize}
+
+
+
+\usepackage{bbm}
+\usepackage{subfig}
+
+
+
+% links
+\definecolor{forestgreen}{RGB}{34,139,34}
+% links
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=magenta,
+    filecolor=magenta, 
+    citecolor=forestgreen,      
+    urlcolor=blue
+}
+
+\urlstyle{same}
+
+
+
+
+
+%multiauthor
+\usepackage{authblk}
+\renewcommand*{\Affilfont}{\normalsize\footnotesize}
+\renewcommand*{\Authfont}{\normalsize\normalsize}
+
+
+
+
+
+
+
+% math things
+
+\usepackage{amsthm}
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem*{remark}{Remark}
+
+
+
+\usepackage{xpatch}
+\makeatletter
+\xpatchcmd{\proof}{\@addpunct{.}}{\@addpunct{:}}{}{}
+\makeatother
+
+
+
+% no indentation of headers in appendix
+
+\makeatletter
+\def\@hangfrom#1{\setbox\@tempboxa\hbox{{#1}}%
+      \hangindent 0pt%\wd\@tempboxa
+      \noindent\box\@tempboxa}
+\makeatother
+
+
+
+
+
+
+%bigger brackets
+\makeatletter
+\newcommand{\vast}{\bBigg@{3}}
+\newcommand{\Vast}{\bBigg@{4}}
+\makeatother
+
+
+
+
+
+% Dawid notation
+\newcommand\independent{\protect\mathpalette{\protect\independenT}{\perp}}
+\def\independenT#1#2{\mathrel{\rlap{$#1#2$}\mkern2mu{#1#2}}}
+
+
+
+\makeatletter
+\newcommand*{\indep}{%
+  \mathbin{%
+    \mathpalette{\@indep}{}%
+  }%
+}
+\newcommand*{\nindep}{%
+  \mathbin{%                   % The final symbol is a binary math operator
+    \mathpalette{\@indep}{\not}% \mathpalette helps for the adaptation
+                               % of the symbol to the different math styles.
+  }%
+}
+\newcommand*{\@indep}[2]{%
+  % #1: math style
+  % #2: empty or \not
+  \sbox0{$#1\perp\m@th$}%        box 0 contains \perp symbol
+  \sbox2{$#1=$}%                 box 2 for the height of =
+  \sbox4{$#1\vcenter{}$}%        box 4 for the height of the math axis
+  \rlap{\copy0}%                 first \perp
+  \dimen@=\dimexpr\ht2-\ht4-.2pt\relax
+      % The equals symbol is centered around the math axis.
+      % The following equations are used to calculate the
+      % right shift of the second \perp:
+      % [1] ht(equals) - ht(math_axis) = line_width + 0.5 gap
+      % [2] right_shift(second_perp) = line_width + gap
+      % The line width is approximated by the default line width of 0.4pt
+  \kern\dimen@
+  {#2}%
+      % {\not} in case of \nindep;
+      % the braces convert the relational symbol \not to an ordinary
+      % math object without additional horizontal spacing.
+  \kern\dimen@
+  \copy0 %                       second \perp
+} 
+\makeatother
+
+
+
+
+
+
+
+% expectation
+\DeclareMathOperator{\E}{\textnormal{\mbox{E}}}
+
+% expectation shortcut
+\usepackage[utf8]{inputenc}
+\DeclareUnicodeCharacter{200E}{}
+
+
+
+
+
+
+
+% DAGs
+\usepackage{tikz}
+\usetikzlibrary{positioning,shapes.geometric}
+
+
+
+
+
+
+
+
+
+
+
+
+
+\usepackage{setspace}
+\linespread{1.7}
+
+% biobliography
+\usepackage{cite}
+
+%footnotes in section headings
+\usepackage[stable]{footmisc}
+
+
+
+
+\usepackage{rotating}
+
+
+
+
+% better appendices
+\makeatletter
+%% The "\@seccntformat" command is an auxiliary command
+%% (see pp. 26f. of 'The LaTeX Companion,' 2nd. ed.)
+\def\@seccntformat#1{\@ifundefined{#1@cntformat}%
+   {\csname the#1\endcsname\quad}  % default
+   {\csname #1@cntformat\endcsname}% enable individual control
+}
+\let\oldappendix\appendix %% save current definition of \appendix
+\renewcommand\appendix{%
+    \oldappendix
+    \newcommand{\section@cntformat}{\appendixname~\thesection\quad}
+}
+\makeatother
+
+
+
+
+
+
+
+
+
+
+
+
+
+\usepackage[absolute,showboxes]{textpos}
+
+%set unit to be pagewidth and height, and increase inner margin of box
+\setlength{\TPHorizModule}{\paperwidth}\setlength{\TPVertModule}{\paperheight}
+\TPMargin{5pt}
+
+
+
+% restating theorems
+\usepackage{thmtools, thm-restate}
+%\declaretheorem{theorem}
+
+
+
+
+
+
+
+% Versioning 
+\usepackage{datetime}
+\def\paperversionmajor{17}
+\def\paperversionminor{0}
+
+
+
+% suppress page numbers for PCORI
+%\usepackage{nopageno}
+%\pagestyle{plain} 
+
+
+
+
+
+%italics subsections
+\usepackage{sectsty}
+\subsectionfont{\noindent\textbf\itshape}
+\subsubsectionfont{\normalfont\itshape}
+
+\usepackage{lineno}
+%TODO \linenumbers
+
+\usepackage{xr}
+\makeatletter
+
+\newcommand*{\addFileDependency}[1]{% argument=file name and extension
+\typeout{(#1)}% latexmk will find this if $recorder=0
+% however, in that case, it will ignore #1 if it is a .aux or 
+% .pdf file etc and it exists! If it doesn't exist, it will appear 
+% in the list of dependents regardless)
+%
+% Write the following if you want it to appear in \listfiles 
+% --- although not really necessary and latexmk doesn't use this
+%
+\@addtofilelist{#1}
+%
+% latexmk will find this message if #1 doesn't exist (yet)
+\IfFileExists{#1}{}{\typeout{No file #1.}}
+}\makeatother
+
+\newcommand*{\myexternaldocument}[1]{%
+\externaldocument{#1}%
+\addFileDependency{#1.tex}%
+\addFileDependency{#1.aux}%
+}
+%------------End of helper code--------------
+
+% put all the external documents here!
+\myexternaldocument{appendix}
+
+
+\begin{document}
+
+\title{Counterfactual prediction, transportability, and joint analysis}
+
+\author[1]{Sarah C. Voter}
+\author[2-4]{Issa J. Dahabreh}
+\author[3]{Christopher B. Boyer}
+\author[5]{Habib Rahbar}
+\author[6]{Despina Kontos}
+\author[1]{Jon A. Steingrimsson}
+
+
+
+
+\affil[1]{Department of Biostatistics, Brown University School of Public Health, Providence, RI }
+\affil[2]{CAUSALab, Harvard T.H. Chan School of Public Health, Boston, MA}
+\affil[3]{Department of Epidemiology, Harvard T.H. Chan School of Public Health, Boston, MA}
+\affil[4]{Department of Biostatistics, Harvard T.H. Chan School of Public Health, Boston, MA}
+\affil[5]{Department of Radiology, University of Washington, WA}
+\affil[6]{Department of Radiology, University of Pennsylvania, PA}
+    
+
+\maketitle{}
+
+
+
+
+
+
+\clearpage
+
+\vspace*{1in}
+
+
+
+\begin{abstract}
+\noindent \textbf{Background:} When a prediction algorithm is developed and evaluated in a setting where the treatment assignment process differs from the setting of intended model deployment, failure to account for this difference can lead to suboptimal model development and biased estimates of model performance.
+\\
+\noindent \textbf{Methods:} We consider the setting where data from a randomized trial and an observational study emulating the trial are available for model development and evaluation. We provide two approaches for estimating the model and assessing model performance under a hypothetical treatment strategy in the target population underlying the observational study. The first approach uses counterfactual predictions from the observational study only, and relies on the assumption of conditional exchangeability between treated and untreated individuals (no unmeasured confounding). The second approach leverages the exchangeability between treatment groups in the trial (supported by study design) to ``transport'' estimates from the trial to the population underlying the observational study, relying on an additional assumption of conditional exchangeability between the populations underlying the observational study and the randomized trial.
+\\
+\noindent \textbf{Results:} We examine the assumptions underlying both approaches for model estimation and model assessment in the target population and provide estimators for both objectives. Then we develop a joint estimation strategy that combines data from the trial and the observational study, and discuss benchmarking of the trial and observational results.
+\\
+\noindent \textbf{Conclusions:} Both observational analysis and transportability analysis can be used to fit a model and estimate model performance under a counterfactual treatment strategy in the population underlying the observational data, but they rely on different assumptions. In either case, the assumptions are untestable, and deciding which method is more appropriate requires careful contextual consideration. If all assumptions hold, then combining the data from the observational study and the randomized trial can be used for more efficient estimation. \\
+
+\linespread{1.3}\selectfont
+\end{abstract}
+
+
+
+
+\clearpage
+
+
+\section*{Introduction}
+
+%TODO delete:
+% INFO FROM https://www.biomedcentral.com/collections/VTAI?utm_medium=email&utm_source=generic&utm_content=null&utm_term=null&utm_campaign=MLSR_41512_CON1_GL_PHSS_03HEP_VTAI
+%About the Collection 
+
+    % Artificial intelligence (AI) has led to a surge in the development of diagnostic and prognostic models in healthcare. Some of these AI models have demonstrated remarkable performance, rivalling that of physicians, particularly in the context of diagnostic imaging. However, concerns persist regarding the validity and transparency of these models. Rigorous validation is essential to ensure that AI-based prognosis and diagnosis can be used safely and accurately in clinical practice. Transparency is crucial to gain trust in these algorithms and facilitate accountability. To address this, we invite contributions to our Collection focused on the validation and transparency of AI-based diagnosis and prognosis.  
+    
+    % Authors can submit manuscripts as Research articles, Methodology papers, Reviews, Protocols, and Commentaries. This Collection may include the following topics, although not limited to: 
+    
+    % - Methodological research investigating novel ways to rigorously validate AI prognosis and diagnosis, including methods pertaining to Large Language Models.
+    
+    % - Methodological research on state-of-the-art methods to enhance the transparency of AI-based diagnosis and prognosis.
+    
+    % - Applied research on AI-based diagnosis or prognosis with a focus on rigorous validation or explainable AI methods.
+    
+    % - Applied research assessing the impact of AI-based diagnosis and prognosis across diverse patient populations to address fairness concerns.
+    
+    % - Impact studies assessing the added value of AI-based diagnosis or prognosis for decision-making.
+    
+
+Users of model-derived predictions are often interested in adapting and/or evaluating the model in the target population where the model derived predictions are intended to be used in. But prediction models are often fit and/or evaluated on data that differs from the target population in terms of treatments used post baseline and/or the distribution of covariates. In such scenarios fitting a model and evaluating model performance in the target population involves counterfactual questions under hypothetical scenarios, hereafter referred to as counterfactual predictions 
+\cite{van2020prediction,dickerman_counterfactual_2020,sperrin_using_2018,sperrin2019explicit, prosperi2020causal}. Compared to factual predictions that only depend on observed variables and do not involve hypothetical ``what if'' questions, evaluating counterfactual predictions is more challenging and requires stronger assumptions \cite{dickerman_predicting_2022, prosperi2020causal}.
+
+We consider the case where the observational database for which we would like to perform counterfactual prediction on, is accompanied by a randomized trial that shares the same eligibility criteria, treatment, outcome measures and has an overlapping set of baseline covariates\cite{hernan2016using,matthews2021comparing,yiu2021randomized}. Randomized trials almost always enroll rather than randomly sample participants leading to a convenience sample that might not be representative of the desired target population \cite{antman1985selection,loree2019disparity,hutchins1999underrepresentation,unger2023lost}. However, observational databases such as electronic health records or medical claims are sometimes thought to be more representative and provide ``real world'' data on diverse set of participants in routine clinical care \cite{khozin2017real,colnet2020causal, forbes2020benchmarking}. Thus, throughout we focus on drawing inferences about the population underlying the sample in the observational study (i.e.,~the target population).
+
+Recently, several methods have been developed for counterfactual predictions and evaluation of model performance under hypothetical treatment strategies from observational data \cite{boyer2023new,keogh2023prediction,sperrin_using_2018,dickerman_predicting_2022, kim2022doubly}. A key assumption underpinning such analyses is the assumption of conditional exchangeability of treated and untreated participants within levels of baseline covariates.  This assumption is not only untestable, but likely often violated in observational studies, particularly when treatment decisions are affected by variables that are difficult to measure. A potential remedy for this would be to incorporate information from a randomized controlled trial where the  conditional exchangeability assumption is supported by randomization of treatment assignment. However, interpreting the analyzes of randomized trial data in the context of the target population requires accounting for potential differences between the populations underlying the randomized trial and the target population \cite{steingrimsson_transporting_2023,morrison_robust_nodate}. Such transportability analysis relies on the different assumption of exchangeability between the population underlying the randomized trial and the observational study conditional on baseline covariates. In this manuscript, we contrast the two approaches and discuss benchmarking of the results (i.e,~comparisons of the estimates from the observational and transportability analysis). We furthermore provide assumptions under which joint analysis of the two datasources is valid and derive estimators and properties of estimators for jointly analysing the two datasources. We provide an illustration of the estimators and use them to analyze data from the Coronary Artery Surgery Study (CASS).
+
+
+%****************************************************************************************************************************************************************************************************%
+%****************************************************************************************************************************************************************************************************%
+\section*{Data structure and objectives}
+
+Suppose we have data from an observational study and a randomized trial. For both datasources we have data on a fully observed (i.e.,~uncensored) outcome $Y$, a binary treatment assignment $A$ (randomized in the trial but not in the observational study), and a baseline covariate vector $X$. We focus on the setting where there is complete adherence to treatment assignment and no missing data. Denote participation in the randomized trial by $S$ (i.e.,~$S=1$ for observations that are from the randomized trial and $S=0$ for observations that are from the observational study). Let $n_0$ be the sample size of the observational study, $n_1$ be the sample size of the randomized trial, and $n = n_0 + n_1$ be the sample size in the combined dataset. We denote by $Y^a$ the potential outcome under the intervention to set treatment to $A=a$ \cite{rubin1974,robins2000d}. 
+
+We assume a non-nested sampling design \cite{dahabreh2021study} where the data in the observational study and the randomized trial are sampled separately from their underlying super-populations with unknown and likely unequal sampling probabilities. Although we model the data from the randomized trial as coming from some super-population (that might be ill-defined), we do not assume that the sample is obtained through a formal sampling process. However, we assume that the data from the observational study is a representative sample from a population of clinical relevance.
+
+
+Our objective is to build a model for the conditional expectation of the potential outcome under a treatment strategy $f^*(A|X)$ in the target population and evaluate the performance of a model in the target population under a treatment strategy $f^*(A|X)$. That is we want to estimate $E_{f^*(A|X)}[Y^a|X^*, S=0]$ where $X^*$ is a subset of $X$ and where the subscript $f^*(A|X)$ on the expectation denotes that the expectation is taken with respect to a density that involves the counterfactual treatment strategy $f^*(A|X)$ (as well as other densities). For simplicity, in the remainder of the manuscript we focus on the counterfactual treatment strategy that everyone receives treatment $A=a$ where  $a \in \{0,1\}$ and drop the subscript $f^*(A|X)$ on the expectations. In the Appendix we present results for general treatment strategies. 
+TODO introduce nested design
+
+%****************************************************************************************************************************************************************************************************%
+
+\section*{Assumptions}
+
+%Now we will present and discuss two different sets of identifiability assumptions for identifying the counterfactual risk in the target population underlying the observational study. Informally, identifiability ensures that each data generating distribution of the observed data results in a unique counterfactual risk in the target population. 
+
+Now we will present and discuss two different sets of identifiability assumptions for tailoring a prediction model for the potential outcome mean to the target population underlying the observational study under a hypothetical treatment treatment strategy and identifying the counterfactual risk in the target population. The first approach, which we refer to as the observational analysis, relies on the following assumptions.%: recall that in a traditional causal prediction setting within a single population, our goal is to derive estimands involving the expectations of the counterfactual outcome $Y^a$, using only the \textit{observed}  outcomes $Y$, treatments $A$, and covariate information $X$. Note that this relies on the following set of identifiability conditions, which together imply that the relationships between $X$, $A$, $Y$ and $Y^a$ have been fully captured in our observed data, such that we can properly extrapolate our results to infer the unobserved, counterfactual estimand:
+\begin{itemize}
+    \item A1: Consistency in the observational study. For all individuals $i$ with $S_i=0$, we have $Y_i^a = Y_i$ if $A_i=a$. 
+    \item A2: Conditional exchangeability between treatment groups in the population underlying the observational study ($Y^a \indep A|X,S=0$).
+    \item A3: Positivity of treatment assignment in the population underlying the observational study. That is for $a \in \{0,1\}$ and for all covariate patterns $x$ that can occur in the population underlying the observational study ($f_{X|S=0}(x|S=0)>0$), there is a nonzero probability of receiving treatment $a$ $(\Pr[A=a|X=x] > 0)$.
+\end{itemize}
+The consistency assumption A1 implies i) no interference (i.e.,~the potential outcomes of one participant are not influenced by other participants), ii) variation in how the treatment is administered does not affect outcomes \cite{vanderweele2013causal} (i.e.,~no hidden versions of treatment), and iii) study participation only affects outcomes through treatment assignment (i.e., there are no Hawthorne effects). The conditional exchangeability between treatment groups assumption (A2) is often referred to as the ``no unmeasured confounding'' assumption as it implies that there are no unmeasured variables that affect both treatment assignment and the outcome (which holds by design when treatment is randomized, but is an untestable assumption in any observational analysis). The positivity of treatment assignment assumption says that all individuals should have a positive probability of receiving all treatments (which also holds by design in randomized trials).
+
+Now, suppose that we suspect considerable violation of the conditional exchangeability assumption (A2) in the observational study, then an alternative is to ``transport'' estimators obtained from the randomized trial to the target population underlying the observational study. Identifiability of the transportability approach relies on the following assumptions:
+\begin{itemize}
+    \item A1*: Consistency in the randomized trial and the observational study. For all individuals $i$, we have $Y_i^a = Y_i$ if $A_i=a$. 
+    \item A2*: Conditional exchangeability between treatment groups in the randomized trial ($Y^a \indep A|X,S=1$).
+    \item A3*: Positivity of treatment assignment in the randomized trial. That is for $a \in \{0,1\}$ and for all covariate patterns $x$ that can occur in the population underlying the randomized trial ($f_{X|S=1}(x|S=1)>0$), there is a nonzero probability of receiving treatment $a$ $(\Pr[A=a|X=x] > 0)$.
+    \item A4*: Conditional exchangeability between populations underlying the randomized trial and the observational study ($Y^a \indep S|X$).
+    \item A5*: Positivity of being in the target population. For all covariate patterns $x$ that can occur in the population underlying the observational study ($f_{X|S=0}(x|S=0)>0$), there is a nonzero probability of the covariate pattern occurring in the randomized trial ($\Pr[S=1|X=x] > 0$).
+\end{itemize}
+Assumptions A2* and A3* are supported by design in randomized trials. The conditional exchangeability between population assumption (A4*) implies that  the measured covariates $X$ are enough to account for between population differences in model performance. The positivity of being in the target population assumption (A5*) says that the randomized trial has at least as broad of a spectrum as the observational study (e.g.,~there are no participants in the target population that don't meet the eligibility criteria for the randomized trial). The positivity assumptions A3* and A5* can be examined using the observed data, but assessing their validity can be challenging \cite{petersen2012diagnosing}.
+
+%If we take this route, these assumptions are only required in the source population. Recall that in this paper, we are exploring the case in which the source population is from a randomized controlled trial (RCT), which, by design fulfills the conditional exchangeability assumption (A1).\textcolor{red}{TODO question for Jon: in a way, does an RCT also imply positivity of treatment?}.  This strategy provides a major advantage because it allows us to sidestep the usual concern regarding unmeasured confounding in our observational study by leveraging the properties of an RCT.  However, this strategy comes with the important caveat that we must be confident that the relationship between $X$ and $Y^a$ is constant across the source and target populations, and that the source population provides full probabilistic representation of all covariate patterns possible in the source population \cite{steingrimsson_transporting_2023}.  Put formally, we require:
+
+%One may notice that the transportability result, \eqref{eq:transport}, requires two more assumptions than the within-target result \eqref{eq:withintarget}, and be skeptical TODO, we note however that
+%\textit{Aside:} we have described conditional exchangeability with respect to the probability density function, which is a slightly stronger requirement than conditional exchangeability of expectations, however, the weaker version is sufficient to derive the identifiability results below.
+
+
+%%%%%%%%% TABLE %%%%%%%
+%\setstretch{1}
+%\renewcommand{\arraystretch}{1.2} %increase vertical row spacing by x%
+
+%\begin{table}[h]
+ %\begin{tabular}{ | p{3.5cm}| p{6cm}| p{2.5cm} |p{2.5cm}| }
+  %  \hline
+  %  Assumption & Definition & Setting 1: \newline Transportability & Setting 2:\newline Within-target \\
+     %\hline
+     %   Conditional\newline Exchangeability Between Treatment Groups  & $Y^a \indep A | X$ \newline \newline $f(Y^a|X=x, A=a) = f(Y^a|X=x)$ & yes, for randomized trial and supported by design & yes, for observational study \\
+    %   \hline
+    %    Positivity of treatment assignment &   Treatment assignment $A=a$ has nonzero probability for all covariate patterns possible in X  \newline  $\forall x,$  $ P(A=a|X=x)>0$  & yes, for randomized trial and supported by design & yes, for observational study\\
+   %     \hline
+   %     Consistency & $Y^a = Y$ if $A=a$ & yes & yes for observational study \\
+  %     \hline
+  %      Conditional\newline Exchangeability Between Source and Target Population & $Y^a \indep S | X$ \newline $\forall$ $x$ s.t.  $f(X=x, S=0)>0,$\newline $f(Y^a|X=x, S=1) \newline = f(Y^a|X=x,S=0)$  & yes & no\\
+ %    \hline
+ %      Positivity of source/target population assignment & All covariate patterns possible in the target population are possible in the source population $\forall$ $x$ s.t.  $f(X=x, S=0) \neq 0,$ \newline we have that $P(S=1|X=x) >0 $  & yes & no \\
+ %5    \hline
+%\end{tabular}
+%\label{table:assumptions}
+%\caption{Comparison of identifiability assumptions required for the transportablity vs. within target results}
+%\end{table}
+
+
+
+
+%****************************************************************************************************************************************************************************************************%
+
+\section*{Fitting a model for counterfactual predictions in the target population}
+
+Now we show how observational analysis and transportability analysis can be used to fit a model for the conditional expectation of the potential outcome mean under a counterfactual treatment strategy in the target population underlying the observational study. In other words, we derive results for identifiability of the estimand $\mu_a(X^*) \equiv \E[Y^a|X^*,S=0]$ and associated estimation procedures. As $\mu_a(X^*)$ depends on the unknown potential outcome $Y^a$ it is not a function of the observed data. Recall that $X^*$ is a subset of $X$, the set of covariates required for conditional exchangeable assumptions $A2$, $A2^*$ and $A4^*$. For instance, many common clinical prediction tools used by physicians are based on a small handful of easy-to-obtain measurements, but a more high dimensional covariate vector might be required for assumptions $A2$ and $A4^*$ to hold. 
+%by using the law of iterated expectations to estimate the model weights in terms of the full covariate set $X$, we obtain an identifiability result that can be used to derive a consistent estimator of $\E [Y^a | X^*, S=0]$ which only requires $X^*$.
+%such that the final parametric model obtained by the second marginalization only requires the subset of covariates $X^*$ \cite{boyer2023new}. Below we present the identifiability results for the counterfactual estimand: $\E[Y^a|X^*,S=0]$, for both the transportability and observational analyses. Proofs of these results are shown in the Appendix
+
+
+
+%existing prediction model in the target population. Here we briefly outline the alternative procedure
+%In the Appendix we derive the identifiability results for the counterfactual estimand: $\E[Y^a|X^*,S=0]$, using both the transportability and observational analysis strategies.  Notice that 
+\subsubsection*{Observational Analysis}
+If assumptions A1 through A3 hold, then the we can write 
+\begin{equation}
+\label{id-mod-obs}
+\mu_a(X^*) =  \E [\E[Y | X, S=0,A=a] |X^* , S=0]
+\end{equation}
+and the expectations are with respect to densities of the observed data from the observational study and don't rely on potential outcomes. The appearance of iterated expectations in expression \eqref{id-mod-obs} suggests a two-step estimation strategy similar to the procedure described in \cite{boyer2023new}. The first step is to fit a model for $Y$ conditional on the full set of covariates $X$ among the subset of participants in the observational study ($S=0$) with $A=a$.  Next, as described by Boyer et al. \cite{boyer2023new}, the second expectation can either be estimated nonparametrically when the number of covariates in $X^*$ is small, or in higher-dimensional cases, by regressing the predicted values from the first model on the subset of covariates $X^*$ among all participants in the observational database ($S=0$).
+
+Alternatively, we can write $\mu_a(X^*)$ using inverse weighting expression
+\begin{align*}
+      \mu_a(X^*) = \E\Bigg[\frac{I(A=a)}{\Pr[A=a|X,S=0]}   Y  \bigg| X^* , S=0\Bigg].
+\end{align*}
+The sample analog gives the inverse weighting estimator that is obtained by fitting a weighted model for conditional expectation of the outcome $Y$ given $X^*$ among the observations in the observational database with weights equal to $\frac{I(A=a)}{\widehat \Pr[A=a|X,S=0]}$ where $\widehat Pr[A=a|X,S=0]$ is some estimator for $\Pr[A=a|X,S=0]$. 
+
+\subsubsection*{Transportability Analysis}
+If assumptions A1* through A5* hold, then an alternative way to write $\mu_a(X^*)$ is through the transportability identifiability result
+\begin{equation}
+    \mu_a(X^*) =  \E [\E[Y | X, S=1,A=a] |X^* , S=0]
+    \label{id-tr-mod}
+\end{equation} 
+or the equivalent inverse weighting representation
+\begin{align*}
+   \mu_a(X^*) = \frac{1}{Pr[S=0]} \E\Bigg[ \frac{Pr[S=0|X]I(S=1,A=a)}{Pr[S=1|X]Pr[A=a|X,S=1]} Y  \bigg|X^*\Bigg].  %\label{eq:tailor_transport_IPW}
+\end{align*}
+Similar estimation procedures as described above for the observational analysis can be used.
+
+\subsubsection*{Joint Analysis}
+If assumptions A1 through A3 and $A1^*$ through $A5^*$ hold then $E[Y | X, S=1,A=a] = E[Y | X, S=0,A=a] = E[Y|X,A=a]$ suggesting the following ``joint analysis'' identifiability result
+\begin{align}
+ \mu_a(X^*) = & \E [\E[Y | X, A=a] |X^* , S=0]. \label{id-1-j} 
+\end{align}
+With the equivalent inverse weighting expression
+\begin{align}
+   \mu_a(X^*)= \frac{1}{Pr[S=0]} \E\Bigg[\frac{I(A=a) Pr[S=0|X]}{Pr[A=a|X]}   Y  \Bigg| X^* \Bigg]. \label{id-2-j}
+\end{align}
+The first identifiability result \eqref{id-1-j} suggests fitting a model for $\E[Y | X, A=a]$ using the pooled data from the randomized trial and the observational database and then regressing the predictions from that model on $X^*$ among participants in the observational database. The second identifiability result \eqref{id-2-j} suggests fitting a weighted model for $Y$ given $X^*$ in the observational database with weights equal to $\frac{I(A=a) \widehat Pr[S=0|X]}{\widehat Pr[A=a|X]}$, where $\widehat Pr[S=0|X]$ is a model for $Pr[S=0|X]$ and $\widehat Pr[A=a|X]$ is a model for $Pr[A=a|X]$.
+
+\subsubsection*{Inference}
+For any of the estimators described above, at a fixed value of $X^*$, standard error estimates are obtainable using resampling methods or the Huber-White sandwich estimator in the case of the two-step least-squares parametric estimation procedure  \cite{robertson_regression-based_2021, efron_introduction_1993, huber1967behavior}. For uniform inference across a range of low dimensional $X^*$ values, one can obtain uniform confidence bands using the weighted bootstrap procedure detailed in \cite{fan2021estimation}. For cases of high-dimensional $X^*$, it may be difficult or computationally infeasible to construct a comprehensive grid capturing all relevant covariate patterns.  In these cases, it may be useful to apply high-dimensional random sampling methods such as Latin Hypercube sampling \cite{mckay_latinhypercube}, or to select a small subset of covariate patterns of clinical relevance.
+
+
+%\subsubsection*{Inference and Benchmarking for the Tailored Model Estimators}
+%Note that in the following section, we discuss the model performance estimators, which have been marginalized over the covariate information $X^*$, resulting in scalar estimates for which estimator comparison is feasible using standard hypothesis testing techniques.  However in the case of the tailored model, which by definition is a function of and therefore depends on the specific values of $X^*$, estimator comparison is less straightforward. 
+
+%Note that because these identifiability results for the tailored model depend on the values of the covariate $X^*$, comparison between estimators is less straightforward than in the case of the model performance estimators presented in the following section, which are marginalized over the set of covariates. 
+%TODO could you benchmark bias to quantify violations to the positivity assumption?
+%TODO could you quantify the amount of information loss from X to X*
+%TODO talk about the MLE and how $X^*$ in the target pop only appears in the marginal distribution $f(y|X*,$
+%%%%%%% End of tailoring section %%%%%
+
+
+\section*{Estimating Model Performance in the Target Population}
+
+
+\subsection*{Identifiability}
+
+Throughout this section we do not make the assumption that the model is correctly specified (i.e.,~converges to the true conditional expectation) or that the model is tailored to the particular treatment strategy. To emphasize that we focus on estimating model performance of an arbitrary model $g(X^*)$. Let $L(Y^a, g(X^*))$ denote a generic loss function that compares the potential outcome $Y^a$ with the predicted value $g(X^*)$. Common examples include the mean squared error, Brier loss, and absolute loss. Our target parameter, the quantity we want to estimate, is the expected loss (risk) in the target population $(S=0)$ under counterfactual treatment strategy $A =a$. That is, the target parameter is
+\begin{align}
+    \psi(a) \equiv \E \left[L(Y^a, g(X^*)) \mid S=0\right]. \label{eq:targetestimand}
+\end{align}
+This depends on the potential outcome $Y^a$ which for each observation is unobserved and hence $\E\left[L(Y^a, g(X^*)) \mid S=0\right]$ is not a function of the observed data. If assumptions A1 through A3 hold, then the counterfactual risk in the target population \eqref{eq:targetestimand} can be written as the observed data functional
+\begin{align}
+    \psi_{obs}(a) = \E[ \E[ L(Y, g(X^*)) |X, S=0, A=a] |S=0].\label{eq:withintarget}
+\end{align}
+A derivation of this result is provided in the Appendix (also shown in \cite{boyer2023new}).
+
+If assumptions A1* through A5* hold, then the counterfactual risk in the target population can be written as as the observed data functional
+\begin{align}
+   \psi_{tr}(a) = \E[ E[ L(Y, g(X^*)) |X, S=1, A=a] |S=0]. \label{eq:transport}
+\end{align}
+For completeness, a derivation of this result is provided in the Appendix (also shown in \cite{steingrimsson_transporting_2023}). Note that expressions \eqref{eq:withintarget} and \eqref{eq:transport} only rely on observed data (i.e.,~they do not involve counterfactual outcomes). Also, expressions \eqref{eq:transport} and \eqref{id-tr-mod} only involve the distribution of the outcome conditional on covariates and treatment assignment in the randomized trial and the marginal covariate distribution in the observational database. Thus, it does not rely on outcome or treatment information from the observational database, which can be a benefit when outcome information is not available from the observational data or is unusable (e.g.,~due to few events or gross measurement error). 
+
+%The density of the combined data from the randomized trial and the observational study $(Y,X,A,S)$ can be written as $f(y|x,s,a) \times f(a|x,s) \times f(s|x) \times f(x)$. 
+A subtle complication with identifiability of $\psi_{tr}(a)$ is that when the sampling probabilities from each super-population (underlying the randomized trial and observational study) are unknown, the density $f(s|x)$ is not identifiable. That is, the proportion of observations with $S=0$ in the combined sample is not necessarily representative of the super-population proportion of observations with $S=0$. But as the expectations in the definition of $\psi_{tr}(a)$ do not involve $f(s|x)$, the lack of identifiability of $f(s|x)$ does not impact the identifiability of $\psi_{tr}(a)$.
+
+We can relax the conditional exchangeability between populations assumption (A4*) by instead only require that this assumption holds with respect to expectations, i.e. exchangeability in conditional risk $E[L(Y^a, g(X^*)) |X, S=1] = E[L(Y^a, g(X^*)) |X, S=0]$. This is a weaker assumption than assumption A4*, as assumption A4* implies exchangeability in conditional risk but not vice versa.
+
+%TODO nested identifiability results
+    %TODO modified identifiability conditions (? maybe not necessary)
+    %TODO make sure dont need to account for X^* somehow
+\subsection*{Nested Design}
+Now suppose the trial population is nested within the population underlying the observational database.  In this case, our target parameter, which we will refer to as $\psi'(a)$ is the expected loss among the full population (i.e. the union of the source and target populations):
+\begin{align*}
+    \psi'(a) = \E[L(Y^a,g(X^*))]
+\end{align*}
+Similarly to the non-nested case, the target population can be written as the observed data functional: %TODO think about whether we need assumptions other than A1-A3
+\begin{align*}
+   \E[L(Y^a,g(X^*))]
+    =&  \E[ \E[L(Y^a,g(X^*))| X] ]\\ %iterated expectations
+     =&  \E[ \E[L(Y^a,g(X^*))| X, S=0] ]\\ %A4*
+      =&  \E[ \E[L(Y^a,g(X^*))| X,S=0,A=a] ]\\ %A2
+      =&  \E[ \E[L(Y,g(X^*))| X,S=0,A=a] ]\\ %A1 consistency
+      =&\psi'_{obs}(a)
+    % =&  \E[ \Pr[S=0|X,A=a]\E[L(Y,g(X^*))| X, A=a, S=0] + \dots \\
+    % & \Pr[S=1|X,A=a]\E[L(Y,g(X^*))| X, A=a, S=1] ]\\ %TODO should i be conditioning on A within the probabilities?
+\end{align*}
+And we can obtain the following identifiability using information from the source population:
+\begin{align*}
+     \E[L(Y^a,g(X^*))]
+    =&  \E[ \E[L(Y^a,g(X^*))| X] ]\\ %iterated expectations
+     =&  \E[ \E[L(Y^a,g(X^*))| X, S=1] ]\\ %A4*
+      =&  \E[ \E[L(Y^a,g(X^*))| X,S=1,A=a] ]\\ %A2*
+      =&  \E[ \E[L(Y,g(X^*))| X,S=1,A=a] ]\\ %A1* consistency
+      =&\psi'_{tr}(a)
+\end{align*}
+Finally, we can use the information in both populations to obtain the identifiablity result for the joint analysis:
+\begin{align*}
+     \E[L(Y^a,g(X^*))]
+    =&  \E[ \E[L(Y^a,g(X^*))| X] ]\\ %iterated expectations
+      =&  \E[ \E[L(Y^a,g(X^*))| X,A=a] ]\\ %A2 and A2*
+      =&  \E[ \E[L(Y,g(X^*))| X,A=a] ]\\ %A1 and A1* consistency
+      =&\psi'_{joint}(a)
+\end{align*}
+% \begin{align*}
+%     \psi'_{obs}(a)  = &\E[\E[L(Y,g(X^*))|X,A=a,S=0]]\\
+%    = &\E[\E[L(Y,g(X^*))|X,A=a,S=0]|S=0 \text{ or } S=1] \\
+%    = & \E\big[\Pr[S=0|X,A=a]\E[L(Y,g(X^*))|X,S=0,A=a] + \dots \\ &\Pr[S=1|X,A=a]\E[L(Y,g(X^*))|X,S=0,A=a] \big]\\%TODO maybe not necessary to split into sum because dont need to treat each pop differently
+% \end{align*}
+
+\subsection*{Estimation}
+
+The identifiability results for the observational and transportability analysis suggest two estimators that are constructed as sample analogs of expressions \eqref{eq:withintarget} and \eqref{eq:transport}. For the observational analysis this can be done using the following steps: i) estimate $\E[L(Y, g(X^*)) |X, S=0, A=a]$ using the data from the observational study, ii) use this estimator to create predictions for $\E[L(Y, g(X^*)) |X, S=0, A=a]$ for each covariate pattern ($X$) observed in the observational study, and iii) average these predictions to get the estimator from the observational analysis. Mathematically, the  estimator from the observational analysis is expressed as
+\begin{align*}
+    \widehat\psi_{obs}(a) = \frac{1}{n_0} \sum_{i=1}^n I(S_i=0) \widehat h_{a,0}(X_i), \hspace{1cm} %TODO should this be sum to n_0? same for other two below
+\end{align*}
+where $\widehat h_{a,s}(X)$ is an estimator for $\E[L(Y, g(X^*)) |X, S=s, A=a]$. Such estimators are often referred to as \textit{outcome model estimators} \cite{boyer2023new, morrison_robust_nodate} to reflect that they fit a model for the conditional distribution of the  outcome they wish to estimate ($\widehat h_{a,s}(X)$). %Statistical validity of the observational outcome model estimator relies on correct specification of a model for $\E[L(Y, g(X^*)) |X, S=0, A=a]$ that converges at rate of $\sqrt{n}$.
+Similarly for the transportability analysis, the outcome model estimator is given by: i) estimate $\E[L(Y, g(X^*)) |X, S=1, A=a]$ using the data from the randomized trial, ii) use the estimator to create predictions for $\E[L(Y, g(X^*)) |X, S=1, A=a]$ for each covariate vector $(X)$ in the observational study, and iii) average these predictions to get the estimator from the transportability analysis. Mathematically, the estimator is expressed as
+\begin{align*}
+    \widehat\psi_{tr}(a) = \frac{1}{n_0} \sum_{i=1}^n I(S_i=0 ) \widehat h_{a,1}(X_i).
+\end{align*}
+%Statistical validity of the transportability estimator relies on correct specification of a model for $\E[L(Y, g(X^*)) |X, S=1, A=a]$ that converges at rate of $\sqrt{n}$. 
+In the appendix we present alternative doubly robust estimators for both the observational and the transportability analysis, which only require the correct specification of \textit{one} of either the outcome model or the conditional probability of treatment assignment in each database.
+
+
+
+
+
+
+ 
+
+%****************************************************************************************************************************************************************************************************%
+%****************************************************************************************************************************************************************************************************%
+\section*{Illustrative Example}
+
+Now we illustrate the concepts using a simple simulation with the outcome model estimators. We simulate a continuous outcome $Y$, binary treatment $A$, and one-dimensional continuous covariate vectors $X$ (measured) and $U$ (unmeasured). The data-generating mechanism is structured such that we can selectively violate the conditional exchangeability assumptions A2, and/or A4* (all other assumptions are satisfied in this simulation setting). In this example, we focus on counterfactual prediction under treatment $a=1$ using the mean squared error (MSE) as the measure of model performance. In the Appendix we present more details on how the data was simulated.
+
+%To violate assumption $A2$ we simulate $U$ as an unmeasured confounder by making both the potential outcome $Y^1$ and the treatment assignment $A$ depend on $U$ in the observational study. 
+To selectively violate assumption A2 without violating assumption A4*, we simulate $U$ as an unmeasured confounder that affects the potential outcome $Y^1$ in both the randomized trial and the observational study, but $U$ affects treatment assignment $A$ only in the observational study. We make $Y^1$ depend on $U$ by setting the parameter $\mu_{YU}>0$ and we make $A$ depend on $U$ by setting the parameter $\beta_{AU} > 0$. Thus, in our setup $\mu_{YU} >0$ and $\beta_{AU} >0$ imply that the estimator from the observational analysis is biased. To violate assumption A4* we make the MSE of $Y^1$ depend on $U$ only in the population underlying the observational study through the parameter $\sigma_{YU}$ ($\sigma_{YU}>0$ implies violations of assumption A4*). Figures \ref{fig:fourcaseplot} and \ref{fig:bias_plot_fig1} illustrate and present, respectively, results from  four different cases that differ in what assumptions are violated.
+
+\begin{figure}[h]
+    \centering
+   
+     \includegraphics[width=0.95\textwidth]{Figure_1.png}
+     
+    \caption{Visual examples of data representing each of the four cases described in this illustration. Each plot shows scatterplots of the counterfactual outcome $Y^1$ vs.~the observed covariate $X$. The density of $Y^1$ by treatment group is shown on the right of each plot and the density of $X$ by treatment group is shown above each plot.}
+   
+    \label{fig:fourcaseplot}
+\end{figure}
+
+
+\begin{figure}[h]
+    \centering
+   
+     \includegraphics[width=0.95\textwidth]{Figure_2.png}
+    \caption{Scaled bias of the observational estimate $\widehat\psi_{obs}(1)$ plotted against the bias of the transportability estimate $\widehat\psi_{tr}(1)$ when estimating the counterfactual mean in the population underlying the observational study if everyone was assigned to treatment $A=1$. If $\beta_{AU}>0$ and $\mu_{YU}>0$, then assumption A2 is violated and we expect the estimator from the observational analysis $\widehat\psi_{obs}(1)$ to be biased. If $\sigma_{YU}>0$, then assumption A4* is violated and we expect the estimator from the transportability analysis $\widehat\psi_{tr}(1)$ to be biased.}
+    \label{fig:bias_plot_fig1}
+\end{figure}
+
+\textit{\textbf{Case 1}: Both estimators are unbiased ($\beta_{AU} = \mu_{YU} = \sigma_{YU}=0$)}. An example of such a dataset is shown in Figure \ref{fig:fourcaseplot}(a) and the figure shows that within levels of $X$ the variability in $Y^1$ is the same in both populations (assumption A4* holds). Figure \ref{fig:fourcaseplot}(a) also shows that in the observational study treatment assignment $A$ is not predictive of the potential outcome $Y^1$ within levels of $X$ (assumption A2 holds). Figure 1 in the Appendix shows the relationship between $Y^1$ and the unmeasured covariate $U$ for the four cases considered in the main text. The simulation results, averaged across 500 simulations, under these conditions corresponds to a point close to the origin of the plot in Figure \ref{fig:bias_plot_fig1}, showing that both estimators are unbiased.
+\\
+\textit{\textbf{Case 2}: Transportability estimator biased and observational estimator unbiased ($\sigma_{YU}>0; \hspace{.3cm} \beta_{AU} = \mu_{YU} = 0$).} Figure \ref{fig:fourcaseplot}(b) shows a simulated dataset from this setting. Here, $X$ alone is not sufficient to adjust for differences between the populations underlying the randomized trial and the observational study, as the unmeasured covariate introduces variability in $Y^1$ within levels of $X$ in a way that the variability is much larger in the observational study than in the randomized trial. This leads to the estimator from the transportability analysis underestimating the MSE in the population underlying the observational study. But as condition A2 holds, the estimator from the observational analysis is unbiased. As expected, the points for which $\sigma_{YU}$ is the only nonzero parameter appear in the upper-left quadrant of Figure \ref{fig:bias_plot_fig1}, corresponding to the observational estimator being unbiased and the transportability estimator having a negative bias that increases as $\sigma_{YU}$ increases.
+\\
+\textit{\textbf{Case 3}: Transportability estimator unbiased and observational estimator biased ($\beta_{AU}, \mu_{YU} > 0; \hspace{.3cm} \sigma_{YU}=0$).} In this case, the assumption of conditional exchangeability between populations (A4*) holds. But conditional exchangeability between treatment groups in the observational study is violated (A2) as in the observational study, even conditional on $X$, treatment assignment $A$ is informative about the potential outcome $Y^1$ (i.e.,~observations with $A=1$ generally have lower values of $Y^1$ than observations with $A=0$ with the same $X$ value). This results in bias of the observational estimator (in the appendix we provide further details on how it is violated). The results in Figure \ref{fig:bias_plot_fig1} show that when $\beta_{AU}, \mu_{YU} > 0$ and $\sigma_{YU}=0$ then the transportability estimator is unbiased and the observational estimator is biased.
+%Because some level of unmeasured confounding is nearly always present, and trial randomization removes the dependence of this unmeasured confounder on treatment assignment in the source population, this is a common scenario that could arise in practice.
+\\
+\textit{\textbf{Case 4}:  Both estimators biased ($\sigma_{YU}, \beta_{AU} \mu_{YU} > 0$).} In this scenario, both A2 and A4* are violated by making all three parameters nonzero. This leads to bias in both estimators, and the corresponding points in Figure \ref{fig:bias_plot_fig1} appear in the lower lefthand quadrant.
+
+
+
+%****************************************************************************************************************************************************************************************************%
+%****************************************************************************************************************************************************************************************************%
+
+%Note that the traditional causal inference assumptions regarding treatment assignment (A1, A2 and A3) are required in both settings, however they are only required in the source population in Setting 1 (transportability setting), and only in the target population in Setting 2.  Estimation in Setting 1 has the nice property that, so long as participant randomization was conducted properly and patient nonadherence and crossover effects were avoided, the conditional exchangeability assumption (A1) is guaranteed in the source population.
+
+%\textbf{Example of within-target analysis outperforming transportability:} 
+%\begin{description}
+%    \item Suppose that there is a toxin, call it $U$, which acts as a prediction modifier for the counterfactual outcome under treatment $Y^1$. The RCT was conducted in Europe, where toxin $U$ has always been banned, but target population is the U.S. where there are varying levels of exposure to  $U$ .. TODO
+%\end{description}
+
+%TODO also talk about how it depends on the counterfactual you wish to estimate.. i.e. if conditional exchangeability between source/target is only violated for A=1 but not A=0.. then it's okay as long as we only look at counterfactuals involving A=0.. (I think).
+
+
+
+\subsection*{Benchmarking and joint analysis}
+
+Following \cite{dahabreh2020benchmarking}, we define benchmarking as comparing the results from the analysis of the randomized trial and the observational study. Successful benchmarking (i.e.,~concordant results from the observational and transportability analysis) likely increase the trust in the analysis, but it does not guarantee validity as some assumptions (most likely either A2 and A4*) could be violated in a way such that the observational and the transportability estimators are both biased with a bias of similar magnitude and in the same direction.
+
+Observational databases are often substantially larger than randomized trials allowing for more fine grained analysis than is possible with smaller datasets (e.g.,~subset analysis or analysis of rare outcomes). Thus, successful benchmarking could be used to support analysis of observational data that is infeasible using data from the randomized trial. If benchmarking is not successful, then it suggests that at least one assumption is not satisfied (likely one or both of A2 or A4*) but it cannot be inferred from the data which assumption is violated \cite{dahabreh_benchmarking_2020}. 
+
+One way to determine whether the observational estimator and transportability estimator are concordant is to construct confidence intervals of their difference (e.g.,~using the non-parametric bootstrap). If the observational estimator and transportability estimator are concordant and subject matter knowledge does not suggest violations of any of the identifiability assumptions, then a natural question is whether and how the data from the randomized trial and the observational study can be combined for more efficient estimation of the counterfactual risk in the target population\cite{dahabreh2020benchmarking,dahabreh2023using, hartman2015sate}. 
+
+One approach for joint analysis is to use some weighted combination of $\widehat\psi_{tr}$, and $\widehat\psi_{obs}$ (e.g,~using equal weights, weights proportional to the sample size, and the inverse of the estimator specific variance). An alternative approach is based on the observation that if assumptions A1 through A3 and A1* through A5* hold, then 
+\begin{equation}
+\label{equal-cond}
+\E[L(Y, g(X^*)) |X, S=1, A=a] = \E[L(Y, g(X^*)) |X, S=0, A=a] = \E[L(Y, g(X^*)) |X, A=a].
+\end{equation}
+The equalities in expression \eqref{equal-cond} only rely on observed data distributions and are therefore testable using the observed data \cite{racine2006testing}, but when $X$ is high dimensional conducting such tests can be challenging.
+
+Using equation \eqref{equal-cond} we can write the counterfactual risk in the target population as 
+\[
+\psi_{joint}(a) = \E[\E[L(Y, g(X^*)) |X, A=a]| S=0]
+\]
+and the corresponding estimator that combines data from both datasets is 
+\[
+\widehat\psi_{joint} = \frac{1}{n_0} \sum_{i=1}^n I(S_i=0 ) \widehat h_{a}(X_i).
+\]
+Here, $\widehat h_{a}(X)$ is an estimator for $\E[L(Y, g(X^*)) |X, A=a]$ estimated using the combined data from the randomized trial and the observational study. In the Appendix we derive a doubly robust estimators for the counterfactual risk in the target population that combines data from the randomized trial and the observational study. 
+
+If all identifiability assumptions hold and with appropriately chosen estimators for the nuisance functions needed for their implementation, then the estimators obtained from an observational analysis, transportability analysis, and the joint analysis are unbiased and asymptotically normal. Hence, comparing the asymptotic variance of the three estimators is a natural thing to consider when choosing between them. The joint analysis relies on more assumptions that allows the estimator to use more data than both the estimators from the observational and the transportability analysis. Hence, we expect the joint analysis to be more efficient than the other two approaches. In the Appendix we formalize that intuition in the context of doubly robust estimators, where we show that the asymptotic variance of the estimator from the joint analysis is smaller than or equal to the asymptotic variance of both the estimators from the observational and the transportability analysis. In the Appendix we show results from simulations comparing variance and bias of the three estimators for varying sample sizes and varying ratios of the sample size of the randomized trial and the sample size of the observational database. The results show that the variance of the joint analysis is always lower (or at least not larger) than the variance of the observational and transportability estimators. In the Appendix we provide simulations comparing the variance of the three analysis (joint, observational, and transportability). As expected, the joint analysis estimator has the smallest variance.
+
+
+% SV added Feb 27 2024
+\section*{Application to CASS Data}
+\textbf{Data and Implementation:} We applied our methods to data from the Coronary Artery Surgery Study (CASS), a comprehensive cohort study that enrolled participants from 1975 to 1979 with end of follow-up in 1996. CASS compared the effects of coronary artery bypass grafting surgery plus medical therapy (hereafter surgery) versus only medical therapy among patients with significant coronary artery disease with a reduced ejection fraction \cite{cass83, cass84}. In CASS, participants could select to be a part of a randomized trial ($S=1$) and if they declined they were offered to participate in an observational study ($S=0$). We conducted a complete case analysis consisting of 1,686 participants and participant baseline characteristics stratified by study component (randomized or observational) and treatment assignment are shown in Table \ref{fig:CASS_table}. In the main manuscript, we present results from a random forest model fit on a training set comprising 50\% of the source population observations, with 10-year mortality as the outcome. We estimated the Brier risk of that model in the population underlying the observational component for counterfactual deterministic treatment strategies of $A=1$ and $A=0$. We did that estimation using transportability, observational, and joint analysis using outcome model and doubly robust estimators. The models needed for implementation of the outcome model and doubly robust estimators were main effect logistic regression models. 
+%TODO say that the inverse probability est is equiv to doubly robust when ? =0
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.95\textwidth]{cass_table.png}
+    \caption{Baseline characteristics of CASS participants, stratified by study component (observational or randomized) and treatment assignment. For continuous variables we present mean (standard deviation) and for categorical we present number in each category (percent). Here, $S=1$ denotes participants that were in the randomized component of CASS, $S=0$ denotes participant in the observational component of CASS. $A=1$ denotes the surgery arm and $A=0$ denotes medical intervention arm.}
+    \label{fig:CASS_table}
+\end{figure}
+\begin{figure}[h]
+    \centering
+    %\includegraphics[height=0.5\textwidth]{CASS_results_April_11_2024.png}    
+    \includegraphics[height=0.5\textwidth]{CASS_results_RF_2024.png}    
+
+    \caption{Estimates and 95\% confidence intervals of Brier risk in the population underlying the observational component of CASS for counterfactual treatments $A=1$ (top) and $A=0$ (bottom). Estimates are presented for the transportability, observational and joint analysis. For each analysis, we present an outcome model (OM), inverse-weighting (IW) and doubly-robust (DR) estimators. 95\% Wald confidence intervals were obtained using the non-parametric bootstrap with 500 bootstrap samples.} 
+    \label{fig:CASS_results}
+\end{figure}
+\\
+\textbf{Results:} Risk estimates and 95\% bootstrap-based confidence intervals are shown in Figure \ref{fig:CASS_results}.  All estimates are similar and the associated confidence intervals are highly overlapping. From a benchmarking perspective, this increases our confidence that the identifiability assumptions are satisfied. Furthermore, the joint analysis estimates have narrower confidence intervals than both the observational and transportability estimates. In the Appendix we provide the same analysis for tailored models and the trends seen are similar to those seen in Figure \ref{fig:CASS_results}.
+%{cass_results_draft1.png}
+
+% \begin{tabular}{|c|c|c|}
+% \hline
+% \textbf{ A } & \textbf{ Method } & \textbf{ Estimate } \\ 
+%  \hline 
+%  1 & \psi_{tr} & 0.142 (0.131 , 0.143) \\
+% \hline
+% 1 & \psi_{obs} & 0.15 (0.145 , 0.155) \\
+% \hline
+% 1 & \psi_{joint} & 0.14 (0.136 , 0.144) \\
+% \hline
+% 0 & \psi_{tr} & 0.134 (0.129 , 0.139) \\
+% \hline
+% 0 & \psi_{obs} & 0.146 (0.141 , 0.152) \\
+% \hline
+% 0 & \psi_{joint} & 0.144 (0.138 , 0.149) \\
+% \hline
+% \end{tabular}
+
+
+\section*{Discussion}
+
+In this manuscript we discuss two ways, observational analysis and transportability analysis, to estimate the counterfactual risk in the target population underlying an observational study when we have data from a randomized trial and an observational study emulating the randomized trial. We also outline procedures for fitting a counterfactual prediction model tailored to the target population. We compare the assumptions needed for both approaches and provide and derive properties of estimators for joint analysis of the two datasets. There are several interesting avenues for future research including extensions to censoring, measurement error, and non-adherence to treatment assignment. When evaluating the model, we assume that the prediction model is built using data that is independent from the data used for evaluation of model performance. That assumption incorporates several common settings such as models that are built on an external dataset, a split into a training and a test set, and evaluating the performance of an externally developed biomarker.
+
+While discussed here in the context of a randomized trial and an observational study, the transportability analysis can be used more generally in situations when it is necessary to  simultaneously adjust for differences in treatment strategies and covariate distributions between the two populations. For example, the transportability analysis can used when both datasets are observational studies, given that we have reason to believe assumptions A1* through A5* hold. However, in this case, one may have lower confidence in assumption A2* (conditional exchangeability between treatment groups), since we can no longer rely on randomization in the trial.  
+
+In our setup we assumed that the set of covariates used to adjust for confounding or between population differences ($X$) can be larger than the set of covariates needed for the prediction model ($X^*$). This is useful as the variables to include in the prediction model are often selected with clinical constraints on data availability across a variety of settings in mind (e.g.,~avoiding covariates that are expensive or invasive to collect). Although not explicit in our notation, the set of covariates available in the observational study might be larger than the set of covariates used in the randomized trial. If that is the case the observational analysis can adjust for more factors than the transportability analysis as the latter is restricted to adjusting for variables that are available in both datasets.
+
+Finally, we note that the required assumptions for any of the procedures outlined here are untestable. However, the benchmarking procedure we describe can help identify discrepancies between the observational and transportability analyses that may point to certain assumption violations, or in the case where both analyses return similar results, it can increase our confidence in the assumptions and analysis.
+
+%\section*{Declarations}
+%\subsection*{Ethics approval and consent to participate}
+%\textit{Not applicable}
+%\subsection*{Consent for publication}
+%\textit{Not applicable}
+%\subsection*{Availability of data and materials}
+%\textit{Not applicable}
+%\subsection*{Competing interests}
+%\textit{Not applicable}
+%\subsection*{Funding}
+%National Cancer Institute; R01 CA268341-01A1
+%\subsection*{Authors' contributions}
+%\textit{Not applicable}
+%\subsection*{Acknowledgements}
+%\textit{Not applicable}
+
+
+\bibliographystyle{ieeetr}
+\bibliography{references}
+
+
+
+\end{document}
+
+
+
+
