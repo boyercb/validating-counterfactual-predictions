@@ -37,3 +37,11 @@ vignettes/*.pdf
 
 # R Environment Variables
 .Renviron
+
+# Submissions directory
+6_submissions/
+
+# Mac files
+.DS_Store
+
+
